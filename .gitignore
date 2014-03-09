@@ -11,3 +11,10 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+# htaccess
+web/.htaccess
+web/.htpasswd
+
+
+/nbproject

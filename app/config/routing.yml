@@ -1,0 +1,5 @@
+omaracuja_user:
+    resource: "@OmaracujaUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
