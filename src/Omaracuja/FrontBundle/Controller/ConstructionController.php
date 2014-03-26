@@ -1,19 +1,18 @@
 <?php
-
-namespace Omaracuja\UserBundle\Controller;
+namespace Omaracuja\FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class ConstructionController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/construction")
      * @Template()
      */
-    public function indexAction($name)
+    public function constructionAction()
     {
-        return array('name' => $name);
+        return array();
     }
 }
