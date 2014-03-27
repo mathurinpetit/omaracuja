@@ -10,29 +10,21 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon_omaracuja.ico') }}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        {% block head_style %}        
-        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
-        {% stylesheets '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less' %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-        {% endstylesheets %}
-
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/jquery-ui-1.10.4.custom.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/datetimepicker/jquery.datetimepicker.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2-bootstrap.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2.css') }}" />
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-
-        {% endblock head_style %} 
-        
         <script src="http://code.jquery.com/jquery.js"></script>
-        
-            {% javascripts
-                '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js' 
-                '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
-                '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-                '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-            %}
-            
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}  
+        <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/jquery-ui-1.10.0.custom.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/datetimepicker/jquery.datetimepicker.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/select2/select2.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/select2/select2_locale_fr.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
         {% block head %}{% endblock %}
     </head>        
     <body>
