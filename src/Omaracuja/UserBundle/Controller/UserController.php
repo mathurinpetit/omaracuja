@@ -9,21 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omaracuja\UserBundle\Entity\User;
 
-/**
- * User controller.
- *
- * @Route("/user")
- */
 class UserController extends Controller
 {
-
-    /**
-     * Lists all User entities.
-     *
-     * @Route("/", name="user")
-     * @Method("GET")
-     * @Template()
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -35,13 +22,6 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a User entity.
-     *
-     * @Route("/{id}", name="user_show")
-     * @Method("GET")
-     * @Template()
-     */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();

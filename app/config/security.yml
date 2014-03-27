@@ -1,9 +1,8 @@
 security:
     encoders:
         Omaracuja\UserBundle\Entity\User: sha512
-        FOS\UserBundle\Model\UserInterface: sha512
-        Omaracuja\UserBundle\Entity\User: sha512
         Omaracuja\UserBundle\Entity\Group: sha512
+        FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -15,7 +14,7 @@ security:
       in_memory:          
           memory:
               users:
-                  user:  { password: rogerrabbit, roles: [ 'ROLE_USER' ] }
+                  mathurin:  { password: rogerrabbit, roles: [ 'ROLE_USER' ] }
                   admin: { password: rogerrabbit, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:      
@@ -29,12 +28,12 @@ security:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 always_use_default_target_path: true
-                default_target_path: /accueil 
+                default_target_path: /test/accueil 
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
             logout:
                 path:       fos_user_security_logout
-                target:     /construction
+                target:     /test/accueil
             remember_me:
                 key:        %secret%
 

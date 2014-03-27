@@ -41,22 +41,26 @@
                 <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#" class="navbar-brand">Omaracuja</a></li>
-                        <li><a href="#">Prestations</a></li>                        
-                        <li><a href="#"></a></li>
-                        <li><a href="#">Utilisateurs</a></li>
+                        <li><a href="#">Présentation</a></li>                        
+                        <li><a href="#">Evennements</a></li>
+                        <li><a href="#">Photos</a></li>
+                        <li><a href="#">Vidéo</a></li>
+                        <li><a href="#">Actu</a></li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
+                        <li><a href="#">Gestion des utilisateurs</a></li>
+                        {% endif %}
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
-
                         <li>
-
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <a href="{{ path('fos_user_security_logout') }}">
-                                <span class=" glyphicon glyphicon-ban-circle">&nbsp;{{ app.user.username }}</span>
+                                <span class=" glyphicon glyphicon-ban-circle"></span>
                             </a>
-                {% else %}
+                            <a href="{{ path('fos_user_profile_show') }}">&nbsp;{{ app.user.username }}
+                            </a>
+                        {% else %}
                             <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                {% endif %}
+                        {% endif %}
                         </li>
                     </ul>
                 </div>

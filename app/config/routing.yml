@@ -1,32 +1,31 @@
-omaracuja_front:
+omaracuja_construction:
     pattern:  /
     defaults: { _controller: OmaracujaFrontBundle:Construction:construction }
     requirements:
         _method:  GET
 
-omaracuja:
-    pattern:  /test
-    defaults: { _controller: OmaracujaFrontBundle:Front:accueil }
-    requirements:
-        _method:  GET
+omaracuja_front:
+    resource: "@OmaracujaFrontBundle/Resources/config/routing.yml"
+    prefix:   /test        
+          
         
-        
-fos_user_security:
+user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /test
     
-fos_user_profile:
+fuser_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
+    prefix: /test/profile
     
-fos_user_register:
+user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+    prefix: /test/register
     
-fos_user_resetting:
+user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
+    prefix: /test/resetting
     
-fos_user_change_password:
+user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+    prefix: /test/profile
 
