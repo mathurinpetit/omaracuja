@@ -1,0 +1,26 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+{{ form_start(form, {'attr': {'class': 'fos_user_register'} }) }}
+<div class="form-group"> 
+       {{ form_errors(form.username) }}
+       {{ form_label(form.username) }}
+       {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'} }) }}
+    </div>
+    <div class="form-group">
+      {{ form_errors(form.email) }}
+      {{form_label(form.email)}}
+      {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
+    </div>
+    <div class="form-group">
+      {{ form_errors(form.plainPassword.first) }}
+      {{form_label(form.plainPassword.first)}}
+      {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'Mot de Passe'} }) }}
+    </div>
+    <div class="form-group">
+    {{ form_errors(form.plainPassword.second) }}
+      {{form_label(form.plainPassword.second)}}
+     {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'Mot de Passe'} }) }}
+    </div>
+    <input type="submit" class="btn btn-default" value="{{ 'registration.submit'|trans }}" />
+{{form_end(form)}}

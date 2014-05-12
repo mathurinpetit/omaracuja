@@ -2,8 +2,12 @@
 
 {% block title %}Omaracuja - Accueil{% endblock %}
 
+{% block connexion %}
+{% render url('fos_user_security_login') %}
+{% endblock %}
+
 {% block content %}
-<div class="backgound-construction">
+<div class="main">
 </div>
 
 {% endblock %}

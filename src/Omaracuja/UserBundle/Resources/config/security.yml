@@ -1,0 +1,37 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    providers:
+      fos_userbundle:
+          id: fos_user.user_provider.username
+      in_memory:          
+          memory:
+              users:
+                  mathurin:  { password: rogerrabbit, roles: [ 'ROLE_USER' ] }
+                  admin: { password: rogerrabbit, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:      
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js|media)/
+            security: false
+        main:
+            pattern:        ^/test
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: fos_user_security_login
+                use_forward: false
+                check_path: fos_user_security_check
+                failure_path: null
+                default_target_path: omaracuja_front
+                remember_me: true
+            remember_me:
+                key: %secret%
+                lifetime: 300000000
+                path: omaracuja_front
+                domain: ~
+            logout: 
+                path: fos_user_security_logout
+                target: omaracuja_front
+            anonymous: true

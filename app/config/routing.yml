@@ -1,3 +1,5 @@
+# app/config/routing.yml
+
 omaracuja_construction:
     pattern:  /
     defaults: { _controller: OmaracujaFrontBundle:Construction:construction }
