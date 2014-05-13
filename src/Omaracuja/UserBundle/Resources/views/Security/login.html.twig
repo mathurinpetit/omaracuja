@@ -1,4 +1,3 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
@@ -15,17 +14,17 @@
             <label class="sr-only" for="username">{{ 'security.login.username'|trans }}</label>
             <div class="left-inner-addon ">
                 <i class="glyphicon glyphicon-user"></i>
-                <input type="text" id="username" placeholder="Pseudo" class="form-control" name="_username" value="{{ last_username }}" required="required" />
+                <input type="text" id="username" placeholder="Pseudo" class="form-control input-sm" name="_username" value="{{ last_username }}" required="required" />
             </div>
         </div>
         <div class="form-group">
             <label class="sr-only" for="password">{{ 'security.login.password'|trans }}</label>
             <div class="left-inner-addon ">
                 <i class="glyphicon glyphicon-lock"></i>
-                <input type="password" class="form-control" id="password" placeholder="Mot de Passe" name="_password" required="required" />
+                <input type="password" class="form-control input-sm" id="password" placeholder="Mot de Passe" name="_password" required="required" />
             </div>
         </div>
-        <input type="submit" class="btn btn-default" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <input type="submit" class="btn btn-default btn-sm" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
     </div>
     <div class="row">
         <div class="checkbox col-lg-6">

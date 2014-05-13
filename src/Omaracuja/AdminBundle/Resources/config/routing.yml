@@ -1,0 +1,7 @@
+admin_panel:
+     path:  /
+     defaults: { _controller: OmaracujaAdminBundle:Admin:indexPanel }
+     
+admin_users:
+     path:  /
+     defaults: { _controller: OmaracujaAdminBundle:Admin:usersManagement }

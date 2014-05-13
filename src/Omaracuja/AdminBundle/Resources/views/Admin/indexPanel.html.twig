@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Administation{% endblock %}
+
+
+{% block content %}
+<div class="main">   
+
+    <h1>Liste des Utilisateurs</h1>
+    <table class="table table-responsive">
+        <thead>
+        <tr><td>Nom</td>
+        <td>Email</td>
+        <td>Role</td>
+        <td>Action</td></tr>
+        </thead>
+        <tbody>
+{% for user in users %}
+        <tr><td>{{ user.username|e }}</td>
+        <td>{{ user.email|e }}</td>
+        <td>{% if(user.isAdmin) %}ADMINISTRATEUR{% else %}UTILISATEUR{% endif %}</td>
+        <td>
+            <a href="#">lien 1</a>
+            <a href="#"></a>
+        </td></tr>   
+{% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

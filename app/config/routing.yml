@@ -10,24 +10,28 @@ omaracuja_front:
     resource: "@OmaracujaFrontBundle/Resources/config/routing.yml"
     prefix:   /test        
           
-        
-user_security:
+omaracuja_admin:
+    resource: "@OmaracujaAdminBundle/Resources/config/routing.yml"
+    prefix:   /test/admin          
+          
+
+fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /test
-    
-fuser_profile:
+
+fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /test/profile
+    prefix: /test/compte
     
-user_register:
+fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /test/register
+    prefix: /test/inscription
     
-user_resetting:
+fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /test/resetting
     
-user_change_password:
+fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /test/profile
+    prefix: /test/compte
 

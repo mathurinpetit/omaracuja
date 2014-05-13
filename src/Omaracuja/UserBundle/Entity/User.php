@@ -35,7 +35,7 @@ class User extends BaseUser
     }
     
     public function isAdmin() {
-        return $this->hasRole('ADMIN');
+        return $this->hasRole('ROLE_ADMIN');
     }
     
     

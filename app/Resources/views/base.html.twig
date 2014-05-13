@@ -33,30 +33,33 @@
             <div class="container">
           
                 <div id="nav-bar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-left">
+                    <ul class="nav navbar-nav navbar-left navbar-form">
                         <li><a href="#" class="navbar-brand">Omaracuja</a></li>
                         <li><a href="#">Présentation</a></li>                        
                         <li><a href="#">Evennements</a></li>
                         <li><a href="#">Photos</a></li>
-                        <li><a href="#">Vidéo</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
-                        <li><a href="#">Gestion des utilisateurs</a></li>
+                        <li><a href="{{ path('admin_panel') }}">Administration</a></li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-form">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
+                        <li><a href="{{ path('fos_user_profile_show') }}">Mon Agenda</a></li>
+                        <li>
+                            <a href="{{ path('fos_user_profile_show') }}">&nbsp;{{ app.user.username }}
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ path('fos_user_security_logout') }}">
                                 <span class=" glyphicon glyphicon-ban-circle"></span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ path('fos_user_profile_show') }}">&nbsp;{{ app.user.username }}
-                            </a>
-                        </li>
                         {% else %}
+                            <li>
                             {% block connexion %}
                             {% endblock %}    
+                            </li>
                         {% endif %}
                     </ul>
                 </div>

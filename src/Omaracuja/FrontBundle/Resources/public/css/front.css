@@ -17,6 +17,11 @@
 }
 .left-inner-addon i {
     position: absolute;
-    padding: 10px 12px;
+    padding: 7px 8px;
     pointer-events: none;
+}
+
+.navbar-fixed-top {
+    padding: 0 !important;
+    margin: 0 !important;
 }

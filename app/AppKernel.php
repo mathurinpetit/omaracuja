@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             
             new Omaracuja\UserBundle\OmaracujaUserBundle(),           
             new Omaracuja\FrontBundle\OmaracujaFrontBundle(),
+            new Omaracuja\AdminBundle\OmaracujaAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
