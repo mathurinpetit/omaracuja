@@ -1,0 +1,30 @@
+article:
+    pattern:  /
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:index" }
+
+article_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:show" }
+
+article_new:
+    pattern:  /new
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:new" }
+
+article_create:
+    pattern:  /create
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:create" }
+    requirements: { _method: post }
+
+article_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:edit" }
+
+article_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:update" }
+    requirements: { _method: post|put }
+
+article_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OmaracujaFrontBundle:BlogPost:delete" }
+    requirements: { _method: post|delete }

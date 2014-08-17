@@ -16,12 +16,18 @@
         </thead>
         <tbody>
 {% for user in users %}
-        <tr><td>{{ user.username|e }}</td>
+        <tr class="{% if(user.isActif) %}success{% else %}danger{% endif %}">
+        <td>{{ user.username|e }}</td>
         <td>{{ user.email|e }}</td>
         <td>{% if(user.isAdmin) %}ADMINISTRATEUR{% else %}UTILISATEUR{% endif %}</td>
         <td>
-            <a href="#">lien 1</a>
-            <a href="#"></a>
+            {% if(not user.isAdmin) %}
+                {% if(not user.isActif) %}
+                <a href="#">Activer</a>
+                {% else %}
+                  <a href="#">Désactiver</a>  
+                {% endif %}
+            {% endif %}
         </td></tr>   
 {% endfor %}
         </tbody>

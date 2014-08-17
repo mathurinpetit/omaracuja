@@ -16,6 +16,11 @@ class User extends BaseUser
    * @ORM\GeneratedValue(strategy="AUTO")
    */
   protected $id;
+  
+  /**
+   * @ORM\Column(type="boolean")
+   */
+  protected $actif = false;
 
     /**
      * Get id
@@ -38,5 +43,8 @@ class User extends BaseUser
         return $this->hasRole('ROLE_ADMIN');
     }
     
+    public function isACtif() {
+        return $this->actif;
+    }
     
 }
