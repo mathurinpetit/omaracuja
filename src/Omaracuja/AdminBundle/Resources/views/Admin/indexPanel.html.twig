@@ -16,16 +16,16 @@
         </thead>
         <tbody>
 {% for user in users %}
-        <tr class="{% if(user.isActif) %}success{% else %}danger{% endif %}">
+        <tr class="{% if(not user.isAdmin) %} {% if(user.isActif) %}success{% else %}danger{% endif %} {% endif %}">
         <td>{{ user.username|e }}</td>
         <td>{{ user.email|e }}</td>
         <td>{% if(user.isAdmin) %}ADMINISTRATEUR{% else %}UTILISATEUR{% endif %}</td>
         <td>
             {% if(not user.isAdmin) %}
                 {% if(not user.isActif) %}
-                <a href="#">Activer</a>
+                <a href="{{ path('admin_user_activate',{ 'userId': user.id }) }}">Activer</a>
                 {% else %}
-                  <a href="#">Désactiver</a>  
+                  <a href="{{ path('admin_user_desactivate',{ 'userId': user.id }) }}">Désactiver</a>  
                 {% endif %}
             {% endif %}
         </td></tr>   

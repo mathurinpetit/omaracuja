@@ -47,4 +47,12 @@ class User extends BaseUser
         return $this->actif;
     }
     
+    public function activate() {
+        $this->actif = true;
+    }
+    
+    public function desactivate() {
+        $this->actif = false;
+    }
+    
 }
