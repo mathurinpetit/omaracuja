@@ -22,24 +22,24 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js|media)/
             security: false
         main:
-            pattern:        ^/test
+            pattern:        ^/
             anonymous:      true
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 always_use_default_target_path: true
-                default_target_path: /test/accueil 
+                default_target_path: /accueil 
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
             logout:
                 path:       fos_user_security_logout
-                target:     /test/accueil
+                target:     /accueil
             remember_me:
                 key:        %secret%
 
     access_control:
          - { path: ^/construction$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/test,    role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/,    role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/login$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

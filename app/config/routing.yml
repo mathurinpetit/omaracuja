@@ -7,31 +7,29 @@ omaracuja_construction:
         _method:  GET
 
 omaracuja_front:
-    resource: "@OmaracujaFrontBundle/Resources/config/routing.yml"
-    prefix:   /test        
+    resource: "@OmaracujaFrontBundle/Resources/config/routing.yml"          
           
 omaracuja_admin:
-    resource: "@OmaracujaAdminBundle/Resources/config/routing.yml"
-    prefix:   /test/admin          
+    resource: "@OmaracujaAdminBundle/Resources/config/routing.yml"        
+    prefix:   /admin          
           
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-    prefix: /test
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /test/compte
+    prefix: /compte
     
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /test/inscription
+    prefix: /inscription
     
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /test/resetting
+    prefix: /resetting
     
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /test/compte
+    prefix: /compte
 

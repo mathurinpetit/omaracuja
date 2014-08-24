@@ -10,7 +10,7 @@
     </route>
 
     <route id="fos_user_profile_edit" pattern="/edition">
-        <default key="_controller">FOSUserBundle:Profile:edit</default>
+        <default key="_controller">OmaracujaUserBundle:Profile:edit</default>
     </route>
 
 </routes>

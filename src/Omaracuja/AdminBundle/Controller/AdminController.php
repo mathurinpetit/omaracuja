@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class AdminController extends Controller
 {
     /**
-     * @Route("/test/indexPanel")
+     * @Route("/admin/indexPanel")
      * @Template()
      */
     public function indexPanelAction()
@@ -20,7 +20,7 @@ class AdminController extends Controller
     }    
 
     /**
-     * @Route("/test/activate/{userId}")
+     * @Route("/admin/activate/{userId}")
      */
     public function userActivateAction($userId)
     {
@@ -33,7 +33,7 @@ class AdminController extends Controller
     }
     
    /**
-     * @Route("/test/desactivate/{userId}")
+     * @Route("/admin/desactivate/{userId}")
      */
     public function userDesactivateAction($userId)
     {

@@ -1,19 +1,18 @@
 fos_user_security:
     resource: "routing/security.xml"
-    prefix: /test
     
 fos_user_profile:
     resource: "routing/compte.xml"
-    prefix: /test/compte
+    prefix: /compte
     
 fos_user_registration_register:
     resource: "routing/inscription.xml"
-    prefix: /test/inscription
+    prefix: /inscription
     
 fos_user_resetting:
     resource: "routing/resetting.xml"
-    prefix: /test/resetting
+    prefix: /resetting
     
 fos_user_change_password:
     resource: "change_mot_de_passe.xml"
-    prefix: /test/compte
+    prefix: /compte
