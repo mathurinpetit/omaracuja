@@ -1,10 +1,11 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace Omaracuja\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,12 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\ProfileController as FOSProfileController;
 use Omaracuja\UserBundle\Entity\Avatar as Avatar;
 
-class ProfileController extends FOSProfileController
-{
+class ProfileController extends FOSProfileController {
 
     /**
      * Edit the user
      */
-    public function editAction(Request $request)
-    {
+    public function editAction(Request $request) {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -45,9 +44,9 @@ class ProfileController extends FOSProfileController
 
         $form = $formFactory->createForm();
         $form->setData($user);
-        
+
         $avatar = new Avatar();
-        $formBuilder = $this->container->get('form.factory')->createBuilder('form',$avatar);
+        $formBuilder = $this->container->get('form.factory')->createBuilder('form', $avatar);
         $avatarForm = $formBuilder->add('file')->getForm();
 
         if ('POST' === $request->getMethod()) {
@@ -61,11 +60,16 @@ class ProfileController extends FOSProfileController
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
                 $userManager->updateUser($user);
-                
+                $avatarFormResult = $request->get('form');
+
+                //  var_dump($avatarFormResult); exit;
+                $avatar->setFile($avatarFormResult['file']);
+                $avatar->upload();
+
                 $em = $this->container->get('doctrine')->getManager();
                 $em->persist($avatar);
                 $em->flush();
-                
+
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_profile_show');
                     $response = new RedirectResponse($url);
@@ -78,27 +82,8 @@ class ProfileController extends FOSProfileController
         }
 
         return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
-            array('form' => $form->createView(),'avatarForm' => $avatarForm->createView())
+                        'FOSUserBundle:Profile:edit.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(), 'avatarForm' => $avatarForm->createView())
         );
     }
+
 }
-
-
-//
-//   $form = $this->createFormBuilder($avatar)
-//                ->add('file')
-//                ->getForm();
-//        if ($this->getRequest()->isMethod('POST')) {
-//            $form->handleRequest($this->getRequest());
-//            if ($form->isValid()) {
-//                $em = $this->getDoctrine()->getManager();
-//
-//                $em->persist($avatar);
-//                $em->flush();
-//
-//                $this->redirect($this->generateUrl('fos_user_profile_edit'));
-//            }
-//        }
-//     return array('form' => $form->createView());
-

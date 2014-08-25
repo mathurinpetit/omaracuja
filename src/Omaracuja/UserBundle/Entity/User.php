@@ -29,9 +29,9 @@ class User extends BaseUser {
     protected $avatars;
 
     /**
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\OneToOne(targetEntity="Avatar")
      */
-    protected $avatarId;
+    protected $selectedAvatar;
 
     /**
      * Get id
@@ -40,6 +40,10 @@ class User extends BaseUser {
      */
     public function getId() {
         return $this->id;
+    }
+    
+    public function setSelectedAvatar($avatar) {
+        $this->selectedAvatar = $avatar;
     }
 
     public function hasRole($role) {
@@ -69,7 +73,7 @@ class User extends BaseUser {
         if(!count($this->avatars)){
             return "/data/avatars/omaracuja_avatar.jpg";
         }
-        return "/data/avatars/".$this->id.'/'.$this->avatarId.'.jpg';
+        return $this->selectedAvatar->getWebPath();
     }
 
 }

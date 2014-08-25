@@ -13,6 +13,6 @@ app/config/parameters.yml
 # htaccess
 web/.htaccess
 web/.htpasswd
-
+web/data
 
 /nbproject

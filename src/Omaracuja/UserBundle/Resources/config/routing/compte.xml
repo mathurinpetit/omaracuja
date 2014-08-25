@@ -12,5 +12,10 @@
     <route id="fos_user_profile_edit" pattern="/edition">
         <default key="_controller">OmaracujaUserBundle:Profile:edit</default>
     </route>
+    
+    <route id="avatar_upload" pattern="/avatar/upload">
+        <default key="_controller">OmaracujaUserBundle:Avatar:upload</default>
+    </route>
+
 
 </routes>

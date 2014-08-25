@@ -14,5 +14,5 @@ fos_user_resetting:
     prefix: /resetting
     
 fos_user_change_password:
-    resource: "change_mot_de_passe.xml"
+    resource: "routing/change_mot_de_passe.xml"
     prefix: /compte

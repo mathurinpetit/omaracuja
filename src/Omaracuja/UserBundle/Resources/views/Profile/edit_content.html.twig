@@ -1,14 +1,18 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'attr': {'class': 'fos_user_profile_edit'} }) }}
+<form action="{{ path("avatar_upload") }}" method="post" {{ form_enctype(avatarForm) }}>
 <div class="form-group"> 
     <div class="error_list">{{ form_errors(avatarForm.file) }}</div>
-    {{ form_label(avatarForm.file) }}
-    {{ form_widget(avatarForm.file, {'attr': {'class': 'form-control', 'placeholder': 'Pseudo'} }) }}
-    <a class="btn btn-default btn-warning text-left" href="{{ path('fos_user_profile_edit') }}">
+    {{ form_widget(avatarForm.file, {'attr': {'class': 'form-control'} }) }}
+   <input type="submit" value="Upload Document" />
+    
+    <a class="btn btn-default btn-warning text-left" href="#" id="avatar_change">
         <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
     </a>
-</div>
+</div>        
+</form>
+        
+{{ form_start(form, {'attr': {'class': 'fos_user_profile_edit'} }) }}
 <div class="form-group">
     <div class="error_list">{{ form_errors(form.username) }}</div>
     {{ form_label(form.username) }}
