@@ -47,7 +47,9 @@ class ProfileController extends FOSProfileController {
 
         $avatar = new Avatar();
         $formBuilder = $this->container->get('form.factory')->createBuilder('form', $avatar);
-        $avatarForm = $formBuilder->add('file')->getForm();
+        $avatarForm = $formBuilder->add('file')
+                        ->add('src', 'hidden')
+                        ->add('data', 'hidden')->getForm();
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
@@ -61,8 +63,7 @@ class ProfileController extends FOSProfileController {
 
                 $userManager->updateUser($user);
                 $avatarFormResult = $request->get('form');
-
-                //  var_dump($avatarFormResult); exit;
+                
                 $avatar->setFile($avatarFormResult['file']);
                 $avatar->upload();
 
@@ -82,7 +83,7 @@ class ProfileController extends FOSProfileController {
         }
 
         return $this->container->get('templating')->renderResponse(
-                        'FOSUserBundle:Profile:edit.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(), 'avatarForm' => $avatarForm->createView())
+                        'FOSUserBundle:Profile:edit.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(), 'avatarForm' => $avatarForm->createView(), 'avatar' => $avatar)
         );
     }
 

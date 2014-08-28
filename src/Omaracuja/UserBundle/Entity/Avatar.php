@@ -59,8 +59,8 @@ class Avatar {
         $this->getFile()->move($this->getUploadRootDir(), $this->getPath());
 
         $this->setFile(null);
-        
-        $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), 700, 700);
+
+        $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), $this->data);
     }
 
     /**
@@ -71,6 +71,10 @@ class Avatar {
             unlink($file);
         }
     }
+
+    private $src = null;
+    private $data = null;
+    private $ajaxMsg = null;
 
     /**
      * Get id
@@ -88,11 +92,10 @@ class Avatar {
     public function getWebOriginalPath($prefix = '/') {
         return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/user_' . $this->user->getId() . '/original/' . $this->getPath();
     }
-    
+
     public function getWebPath($prefix = '/') {
         return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/user_' . $this->user->getId() . '/' . $this->getPath();
     }
-    
 
     protected function getUploadRootDir() {
         return __DIR__ . '/../../../../web/' . $this->getUploadDir() . '/user_' . $this->user->getId() . '/original/';
@@ -127,9 +130,9 @@ class Avatar {
     }
 
     // Gestion d'image
-    public function image_resize($src, $dst, $width, $height, $crop = 0) {
+    public function image_resize($src, $dst, $data) {
 
-        if (!list($w, $h) = getimagesize($src)){
+        if (!list($w, $h) = getimagesize($src)) {
             return "Unsupported picture type!";
         }
         $type = strtolower(substr(strrchr($src, "."), 1));
@@ -149,34 +152,24 @@ class Avatar {
         }
 
         // resize
-        if ($crop) {
-            if ($w < $width or $h < $height){
-                return "Picture is too small!";
-            }
-            $ratio = max($width / $w, $height / $h);
-            $h = $height / $ratio;
-            $x = ($w - $width / $ratio) / 2;
-            $w = $width / $ratio;
-        }
-        else {
-            if ($w < $width and $h < $height){
-                return "Picture is too small!";
-            }
-            $ratio = min($width / $w, $height / $h);
-            $width = $w * $ratio;
-            $height = $h * $ratio;
-            $x = 0;
-        }
 
-        $new = imagecreatetruecolor($width, $height);
-        
+        if ($w < $data->width or $h < $data->height) {
+            return "Picture is too small!";
+        }
+        $ratio = max($data->width / $w, $data->height / $h);
+        $h = $data->height / $ratio;
+        $x = ($w - $data->width / $ratio) / 2;
+        $w = $data->width / $ratio;
+
+        $new = imagecreatetruecolor($data->width, $data->height);
+
         if ($type == "gif" or $type == "png") {
             imagecolortransparent($new, imagecolorallocatealpha($new, 0, 0, 0, 127));
             imagealphablending($new, false);
             imagesavealpha($new, true);
         }
 
-        imagecopyresampled($new, $img, 0, 0, $x, 0, $width, $height, $w, $h);
+        $result = imagecopyresampled($new, $img, 0, 0, $data->x, $data->y, 220, 220, $data->width, $data->height);
 
         switch ($type) {
             case 'bmp': imagewbmp($new, $dst);
@@ -188,7 +181,87 @@ class Avatar {
             case 'png': imagepng($new, $dst);
                 break;
         }
+        if (!$result) {
+            $this->ajaxMsg = "Failed to save the cropped image file";
+        } else {
+            $this->ajaxMsg = "Failed to crop the image file";
+        }
+
+        imagedestroy($new);
+        imagedestroy($img);
         return true;
+    }
+
+    public function setData($data) {
+        if (!empty($data)) {
+            $this->data = json_decode(stripslashes($data));
+        }
+    }
+
+    public function getSrc() {
+        return $this->src;
+    }
+
+    public function setSrc($src) {
+        if (!empty($src)) {
+            $type = exif_imagetype($src);
+
+            if ($type) {
+                $this->src = $src;
+                $this->type = $type;
+                $this->extension = image_type_to_extension($type);
+                $this->setDst();
+            }
+        }
+    }
+
+    public function getData() {
+        return $this->data;
+    }
+
+    private function codeToMessage($code) {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
+                break;
+
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
+                break;
+
+            case UPLOAD_ERR_PARTIAL:
+                $message = 'The uploaded file was only partially uploaded';
+                break;
+
+            case UPLOAD_ERR_NO_FILE:
+                $message = 'No file was uploaded';
+                break;
+
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = 'Missing a temporary folder';
+                break;
+
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = 'Failed to write file to disk';
+                break;
+
+            case UPLOAD_ERR_EXTENSION:
+                $message = 'File upload stopped by extension';
+                break;
+
+            default:
+                $message = 'Unknown upload error';
+        }
+
+        return $message;
+    }
+
+    public function getResult() {
+        return !empty($this->data) ? $this->getWebPath("") : $this->getWebOriginalPath("");
+    }
+
+    public function getAjaxMsg() {
+        return $this->ajaxMsg;
     }
 
 }

@@ -271,7 +271,7 @@
           this.alert(data.message);
         }
       } else {
-        this.alert("Failed to response");
+        this.alert("Erreur de téléchargement");
       }
     },
 
