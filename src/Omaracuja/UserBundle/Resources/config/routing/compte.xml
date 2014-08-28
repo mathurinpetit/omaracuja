@@ -13,12 +13,17 @@
         <default key="_controller">OmaracujaUserBundle:Profile:edit</default>
     </route>
     
-    <route id="avatar_upload" pattern="/avatar/upload">
+    <route id="avatar_upload" pattern="/avatar/telechargement">
         <default key="_controller">OmaracujaUserBundle:Avatar:upload</default>
     </route>
 
     <route id="avatar_upload_resize" pattern="/avatar/{id}/resize">
         <default key="_controller">OmaracujaUserBundle:Avatar:resize</default>
     </route>
+    
+    <route id="avatar_crop" pattern="/avatar/{id}/crop">
+        <default key="_controller">OmaracujaUserBundle:Avatar:resize</default>
+    </route>
+    
 
 </routes>

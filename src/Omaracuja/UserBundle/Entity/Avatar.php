@@ -60,7 +60,7 @@ class Avatar {
 
         $this->setFile(null);
         
-        $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), 600, 400);
+        $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), 700, 700);
     }
 
     /**

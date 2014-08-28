@@ -1,10 +1,58 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
-
-
-
 {% block content %}
-<div class="main">
+    
+<div class="main" id="crop-avatar">
     <h2>Redimensionner votre avatar</h2>
-     <img src="{{avatar.getWebPath}}" alt="{{app.user.username}}_avatar_{{avatar.id}}" class="img-rounded">
+    
+    <!-- Current avatar -->
+    <div class="avatar-view" title="Change the avatar">
+      <img id="avatar_{{avatar.id}}" src="{{avatar.getWebPath}}" alt="{{app.user.username}}_avatar_{{avatar.id}}" class="img-rounded" >
+    </div>
+
+    <!-- Cropping modal -->
+    <div class="modal fade" id="avatar-modal" tabindex="-1" role="dialog" aria-labelledby="avatar-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form class="avatar-form" method="post" action="{{ path("avatar_crop",{ 'id': avatar.id }) }}" enctype="multipart/form-data">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+            </div>
+            <div class="modal-body">
+              <div class="avatar-body">
+
+                <!-- Upload image and data -->
+                <div class="avatar-upload">
+                  <input class="avatar-src" name="avatar_src" type="hidden">
+                  <input class="avatar-data" name="avatar_data" type="hidden">
+                  <label for="avatarInput">Local upload</label>
+                  <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                </div>
+
+                <!-- Crop and preview -->
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="avatar-wrapper"></div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="avatar-preview preview-lg"></div>
+                    <div class="avatar-preview preview-md"></div>
+                    <div class="avatar-preview preview-sm"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+              <button class="btn btn-primary avatar-save" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!-- /.modal -->
+
+    <!-- Loading state -->
+    <div class="loading" tabindex="-1" role="img" aria-label="Loading"></div>
+  </div>
 </div>
 {% endblock content %}
