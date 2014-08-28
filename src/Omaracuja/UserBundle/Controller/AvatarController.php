@@ -34,10 +34,26 @@ class AvatarController extends Controller {
                 $user->setSelectedAvatar($avatar);
                 $em->persist($user);
                 $em->flush();
+                $retour = $this->generateUrl('avatar_upload_resize',array('id' => $avatar->getId()));
                 return $this->redirect($retour);
             }
         }
         return $this->redirect($retour);
+    }
+    
+    public function resizeAction($id) {
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('OmaracujaUserBundle:Avatar')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Avatar entity.');
+        }
+        
+        return $this->render('OmaracujaUserBundle:Profile:avatar_resize.html.twig', array(
+            'avatar' => $entity,
+        ));
     }
 
 }

@@ -17,5 +17,8 @@
         <default key="_controller">OmaracujaUserBundle:Avatar:upload</default>
     </route>
 
+    <route id="avatar_upload_resize" pattern="/avatar/{id}/resize">
+        <default key="_controller">OmaracujaUserBundle:Avatar:resize</default>
+    </route>
 
 </routes>

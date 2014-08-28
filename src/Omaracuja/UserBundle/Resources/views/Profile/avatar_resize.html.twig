@@ -1,0 +1,10 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+
+
+{% block content %}
+<div class="main">
+    <h2>Redimensionner votre avatar</h2>
+     <img src="{{avatar.getWebPath}}" alt="{{app.user.username}}_avatar_{{avatar.id}}" class="img-rounded">
+</div>
+{% endblock content %}
