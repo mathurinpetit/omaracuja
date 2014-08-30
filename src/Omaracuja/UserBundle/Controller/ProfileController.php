@@ -39,23 +39,12 @@ class ProfileController extends FOSProfileController {
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        
         $formFactory = $this->container->get('fos_user.profile.form.factory');
-
         $form = $formFactory->createForm();
         $form->setData($user);
 
-        $avatar = new Avatar();
-        $formFactory = $this->container->get('form.factory');
-
-        $avatarFormBuilder = $formFactory->createBuilder('form', $avatar);
-        $avatarForm = $avatarFormBuilder->add('file')
-                        ->add('src', 'hidden')
-                        ->add('data', 'hidden')->getForm();
-
-        $avatarChooseForm = $formFactory->createBuilder('form',$user)->add('selectedAvatar')->getForm();
-
+        $this->initAvatarForms($user);
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
@@ -89,12 +78,41 @@ class ProfileController extends FOSProfileController {
 
         return $this->container->get('templating')->renderResponse(
                         'FOSUserBundle:Profile:edit.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(),
-                    'avatarForm' => $avatarForm->createView(),
-                    'avatar' => $avatar,
-                    'avatarChooseForm' => $avatarChooseForm->createView(),
+                    'avatarForm' => $this->avatarForm->createView(),
+                    'avatar' => $this->avatar,
+                    'avatarChooseForm' => $this->avatarChooseForm->createView(),
                     'user' => $user,
                     'avatars' => $avatars)
         );
+    }
+
+    public function showAction() {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $avatars = $user->getAvatars();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $this->initAvatarForms($user);
+
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.' . $this->container->getParameter('fos_user.template.engine'), array('avatarForm' => $this->avatarForm->createView(),
+                    'avatar' => $this->avatar,
+                    'avatarChooseForm' => $this->avatarChooseForm->createView(),
+                    'user' => $user,
+                    'avatars' => $avatars));
+    }
+
+    private function initAvatarForms($user) {
+
+        $this->avatar = new Avatar();
+        $formFactory = $this->container->get('form.factory');
+
+        $avatarFormBuilder = $formFactory->createBuilder('form', $this->avatar);
+        $this->avatarForm = $avatarFormBuilder->add('file')
+                        ->add('src', 'hidden')
+                        ->add('data', 'hidden')->getForm();
+
+        $this->avatarChooseForm = $formFactory->createBuilder('form', $user)->add('selectedAvatar')->getForm();
     }
 
 }

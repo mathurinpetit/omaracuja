@@ -18,6 +18,13 @@ form .form-group .error_list li{
     font-weight: bold;
 }
 
-.user_edit{
+.user_edit, .user_show{
     padding-top: 20px;
+}
+
+.profile_show_value{
+    
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
 }

@@ -1,49 +1,49 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% block content %}
-    <div class="main container-fluid">
+    <div class="main">
         <h2>Bienvenue dans votre compte {{ app.user.username }}</h2>
-        <br/>
+    <div class="user_show" id="crop-avatar">
         {% if not app.user.isActif() %}
             Votre compte n'a pas encore été validé par les administrateur 
         {% else %}
-            <h3>Information sur votre compte</h3>
             {% if app.user.isAdmin() %}
-                <div class="row">
-                    <div class="col-sm-4">
-                    </div>
-                    <div class="col-sm-6">            
-                        <p class="bg-info">Votre compte est un compte administrateur</p>            
-                    </div>        
-                {% endif %}
-
-                <div class="row">
-                    <div class="col-sm-4">
-                        <a class="btn btn-default btn-warning text-left" href="{{ path('fos_user_profile_edit') }}">
-                            <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
-                        </a>
-                    </div>
-                    <div class="col-sm-6">  
-                        Pseudo : {{app.user.username}}
-                    </div>
-                </div>    
-                <div class="row">
-                    <div class="col-sm-4">
-                    </div>
-                    <div class="col-sm-6">  
-                        Email : {{app.user.email}}
-                    </div>
-                </div>      
+                <div class="col-md-12">            
+                    <p class="bg-info profile_show_value">Votre compte est un compte administrateur</p>            
+                </div>        
             {% endif %}
+
+            <div class="col-md-4">
+                <div class="avatar-view" title="Choisir une image dans ses avatars">
+                    <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
+                </div>
+                <br/>
+                <a href="#" class="avatar-link" >Ajouter un Avatar</a>
+                {% include 'OmaracujaUserBundle:Profile:avatar_cropping_modal.html.twig' with {'avatarForm': avatarForm} %}
+                {% include 'OmaracujaUserBundle:Profile:avatars_view_modal.html.twig' with {'avatarChooseForm': avatarChooseForm} %}
+            </div>
+            <div class="col-md-8">  
+                <div class="row form-group">  
+                    <label>Nom d'utilisateur :</label><div class="profile_show_value">{{app.user.username}}</div>
+                </div>
+                <div class="row form-group">   
+                    <label>Adresse e-mail :</label><div class="profile_show_value">{{app.user.email}}</div>
+                </div>
+                <div class="row form-group">  
+                    <label> Email : </label><div class="profile_show_value">{{app.user.email}}</div>
+                </div>
+                   
+            </div>       
+        {% endif %}
+    </div>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <div class="text-left col-lg-6">
+            <a class="btn btn-default text-left" href="{{ path('front_accueil') }}">Retour à l'accueil</a>
         </div>
-        <br/>
-        <br/>
-        <div class="form-group">
-            <div class="text-left col-lg-6">
-                <a class="btn btn-default text-left" href="{{ path('front_accueil') }}">Retour à l'accueil</a>
-            </div>
-            <div class="text-right col-lg-6">
-                <a class="btn btn-default btn-warning text-left" href="{{ path('fos_user_profile_edit') }}">Modification du compte</a>
-            </div>
+        <div class="text-right col-lg-6">
+            <a class="btn btn-default btn-warning text-left" href="{{ path('fos_user_profile_edit') }}">Modification du compte</a>
         </div>
     </div>
+</div>
 {% endblock content %}

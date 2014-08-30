@@ -2,6 +2,13 @@
 
 
 <div class="user_edit" id="crop-avatar">
+    
+    {% if app.user.isAdmin() %}
+                <div class="col-md-12">            
+                    <p class="bg-info profile_show_value">Votre compte est un compte administrateur</p>            
+                </div>        
+            {% endif %}
+
     <div class="col-md-4">
         <div class="avatar-view" title="Choisir une image dans ses avatars">
             <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
