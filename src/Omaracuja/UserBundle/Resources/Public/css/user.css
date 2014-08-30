@@ -17,3 +17,7 @@ form .form-group .error_list li{
     color: darkred;
     font-weight: bold;
 }
+
+.user_edit{
+    padding-top: 20px;
+}

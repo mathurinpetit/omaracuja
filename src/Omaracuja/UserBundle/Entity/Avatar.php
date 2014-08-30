@@ -61,6 +61,11 @@ class Avatar {
         $this->setFile(null);
 
         $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), $this->data);
+        
+        $originalFile = $this->getWebOriginalPath("");
+        if ($originalFile) {
+            unlink($originalFile);
+        }
     }
 
     /**
@@ -78,8 +83,8 @@ class Avatar {
     private $type = null;
     
     
-    const HEIGHT = 180;
-    const WIDTH = 180;
+    const HEIGHT = 220;
+    const WIDTH = 220;
     /**
      * Get id
      *

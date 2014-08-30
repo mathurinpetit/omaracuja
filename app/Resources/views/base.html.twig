@@ -17,7 +17,6 @@
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/cropper.css') }}" />        
-        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/crop-avatar.css') }}" />
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -34,7 +33,10 @@
         <script src="{{ asset('/bundles/omaracujafront/select2/select2_locale_fr.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/cropper.js') }}"></script>  
         <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
-        <script src="{{ asset('/bundles/omaracujafront/js/crop-avatar.js') }}"></script>
+        
+        {% javascripts '@OmaracujaUserBundle/Resources/Public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     {% block head %}{% endblock %}
 </head>        
 <body>
