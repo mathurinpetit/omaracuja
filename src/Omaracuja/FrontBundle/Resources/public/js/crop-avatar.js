@@ -262,7 +262,7 @@
             this.cropDone();
           } else {
             this.uploaded = true;
-            this.$avatarSrc.val(this.url);
+            this.$avatarSrc.val('/'+this.url);
             this.startCropper();
           }
 
