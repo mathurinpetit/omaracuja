@@ -26,6 +26,7 @@ class ProfileController extends FOSProfileController {
      */
     public function editAction(Request $request) {
         $user = $this->container->get('security.context')->getToken()->getUser();
+        $avatars = $user->getAvatars();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -91,7 +92,8 @@ class ProfileController extends FOSProfileController {
                     'avatarForm' => $avatarForm->createView(),
                     'avatar' => $avatar,
                     'avatarChooseForm' => $avatarChooseForm->createView(),
-                    'user' => $user)
+                    'user' => $user,
+                    'avatars' => $avatars)
         );
     }
 

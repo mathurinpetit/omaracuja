@@ -111,3 +111,31 @@ body {
   filter: alpha(opacity=75);
   z-index: 20140628;
 }
+
+
+.avatar-view-choice {
+  display: block;
+  height: 220px;
+  width: 220px;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.15);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.avatar-view-choice img {
+  width: 100%;
+}
+
+.avatar-view-col {
+    padding-top: 50px;
+}
+
+.avatar_select{
+    display: none;
+}
+
+.avatar_selected {
+    border: 3px solid darkred;
+}

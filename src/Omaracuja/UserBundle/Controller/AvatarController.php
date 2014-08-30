@@ -20,12 +20,13 @@ class AvatarController extends Controller {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $avatar->setUser($user);
 
+        $retour = $this->generateUrl('fos_user_profile_edit');
+        
         $form = $this->createFormBuilder($avatar, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
                 ->getForm();
-
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -59,7 +60,7 @@ class AvatarController extends Controller {
 
         $avatarChooseForm = $this->createFormBuilder($user, array('csrf_protection' => false))
                 ->add('selectedAvatar')->getForm();
-
+        $retour = $this->generateUrl('fos_user_profile_edit');
 
         if ($request->isMethod('POST')) {
             $avatarChooseForm->bind($request);
@@ -75,11 +76,9 @@ class AvatarController extends Controller {
                             'message' => "Enregistré",
                             'result' => $user->getCurrentAvatarPath()
                 )));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
+                return $this->redirect($retour);
             }
         }
-        return $this->redirect($retour);
     }
 
 }

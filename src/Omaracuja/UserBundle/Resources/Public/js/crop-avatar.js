@@ -311,6 +311,14 @@
   };
 
   $(function () {
-    var example = new CropAvatar($("#crop-avatar"));
+    var example = new CropAvatar($("#crop-avatar"));  
+    $("div.avatar-view-choice img.img-rounded").click(function() {
+       var avatar_id =  $(this).data('avatar_id');
+       $("select.avatar_select").val(avatar_id);
+       $("div.avatar-view-choice img.img-rounded").each(function(){
+           $(this).removeClass("avatar_selected");
+       })
+       $(this).addClass("avatar_selected");
+    });
   });
 });
