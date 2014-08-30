@@ -1,0 +1,32 @@
+        <!-- Cropping modal -->
+    <div class="modal fade" id="avatars-view-modal" tabindex="-1" role="dialog" aria-labelledby="avatar-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form class="avatar-form" action="{{ path("avatar_select",{'id': user.id}) }}" method="post">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" id="avatar-modal-label">Choisir son Avatar</h4>
+            </div>
+            <div class="modal-body">
+              <div class="avatar-body">
+
+                <div class="">
+                    {{ form_widget(avatarChooseForm.selectedAvatar) }}
+                </div>
+
+                <!-- Crop and preview -->
+                <div class="row">
+                  
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-default" type="button" data-dismiss="modal">Fermer</button>
+              <button class="btn btn-primary avatar-save" type="submit">Sauvegarder</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!-- /.modal -->
+
+   

@@ -17,9 +17,11 @@
   function CropAvatar($element) {
     this.$container = $element;
 
-    this.$avatarView = this.$container.find(".avatar-view");
+    this.$avatarLink = this.$container.find(".avatar-link");
+    this.$avatarView = this.$container.find(".avatar-view");    
     this.$avatar = this.$avatarView.find("img");
     this.$avatarModal = this.$container.find("#avatar-modal");
+    this.$avatarsViewModal = this.$container.find("#avatars-view-modal");
     this.$loading = this.$container.find(".loading");
 
     this.$avatarForm = this.$avatarModal.find(".avatar-form");
@@ -58,7 +60,8 @@
     },
 
     addListener: function () {
-      this.$avatarView.on("click", $.proxy(this.click, this));
+      this.$avatarLink.on("click", $.proxy(this.click, this));
+      this.$avatarView.on("click", $.proxy(this.clickView, this));
       this.$avatarInput.on("change", $.proxy(this.change, this));
       this.$avatarForm.on("submit", $.proxy(this.submit, this));
     },
@@ -118,6 +121,10 @@
 
     click: function () {
       this.$avatarModal.modal("show");
+    },
+    
+    clickView: function(){
+        this.$avatarsViewModal.modal("show");
     },
 
     change: function () {

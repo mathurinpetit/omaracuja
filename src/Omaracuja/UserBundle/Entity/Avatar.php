@@ -61,7 +61,7 @@ class Avatar {
         $this->setFile(null);
 
         $this->image_resize($this->getWebOriginalPath(""), $this->getWebPath(""), $this->data);
-        
+
         $originalFile = $this->getWebOriginalPath("");
         if ($originalFile) {
             unlink($originalFile);
@@ -81,10 +81,10 @@ class Avatar {
     private $data = null;
     private $ajaxMsg = null;
     private $type = null;
-    
-    
+
     const HEIGHT = 220;
     const WIDTH = 220;
+
     /**
      * Get id
      *
@@ -143,7 +143,7 @@ class Avatar {
         if (!empty($src) && !empty($dst) && !empty($data)) {
             $src_img = null;
             $this->type = exif_imagetype($src);
-            
+
             switch ($this->type) {
                 case IMAGETYPE_GIF:
                     $src_img = imagecreatefromgif($src);
@@ -278,6 +278,10 @@ class Avatar {
 
     public function getAjaxMsg() {
         return $this->ajaxMsg;
+    }
+
+    public function __toString() {
+        return $this->getWebPath();
     }
 
 }

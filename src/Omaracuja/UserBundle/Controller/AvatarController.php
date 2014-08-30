@@ -51,5 +51,35 @@ class AvatarController extends Controller {
         }
         return $this->redirect($retour);
     }
+    
+     public function selectAction(Request $request) {
+        
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $avatars = $user->getAvatars();
+
+        $avatarChooseForm = $this->createFormBuilder($user, array('csrf_protection' => false))
+                ->add('selectedAvatar')->getForm();
+
+
+        if ($request->isMethod('POST')) {
+            $avatarChooseForm->bind($request);
+            if ($avatarChooseForm->isValid()) {
+                
+                $em = $this->getDoctrine()->getManager();
+                $user = $avatarChooseForm->getData();
+                $em->persist($user);
+                $em->flush();
+                
+                $response = new Response(json_encode(array(
+                            'state' => 200,
+                            'message' => "Enregistré",
+                            'result' => $user->getCurrentAvatarPath()
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+        }
+        return $this->redirect($retour);
+    }
 
 }

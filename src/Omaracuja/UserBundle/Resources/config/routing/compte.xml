@@ -25,5 +25,9 @@
         <default key="_controller">OmaracujaUserBundle:Avatar:resize</default>
     </route>
     
+    <route id="avatar_select" pattern="/avatar/{id}/select">
+        <default key="_controller">OmaracujaUserBundle:Avatar:select</default>
+    </route>
+    
 
 </routes>
