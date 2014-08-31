@@ -43,7 +43,8 @@ class ProfileController extends FOSProfileController {
         $formFactory = $this->container->get('fos_user.profile.form.factory');
         $form = $formFactory->createForm();
         $form->setData($user);
-
+        $form->add('name')->add('firstname');
+        
         $this->initAvatarForms($user);
         if ('POST' === $request->getMethod()) {
             $form->bind($request);

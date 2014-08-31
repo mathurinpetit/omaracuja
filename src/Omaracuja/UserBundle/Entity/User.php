@@ -32,7 +32,16 @@ class User extends BaseUser {
      * @ORM\OneToOne(targetEntity="Avatar")
      */
     protected $selectedAvatar;
-    
+
+    /**
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=true)
+     */
+    protected $firstname;
 
     /**
      * Get id
@@ -42,13 +51,29 @@ class User extends BaseUser {
     public function getId() {
         return $this->id;
     }
-    
+
     public function getSelectedAvatar() {
         return $this->selectedAvatar;
     }
-    
+
     public function setSelectedAvatar($avatar) {
         $this->selectedAvatar = $avatar;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getFirstname() {
+        return $this->firstname;
+    }
+
+    public function setFirstname($firstname) {
+        $this->firstname = $firstname;
     }
 
     public function hasRole($role) {
@@ -73,19 +98,19 @@ class User extends BaseUser {
     public function desactivate() {
         $this->actif = false;
     }
-    
+
     public function getCurrentAvatarPath() {
-        if(!count($this->avatars)){
+        if (!count($this->avatars)) {
             return "/data/avatars/omaracuja_avatar.jpg";
         }
-        if(!$this->selectedAvatar){
+        if (!$this->selectedAvatar) {
             return "/data/avatars/omaracuja_avatar.jpg";
         }
         return $this->selectedAvatar->getWebPath();
     }
-    
+
     public function getAvatars() {
-        return $this->avatars; 
+        return $this->avatars;
     }
 
 }

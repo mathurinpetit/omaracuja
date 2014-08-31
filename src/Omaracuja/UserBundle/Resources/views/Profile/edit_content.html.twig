@@ -2,19 +2,19 @@
 
 
 <div class="user_edit" id="crop-avatar">
-    
+
     {% if app.user.isAdmin() %}
-                <div class="col-md-12">            
-                    <p class="bg-info profile_show_value">Votre compte est un compte administrateur</p>            
-                </div>        
-            {% endif %}
+        <div class="col-md-12">            
+            <p class="bg-info profile_show_value">Votre compte est un compte administrateur</p>            
+        </div>        
+    {% endif %}
 
     <div class="col-md-4">
         <div class="avatar-view" title="Choisir une image dans ses avatars">
             <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
         </div>
-            <br/>
-            <a href="#" class="avatar-link" >Ajouter un Avatar</a>
+        <br/>
+        <a href="#" class="avatar-link" >Ajouter un Avatar</a>
         {% include 'OmaracujaUserBundle:Profile:avatar_cropping_modal.html.twig' with {'avatarForm': avatarForm} %}
         {% include 'OmaracujaUserBundle:Profile:avatars_view_modal.html.twig' with {'avatarChooseForm': avatarChooseForm} %}
     </div>
@@ -34,6 +34,16 @@
             <div class="error_list">{{ form_errors(form.current_password) }}</div>
             {{form_label(form.current_password)}}
             {{ form_widget(form.current_password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de Passe'} }) }}
+        </div> 
+        <div class="form-group">
+            <div class="error_list">{{ form_errors(form.name) }}</div>
+            {{form_label(form.name)}}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nom'} }) }}
+        </div>
+        <div class="form-group">
+            <div class="error_list">{{ form_errors(form.firstname) }}</div>
+            {{form_label(form.firstname)}}
+            {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder': 'Prénom'} }) }}
         </div>
         <div class="form-group">
             <div class="text-left col-lg-6">
