@@ -1,6 +1,6 @@
-admin_panel:
-     path:  /
-     defaults: { _controller: OmaracujaAdminBundle:Admin:indexPanel }
+admin_panel_users:
+     path:  /utilisateurs
+     defaults: { _controller: OmaracujaAdminBundle:Admin:userPanel }
      
 admin_user_activate:
      pattern: /activate/{userId}
@@ -9,3 +9,11 @@ admin_user_activate:
 admin_user_desactivate:
      pattern: /desactivate/{userId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:userDesactivate }
+     
+admin_panel_event:
+     path:  /evenements
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel }  
+     
+admin_panel_presentation:
+     path:  /presentation
+     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationPanel }

@@ -20,7 +20,7 @@
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-        
+
         {% stylesheets '@OmaracujaUserBundle/Resources/Public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -33,7 +33,7 @@
         <script src="{{ asset('/bundles/omaracujafront/select2/select2_locale_fr.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/cropper.js') }}"></script>  
         <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
-        
+
         {% javascripts '@OmaracujaUserBundle/Resources/Public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -47,10 +47,21 @@
                 <ul class="nav navbar-nav navbar-left navbar-form">
                     <li><a href="#" class="navbar-brand">Omaracuja</a></li>
                     <li><a href="#">Présentation</a></li>                        
-                    <li><a href="#">Evennements</a></li>
+                    <li><a href="#">Evènements</a></li>
                     <li><a href="#">Photos</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
-                        <li><a href="{{ path('admin_panel') }}">Administration</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ path('admin_panel_users') }}">Utilisateurs</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('admin_panel_event') }}">Evènements</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('admin_panel_presentation') }}">Page de présentation</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('admin_panel_presentation') }}">Page de présentation</a></li>
+                            </ul>
+                        </li>                        
                         {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-form">

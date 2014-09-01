@@ -9,19 +9,40 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin/indexPanel")
      * @Template()
      */
-    public function indexPanelAction()
+    public function userPanelAction()
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OmaracujaUserBundle:User')->findAll();
         return array('users' => $entities);
-    }    
-
+    }
+    
     /**
-     * @Route("/admin/activate/{userId}")
+     * @Template()
      */
+    public function presentationPanelAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('OmaracujaUserBundle:User')->findAll();
+        return array('users' => $entities);
+    }
+    
+    /**
+     * @Template()
+     */
+    public function eventPanelAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('OmaracujaUserBundle:User')->findAll();
+        return array('users' => $entities);
+    }
+    
+    
+    
+    
+    
+
     public function userActivateAction($userId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -32,9 +53,7 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('admin_panel'));
     }
     
-   /**
-     * @Route("/admin/desactivate/{userId}")
-     */
+
     public function userDesactivateAction($userId)
     {
         $em = $this->getDoctrine()->getManager();
