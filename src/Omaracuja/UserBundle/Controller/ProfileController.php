@@ -39,12 +39,14 @@ class ProfileController extends FOSProfileController {
         if (null !== $event->getResponse()) {
             return $event->getResponse();
         }
-        
+
         $formFactory = $this->container->get('fos_user.profile.form.factory');
         $form = $formFactory->createForm();
         $form->setData($user);
-        $form->add('name')->add('firstname');
-        
+        $form->add('name', 'text', array('label' => 'Nom :'));
+        $form->add('firstname', 'text', array('label' => 'Prénom :'));
+        unset($form['current_password']);
+
         $this->initAvatarForms($user);
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
@@ -58,14 +60,14 @@ class ProfileController extends FOSProfileController {
 
                 $userManager->updateUser($user);
                 $avatarFormResult = $request->get('form');
+                if ($avatarFormResult['file']) {
+                    $this->avatar->setFile($avatarFormResult['file']);
+                    $this->avatar->upload();
 
-                $avatar->setFile($avatarFormResult['file']);
-                $avatar->upload();
-
-                $em = $this->container->get('doctrine')->getManager();
-                $em->persist($avatar);
-                $em->flush();
-
+                    $em = $this->container->get('doctrine')->getManager();
+                    $em->persist($this->avatar);
+                    $em->flush();
+                }
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_profile_show');
                     $response = new RedirectResponse($url);
