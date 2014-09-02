@@ -16,4 +16,12 @@ admin_panel_event:
      
 admin_panel_presentation:
      path:  /presentation
-     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationPanel }
+     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationPanel }     
+     
+admin_new_presentation:
+     path:  /presentation/nouvelle-page
+     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationNew }
+     
+admin_create_presentation:
+     path:  /presentation/creation-page
+     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationCreate }
