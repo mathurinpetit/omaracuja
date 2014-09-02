@@ -76,9 +76,9 @@ class Presentation {
     private $fb_link;
     
     /**
-     * @var text $selected
+     * @var boolean $selected
      *
-     * @ORM\Column(name="selected", type="bigint", nullable=false)
+     * @ORM\Column(name="selected", type="boolean", nullable=false)
      */
     private $selected;
 
@@ -298,5 +298,17 @@ class Presentation {
     public function getSelected()
     {
         return $this->selected;
+    }
+    
+    public function isSelected() {
+        return $this->getSelected();
+    }
+    
+    public function select(){
+        $this->selected = true;
+    }
+    
+    public function unselect(){
+        $this->selected = false;
     }
 }

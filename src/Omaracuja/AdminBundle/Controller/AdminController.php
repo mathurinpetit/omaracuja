@@ -46,7 +46,6 @@ class AdminController extends Controller {
             'action' => $this->generateUrl('admin_create_presentation'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Enregistrer'));
 
         return array(
             'presentation' => $presentation,
@@ -58,20 +57,24 @@ class AdminController extends Controller {
      * @Template()
      */
     public function presentationCreateAction(Request $request) {
-        $entity = new Presentation();
-        $form = $this->createCreateForm($entity);
+        $presentation = new Presentation();
+        $form = $this->createForm(new PresentationType(), $presentation, array(
+            'action' => $this->generateUrl('admin_create_presentation'),
+            'method' => 'POST',
+        ));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $presentation->select();
+            $em->persist($presentation);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_panel_presentation'));
         }
 
         return array(
-            'entity' => $entity,
+            'entity' => $presentation,
             'form' => $form->createView(),
         );
     }

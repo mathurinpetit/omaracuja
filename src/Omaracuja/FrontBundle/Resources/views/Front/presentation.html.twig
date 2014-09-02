@@ -8,55 +8,61 @@
 
 {% block content %}
     <div class="main">
-        <h2>TITRE A DEFINIR</h2>
-        <br/>
-        <br/>
-        <div class="col-lg-5">
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet ex sit amet diam mollis, nec auctor lacus sollicitudin. Nulla dignissim, tellus a imperdiet eleifend, dui diam condimentum turpis, eu gravida nisl libero a tellus. Donec mattis mauris vitae erat vehicula efficitur. Vivamus sed eros sed turpis condimentum porta. Praesent ullamcorper nulla venenatis mauris fringilla, vel vulputate sapien tempor. Quisque gravida nunc lacus, a luctus est vestibulum ac. Nunc accumsan vehicula augue, at pharetra augue aliquam ut. Maecenas hendrerit tristique urna, ut euismod turpis fringilla ut. </p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet ex sit amet diam mollis, nec auctor lacus sollicitudin. Nulla dignissim, tellus a imperdiet eleifend, dui diam condimentum turpis, eu gravida nisl libero a tellus. Donec mattis mauris vitae erat vehicula efficitur. Vivamus sed eros sed turpis condimentum porta. Praesent ullamcorper nulla venenatis mauris fringilla, vel vulputate sapien tempor. Quisque gravida nunc lacus, a luctus est vestibulum ac. Nunc accumsan vehicula augue, at pharetra augue aliquam ut. Maecenas hendrerit tristique urna, ut euismod turpis fringilla ut. </p>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet ex sit amet diam mollis, nec auctor lacus sollicitudin. Nulla dignissim, tellus a imperdiet eleifend, dui diam condimentum turpis, eu gravida nisl libero a tellus. Donec mattis mauris vitae erat vehicula efficitur. Vivamus sed eros sed turpis condimentum porta. Praesent ullamcorper nulla venenatis mauris fringilla, vel vulputate sapien tempor. Quisque gravida nunc lacus, a luctus est vestibulum ac. Nunc accumsan vehicula augue, at pharetra augue aliquam ut. Maecenas hendrerit tristique urna, ut euismod turpis fringilla ut. </p>
+        {% if not actual_presentation is null %}
+            <h1>{{ actual_presentation.title }}</h1>
+            <br/>
+            <br/>
+            <div class="col-lg-5">
+                <p>{{ actual_presentation.paragraph1 }}</p>
+                {% if not actual_presentation.paragraph2 is null %}
+                    <p>{{ actual_presentation.paragraph2 }}</p>
+                {% endif %}
+                {% if not actual_presentation.paragraph3 is null %}
+                    <p>{{ actual_presentation.paragraph3 }}</p>
+                {% endif %}
+            </div>
+            <div class="col-lg-7">
+                <div class="row">
+                    {% if not actual_presentation.mapLink is null %}                    
+                        <iframe src="{{ actual_presentation.mapLink }}" width="600" height="450" frameborder="0" style="border:0"></iframe> 
+                    {% endif %}
+                </div>
+                <br/> 
+                {% if not actual_presentation.adresse is null %}   
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Adresse :
+                        </div>
+                        <div class="col-lg-8">
+                            {{ actual_presentation.adresse }}
+                        </div>                
+                    </div> 
+                {% endif %} 
+                {% if not actual_presentation.contact is null %}   
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Contactez-nous :
+                        </div>
+                        <div class="col-lg-8">
+                            {{ actual_presentation.contact }}
+                        </div>                
+                    </div>
+                {% endif %} 
+                {% if not actual_presentation.fbLink is null %}   
 
-        </div>
-        <div class="col-lg-7">
-            <div class="row">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2626.6799142278032!2d2.3447563999999996!3d48.8261684!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67197802c601b%3A0xe08ae6115557f449!2s226+Rue+de+Tolbiac%2C+75013+Paris!5e0!3m2!1sfr!2sfr!4v1409597194127" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                    <br/>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            Facebook c'est AC
+                        </div>
+                        <div class="col-lg-8">
+                            {{ actual_presentation.fbLink }}
+                        </div>                
+                    </div>
+                {% endif %}   
             </div>
-            <br/>
-            <div class="row">
-                <div class="col-lg-4">
-                    Adresse :
-                </div>
-                <div class="col-lg-8">
-                   BLABLABLA
-                </div>                
-            </div>
-            <br/>
-             <div class="row">
-                <div class="col-lg-4">
-                    Contactez-nous :
-                </div>
-                <div class="col-lg-8">
-                   BLABLABLA
-                </div>                
-            </div>
-            <br/>
-             <div class="row">
-                <div class="col-lg-4">
-                    Contactez-nous :
-                </div>
-                <div class="col-lg-8">
-                   BLABLABLA
-                </div>                
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                   Facebook c'est AC
-                </div>
-                <div class="col-lg-8">
-                   BLABLABLA
-                </div>                
-            </div>
-        </div>
+        {% endif %}
     </div>
 
 {% endblock %}

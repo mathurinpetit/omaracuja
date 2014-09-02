@@ -21,8 +21,8 @@
             </div>
             <div class="col-lg-7">
                 <div class="row">
-                    {% if not actual_presentation.map_link is null %}                    
-                        <iframe src="{{ actual_presentation.map_link }}" width="600" height="450" frameborder="0" style="border:0"></iframe> 
+                    {% if not actual_presentation.mapLink is null %}                    
+                        <iframe src="{{ actual_presentation.mapLink }}" width="600" height="450" frameborder="0" style="border:0"></iframe> 
                     {% endif %}
                 </div>
                 <br/> 
@@ -47,7 +47,7 @@
                         </div>                
                     </div>
                 {% endif %} 
-                {% if not actual_presentation.fb_link is null %}   
+                {% if not actual_presentation.fbLink is null %}   
 
                     <br/>
                     <div class="row">
@@ -55,10 +55,22 @@
                             Facebook c'est AC
                         </div>
                         <div class="col-lg-8">
-                            {{ actual_presentation.fb_link }}
+                            {{ actual_presentation.fbLink }}
                         </div>                
                     </div>
                 {% endif %}   
+            </div>
+            <br/> 
+            <br/> 
+            <br/>  
+            <br/>
+            <div class="form-group">
+                <div class="text-left col-lg-6">
+                    <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
+                </div>
+                <div class="text-right col-lg-6">
+                    <a href="{{ path('admin_new_presentation') }}" class="btn btn-default btn-warning text-right">Ajout d'une page de présentation</a>
+                </div>
             </div>
         {% else %} 
             <br/>
