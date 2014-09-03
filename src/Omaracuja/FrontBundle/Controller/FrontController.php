@@ -13,9 +13,10 @@ class FrontController extends Controller {
      * @Template()
      */
     public function accueilAction() {
-        return array();
+        return $this->getAccueil();
     }
-        /**
+
+    /**
      * @Template()
      */
     public function presentationAction() {
@@ -29,6 +30,14 @@ class FrontController extends Controller {
         }
         return array('actual_presentation' => $actual_presentation);
     }
-    
+
+    private function getAccueil() {
+        $em = $this->getDoctrine()->getManager();
+        $blogPosts = $em->getRepository('OmaracujaFrontBundle:BlogPost')->findAll();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $connected = !($user == "anon.");
+        return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user,'connected' => $connected
+        ));
+    }
 
 }
