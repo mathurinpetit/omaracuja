@@ -3,6 +3,9 @@ namespace Omaracuja\FrontBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Omaracuja\UserBundle\Entity\User as User;
+
+use \DateTime;
 /**
  * @ORM\Entity
  * @ORM\Table(name="omaracuja_blog_post")
@@ -19,16 +22,8 @@ class BlogPost
     private $id;
     
     /**
-     * @var string $group
-     *
-     * @ORM\Column(name="group", type="string", nullable=false)
-     */
-    private $group;
-
-    /**
-     * @var string $author
-     *
-     * @ORM\Column(name="author", type="string", length=100, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="blogPosts")
+     * @ORM\JoinColumn(name="author", referencedColumnName="id", nullable=false)
      */
     private $author;
 
@@ -45,6 +40,144 @@ class BlogPost
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
+    
+    /**
+     * @var boolean $public
+     *
+     * @ORM\Column(name="public", type="boolean", nullable=false)
+     */
+    private $public;
 
     
+
+    public function __construct(User $user) {
+        $this->author = $user;
+        $this->createdAt = new DateTime();
+        $this->public = true;
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set group
+     *
+     * @param string $group
+     * @return BlogPost
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return string 
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     * @return BlogPost
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return BlogPost
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return BlogPost
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     * @return BlogPost
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean 
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
 }

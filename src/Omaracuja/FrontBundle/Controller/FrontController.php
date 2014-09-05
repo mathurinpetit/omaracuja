@@ -4,15 +4,18 @@ namespace Omaracuja\FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
+use Omaracuja\FrontBundle\Entity\BlogPost;
+use Omaracuja\FrontBundle\Form\BlogPostType;
 
 class FrontController extends Controller {
 
     /**
      * @Template()
      */
-    public function accueilAction() {
+    public function accueilAction(Request $request) {
         return $this->getAccueil();
     }
 
@@ -32,12 +35,51 @@ class FrontController extends Controller {
     }
 
     private function getAccueil() {
+
+        //User
         $em = $this->getDoctrine()->getManager();
         $blogPosts = $em->getRepository('OmaracujaFrontBundle:BlogPost')->findAll();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $connected = !($user == "anon.");
-        return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user,'connected' => $connected
+
+        //PostCreation
+        $newBlogPost = null;
+        $newBlogPostForm = null;
+        if ($connected) {
+            $newBlogPost = new BlogPost($user);
+            $newBlogPostForm = $this->createForm(new BlogPostType(), $newBlogPost, array(
+                'action' => $this->generateUrl('front_blog_post_create'),
+                'method' => 'POST',
+            ));
+
+            return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected, 'newBlogPostForm' => $newBlogPostForm->createView()));
+        }
+        return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected));
+    }
+
+    public function blogPostCreateAction(Request $request) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $newBlogPost = new BlogPost($user);
+        $newBlogPostForm = $this->createForm(new BlogPostType(), $newBlogPost, array(
+            'action' => $this->generateUrl('front_blog_post_create'),
+            'method' => 'POST',
+        ));
+
+        $newBlogPostForm->handleRequest($request);
+
+        if ($newBlogPostForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newBlogPost);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('front_accueil'));
+        }
+
+        return $this->render('OmaracujaFrontBundle:BlogPost:new.html.twig', array(
+                    'entity' => $newBlogPost,
+                    'form' => $newBlogPostForm->createView(),
         ));
     }
+
 
 }

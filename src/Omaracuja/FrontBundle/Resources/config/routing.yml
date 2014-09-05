@@ -5,3 +5,7 @@ front_accueil:
 front_presentation:
      path:  /presentation
      defaults: { _controller: OmaracujaFrontBundle:Front:presentation }
+     
+front_blog_post_create:
+     path:  /blogPostCreate
+     defaults: { _controller: OmaracujaFrontBundle:Front:blogPostCreate }

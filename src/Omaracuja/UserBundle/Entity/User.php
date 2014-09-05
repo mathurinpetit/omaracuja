@@ -5,6 +5,8 @@ namespace Omaracuja\UserBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
+use Omaracuja\FrontBundle\Entity\BlogPost as BlogPost;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="omaracuja_user")
@@ -27,6 +29,11 @@ class User extends BaseUser {
      * @ORM\OneToMany(targetEntity="Avatar", mappedBy="user")
      */
     protected $avatars;
+    
+     /**
+     * @ORM\OneToMany(targetEntity="Omaracuja\FrontBundle\Entity\BlogPost", mappedBy="author")
+     */
+    protected $blogPosts;
 
     /**
      * @ORM\OneToOne(targetEntity="Avatar")

@@ -15,10 +15,7 @@ class BlogPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('group')
-            ->add('author')
             ->add('content')
-            ->add('createdAt')
         ;
     }
     
