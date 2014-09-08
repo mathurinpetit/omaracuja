@@ -31,6 +31,10 @@
      padding: 10px;
 }
 
+.post_text{
+     padding-top: 25px;
+}
+
 .post_user_avatar{
     width: 120px;
     height: 120px;
