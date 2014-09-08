@@ -94,7 +94,7 @@ class AdminController extends Controller {
         $entity->activate();
         $em->persist($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_panel'));
+        return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
     public function userDesactivateAction($userId) {
@@ -103,7 +103,7 @@ class AdminController extends Controller {
         $entity->desactivate();
         $em->persist($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_panel'));
+        return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
 }
