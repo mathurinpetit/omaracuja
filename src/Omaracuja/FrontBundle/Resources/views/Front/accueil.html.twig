@@ -8,11 +8,34 @@
 
 {% block content %}
     <div class="main">
-        {% if connected %}
-            {% include "OmaracujaFrontBundle:Front:user_accueil.html.twig" %}
-        {% else%} 
-            {% include "OmaracujaFrontBundle:Front:anonymous_accueil.html.twig" %}
-        {% endif %}
+        <div class="col-md-12">  
+            {% if connected %}
+                {% include "OmaracujaFrontBundle:Front:user_accueil.html.twig" %}
+            {% endif %}
+            {% for blogPost in blogPosts %}
+                <div class="row post panel panel-default">
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ blogPost.author.getCurrentAvatarPath }}" alt="{{ blogPost.author.name }}" class="img-rounded post_user_avatar"> 
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="post_user_description">{{ blogPost.author.username }}</p>
+                                <p class="post_user_description">{{ blogPost.author.firstname }} {{ blogPost.author.name }}</p>
+                                <p>{{ blogPost.createdAt|date('d/m/Y H:i:s')}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 panel panel-default">
+                        {% autoescape false %}
+                        {{ blogPost.content }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+
+</div>
 
 {% endblock %}

@@ -26,3 +26,16 @@
     margin: 0 !important;
 }
 
+
+.post{
+     padding: 10px;
+}
+
+.post_user_avatar{
+    width: 120px;
+    height: 120px;
+}
+
+.post_user_description{
+    font-weight: bold;
+}

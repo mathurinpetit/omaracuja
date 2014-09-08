@@ -4,7 +4,6 @@ namespace Omaracuja\FrontBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Omaracuja\FrontBundle\Entity\BlogPost;
 use Omaracuja\FrontBundle\Form\BlogPostType;
 
@@ -12,56 +11,56 @@ use Omaracuja\FrontBundle\Form\BlogPostType;
  * BlogPost controller.
  *
  */
-class BlogPostController extends Controller
-{
+class BlogPostController extends Controller {
 
     /**
      * Lists all BlogPost entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OmaracujaFrontBundle:BlogPost')->findAll();
 
         return $this->render('OmaracujaFrontBundle:BlogPost:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new BlogPost entity.
      *
      */
-    public function createAction(Request $request)
-    {
-        $entity = new BlogPost();
-        $form = $this->createCreateForm($entity);
+    public function createAction(Request $request) {
+        $post = new BlogPost();
+        $form = $this->createCreateForm($post);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
+            $post = $this->addYoutubeEmbed($post);
+
+            $em->persist($post);
             $em->flush();
 
             return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OmaracujaFrontBundle:BlogPost:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a BlogPost entity.
-    *
-    * @param BlogPost $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(BlogPost $entity)
-    {
+     * Creates a form to create a BlogPost entity.
+     *
+     * @param BlogPost $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(BlogPost $entity) {
         $form = $this->createForm(new BlogPostType(), $entity, array(
             'action' => $this->generateUrl('article_create'),
             'method' => 'POST',
@@ -76,14 +75,13 @@ class BlogPostController extends Controller
      * Displays a form to create a new BlogPost entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new BlogPost();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OmaracujaFrontBundle:BlogPost:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +89,7 @@ class BlogPostController extends Controller
      * Finds and displays a BlogPost entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OmaracujaFrontBundle:BlogPost')->find($id);
@@ -104,16 +101,15 @@ class BlogPostController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OmaracujaFrontBundle:BlogPost:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing BlogPost entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OmaracujaFrontBundle:BlogPost')->find($id);
@@ -126,21 +122,20 @@ class BlogPostController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OmaracujaFrontBundle:BlogPost:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a BlogPost entity.
-    *
-    * @param BlogPost $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(BlogPost $entity)
-    {
+     * Creates a form to edit a BlogPost entity.
+     *
+     * @param BlogPost $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(BlogPost $entity) {
         $form = $this->createForm(new BlogPostType(), $entity, array(
             'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -150,12 +145,12 @@ class BlogPostController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing BlogPost entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OmaracujaFrontBundle:BlogPost')->find($id);
@@ -175,17 +170,17 @@ class BlogPostController extends Controller
         }
 
         return $this->render('OmaracujaFrontBundle:BlogPost:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a BlogPost entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -211,13 +206,13 @@ class BlogPostController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('article_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('article_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }
