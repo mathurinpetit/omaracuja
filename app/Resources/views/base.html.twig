@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
         <meta name="robots" content="noindex,nofollow" />
@@ -16,7 +16,9 @@
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2-bootstrap.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
-        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/cropper.css') }}" />        
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/cropper.css') }}" />     
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/summernote.css') }}" /> 
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/font-awesome.min.css') }}" /> 
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -24,7 +26,7 @@
         {% stylesheets '@OmaracujaUserBundle/Resources/Public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-
+        
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/jquery-ui-1.10.0.custom.min.js') }}"></script>
@@ -33,6 +35,8 @@
         <script src="{{ asset('/bundles/omaracujafront/select2/select2_locale_fr.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/cropper.js') }}"></script>  
         <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/summernote/summernote.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/summernote/summernote-fr-FR.js') }}"></script>
 
         {% javascripts '@OmaracujaUserBundle/Resources/Public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

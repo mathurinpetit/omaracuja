@@ -139,37 +139,3 @@ body {
 .avatar_selected {
     border: 3px solid darkred;
 }
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 17 août 2014, 20:53:19
-    Author     : mathurin
-*/
-
-
-form .form-group .error_list ul{
-    list-style: none;
-}
-
-form .form-group .error_list li{
-    color: darkred;
-    font-weight: bold;
-}
-
-.user_edit, .user_show{
-    padding-top: 20px;
-}
-
-.profile_show_value{
-    
-    height: 34px;
-    line-height: 1.42857;
-    padding: 6px 12px;
-}
-
-.remember_me label{
-    color: #999;
-}

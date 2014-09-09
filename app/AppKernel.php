@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             
             new Omaracuja\UserBundle\OmaracujaUserBundle(),           
             new Omaracuja\FrontBundle\OmaracujaFrontBundle(),

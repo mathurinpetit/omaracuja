@@ -28,6 +28,13 @@ class BlogPost
     private $author;
 
     /**
+     * @var string $title
+     *
+     * @ORM\Column(name="title", type="string", length=1024, nullable=false)
+     */
+    private $title;
+    
+    /**
      * @var text $content
      *
      * @ORM\Column(name="content", type="text", nullable=false)
@@ -180,5 +187,28 @@ class BlogPost
     public function getPublic()
     {
         return $this->public;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return BlogPost
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

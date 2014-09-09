@@ -17,9 +17,10 @@ class BlogPostType extends AbstractType
         $builder
             ->add('content','textarea', array(
         'attr' => array(
-            'class' => 'tinymce',
-            'data-theme' => 'bbcode' 
-        )));
+            'class' => 'summernote'
+        )))->add('title')->add('public', 'checkbox', array(
+                    'label' => 'Post publique'
+                ));
     }
     
     /**

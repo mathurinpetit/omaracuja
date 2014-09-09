@@ -6,22 +6,35 @@
 
 $(document).ready(function() {
 
-        $('.datetimepicker').datetimepicker({
+    $('.datetimepicker').datetimepicker({
         lang: 'fr',
-        i18n:{
-            fr:{
-                months:["Janvier", "Février", "Mars", "Avril",
+        i18n: {
+            fr: {
+                months: ["Janvier", "Février", "Mars", "Avril",
                     "Mai", "Juin", "Juillet", "Août", "Septembre",
                     "Octobre", "Novembre", "Décembre"],
-                dayOfWeek:[
+                dayOfWeek: [
                     "Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam",
                 ]
             }
         },
-        timepicker:false,
-        format:'d M Y'
-    });   
-    
+        timepicker: false,
+        format: 'd M Y'
+    });
+
+    $('.summernote').summernote({
+        lang: 'fr-FR',
+        toolbar: [
+
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+        ]
+    });
+
 
 });
 
