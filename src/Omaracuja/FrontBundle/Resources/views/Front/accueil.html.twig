@@ -17,11 +17,11 @@
                     <div class="col-lg-3">
                         <div class="row">
                             <div class="col-lg-6">
-                                {% if(blogPost.author.id == user.id)%}
+                                {% if(connected and blogPost.author.id == user.id)%}
                                     <a href="{{ path('fos_user_profile_show') }}">
                                     {% endif %}
                                     <img src="{{ blogPost.author.getCurrentAvatarPath }}" alt="{{ blogPost.author.name }}" class="img-rounded post_user_avatar"> 
-                                    {% if(blogPost.author.id == user.id)%}
+                                    {% if(connected and blogPost.author.id == user.id)%}
                                     </a>
                                 {% endif %}
                             </div>

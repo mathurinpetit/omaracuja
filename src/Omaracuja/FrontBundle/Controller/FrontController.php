@@ -37,9 +37,9 @@ class FrontController extends Controller {
     private function getAccueil() {
 
         //User        
-        $blogPosts = $this->getBlogPostsStrategy();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $connected = !($user == "anon.") && $user->isActif();
+        $blogPosts = $this->getBlogPostsStrategy($connected,$user);
 
         //PostCreation
         $newBlogPost = null;
@@ -56,9 +56,14 @@ class FrontController extends Controller {
         return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected));
     }
 
-    private function getBlogPostsStrategy(){
+    private function getBlogPostsStrategy($connected = false, $user = false){
         $em = $this->getDoctrine()->getManager();
-       return $em->getRepository('OmaracujaFrontBundle:BlogPost')->findAll();
+        $blogPostRepository = $em->getRepository('OmaracujaFrontBundle:BlogPost');
+        if($connected && $user->isActif()){
+           return $blogPostRepository->findAllOrderedByDateWithLimit();
+        }else{
+            return $blogPostRepository->findPublicOrderedByDateWithLimit();
+        }
     }
     
     public function blogPostCreateAction(Request $request) {
