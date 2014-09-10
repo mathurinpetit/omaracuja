@@ -6,6 +6,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 use Omaracuja\FrontBundle\Entity\BlogPost as BlogPost;
+use Omaracuja\FrontBundle\Entity\Event as Event;
 
 /**
  * @ORM\Entity
@@ -50,6 +51,16 @@ class User extends BaseUser {
      */
     protected $firstname;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\FrontBundle\Entity\Event", mappedBy="proposedTeam")
+     */
+    protected $proposedEvents;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\FrontBundle\Entity\Event", mappedBy="actualTeam")
+     */
+    protected $participateEvents;
+    
     /**
      * Get id
      *

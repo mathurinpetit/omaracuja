@@ -8,7 +8,7 @@ use Omaracuja\UserBundle\Entity\User as User;
 use \DateTime;
 /**
  * @ORM\Entity
- * @ORM\Table(name="omaracuja_blog_post") * 
+ * @ORM\Table(name="omaracuja_blog_post")
  * @ORM\Entity(repositoryClass="Omaracuja\FrontBundle\Entity\BlogPostRepository")
  */
 class BlogPost
