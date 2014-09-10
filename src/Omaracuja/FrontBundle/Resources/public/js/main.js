@@ -18,8 +18,8 @@ $(document).ready(function() {
                 ]
             }
         },
-        timepicker: false,
-        format: 'd M Y'
+        timepicker: true,
+        format: 'd M Y H:i'
     });
 
     $('.summernote').summernote({

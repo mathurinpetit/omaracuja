@@ -109,7 +109,7 @@ class AdminController extends Controller {
 
         if ($newEventForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($newEventForm);
+            $em->persist($newEvent);
             $em->flush();
 
             return $this->redirect($this->generateUrl('front_evennement'));

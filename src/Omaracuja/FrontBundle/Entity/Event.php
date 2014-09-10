@@ -60,7 +60,7 @@ class Event
     /**
      * @var datetime $endAt
      *
-     * @ORM\Column(name="end_at", type="datetime", nullable=false)
+     * @ORM\Column(name="end_at", type="datetime", nullable=true)
      */
     private $endAt;
     

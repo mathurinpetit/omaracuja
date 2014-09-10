@@ -5,17 +5,60 @@
 
 {% block content %}
     <div class="main">   
-        {{ form(newEventForm) }}
-        <h1>Liste des 10 derniers Evènements</h1>
-        <table class="table table-responsive">
-            <thead>
-                <tr></tr>
-            </thead>
-            <tbody>
-               
-            </tbody>
-        </table>
-    </div>
+
+        <h3>Ajout d'un Evènements</h3>    
+        <br/>
+        <div class="col-md-12">  
+            {{ form_start(newEventForm, {'attr': {'novalidate': 'novalidate'} }) }}
+            <div class="form-group">
+                <div class="error_list">{{ form_errors(newEventForm.title) }}</div>
+                {{ form_label(newEventForm.title) }}
+                {{ form_widget(newEventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+            <div class="form-group">
+                <div class="error_list">{{ form_errors(newEventForm.description) }}</div>
+                {{form_label(newEventForm.description)}}
+                {{ form_widget(newEventForm.description, {'attr': {'class': 'form-control summernote', 'placeholder': 'Description'} }) }}
+            </div>
+            <div class="row">  
+                <div class="col-md-4 post">
+                    {{ form_label(newEventForm.public) }}
+                    {{ form_widget(newEventForm.public) }}
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <div class="error_list">{{ form_errors(newEventForm.startAt) }}</div>
+                    {{form_label(newEventForm.startAt)}}
+                    {{ form_widget(newEventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'startAt'} }) }}
+                </div>        
+                <div class="col-md-4 form-group">
+                    <div class="error_list">{{ form_errors(newEventForm.endAt) }}</div>
+                    {{form_label(newEventForm.endAt)}}
+                    {{ form_widget(newEventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'endAt'} }) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="error_list">{{ form_errors(newEventForm.place) }}</div>
+                {{form_label(newEventForm.place)}}
+                {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control', 'placeholder': 'place'} }) }}
+            </div>
+
+            <div class="form-group">
+                <div class="error_list">{{ form_errors(newEventForm.proposedTeam) }}</div>
+                {{form_label(newEventForm.proposedTeam)}}
+                {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control', 'placeholder': 'proposedTeam'} }) }}
+            </div>     
 
 
-{% endblock %}
+            <div class="form-group">
+                <div class="text-right col-lg-6">
+                    <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
+                </div>
+            </div>
+            {{form_end(newEventForm)}}
+
+        </div>
+
+
+    {% endblock %}
