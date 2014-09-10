@@ -20,6 +20,7 @@
                 {{form_label(newEventForm.description)}}
                 {{ form_widget(newEventForm.description, {'attr': {'class': 'form-control summernote', 'placeholder': 'Description'} }) }}
             </div>
+
             <div class="row">  
                 <div class="col-md-4 post">
                     {{ form_label(newEventForm.public) }}
@@ -38,10 +39,16 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="error_list">{{ form_errors(newEventForm.place) }}</div>
-                {{form_label(newEventForm.place)}}
-                {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control', 'placeholder': 'place'} }) }}
+            <div class="row">  
+                <div class="col-md-3 form-group">
+                    <div class="error_list">{{ form_errors(newEventForm.place) }}</div>
+                    {{form_label(newEventForm.place)}}
+                    {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'place'} }) }}
+                    <br/>
+                    <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
+                </div>
+                <div id="map-canvas" class="col-md-8" style="height:250px;margin-right: 15px; float: right;"></div>
+
             </div>
 
             <div class="form-group">
@@ -49,7 +56,6 @@
                 {{form_label(newEventForm.proposedTeam)}}
                 {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control', 'placeholder': 'proposedTeam'} }) }}
             </div>     
-
 
             <div class="form-group">
                 <div class="text-right col-lg-6">

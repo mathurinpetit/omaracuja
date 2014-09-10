@@ -25,7 +25,6 @@ $(document).ready(function() {
     $('.summernote').summernote({
         lang: 'fr-FR',
         toolbar: [
-
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough']],
             ['fontsize', ['fontsize']],
@@ -35,7 +34,50 @@ $(document).ready(function() {
         ]
     });
 
+    var geocoder;
+    var map;
+// initialisation de la carte Google Map de départ
+    var initMap = function() {
+        geocoder = new google.maps.Geocoder();
 
+        var latlng = new google.maps.LatLng(48.856614, 2.3522219000000177);
+        var mapOptions = {
+            zoom: 14,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        // map-canvas est le conteneur HTML de la carte Google Map
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    }
+
+    var findAdress = function() {
+        // Récupération de l'adresse tapée dans le formulaire
+        var adresse = $('.google_map_adress').val();
+        console.log(adresse);
+        geocoder.geocode({'address': adresse}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                // Récupération des coordonnées GPS du lieu tapé dans le formulaire
+                var strposition = results[0].geometry.location + "";
+                strposition = strposition.replace('(', '');
+                strposition = strposition.replace(')', '');
+                // Création du marqueur du lieu (épingle)
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Adresse introuvable: ' + status);
+            }
+        });
+    }
+
+
+// Lancement de la construction de la carte google map
+    google.maps.event.addDomListener(window, 'load', initMap);
+
+    $('#google_map_refresh_map').click(findAdress);
 });
+
 
 
