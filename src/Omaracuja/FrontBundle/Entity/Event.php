@@ -92,4 +92,241 @@ class Event
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Event
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Event
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Event
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     * @return Event
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean 
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set startAt
+     *
+     * @param \DateTime $startAt
+     * @return Event
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    /**
+     * Get startAt
+     *
+     * @return \DateTime 
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
+    }
+
+    /**
+     * Set endAt
+     *
+     * @param \DateTime $endAt
+     * @return Event
+     */
+    public function setEndAt($endAt)
+    {
+        $this->endAt = $endAt;
+
+        return $this;
+    }
+
+    /**
+     * Get endAt
+     *
+     * @return \DateTime 
+     */
+    public function getEndAt()
+    {
+        return $this->endAt;
+    }
+
+    /**
+     * Set place
+     *
+     * @param string $place
+     * @return Event
+     */
+    public function setPlace($place)
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * Get place
+     *
+     * @return string 
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
+    /**
+     * Add proposedTeam
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $proposedTeam
+     * @return Event
+     */
+    public function addProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam)
+    {
+        $this->proposedTeam[] = $proposedTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove proposedTeam
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $proposedTeam
+     */
+    public function removeProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam)
+    {
+        $this->proposedTeam->removeElement($proposedTeam);
+    }
+
+    /**
+     * Get proposedTeam
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProposedTeam()
+    {
+        return $this->proposedTeam;
+    }
+
+    /**
+     * Add actualTeam
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $actualTeam
+     * @return Event
+     */
+    public function addActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam)
+    {
+        $this->actualTeam[] = $actualTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove actualTeam
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $actualTeam
+     */
+    public function removeActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam)
+    {
+        $this->actualTeam->removeElement($actualTeam);
+    }
+
+    /**
+     * Get actualTeam
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getActualTeam()
+    {
+        return $this->actualTeam;
+    }
 }

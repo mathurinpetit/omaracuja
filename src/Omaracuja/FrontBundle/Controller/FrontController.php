@@ -18,6 +18,20 @@ class FrontController extends Controller {
     public function accueilAction(Request $request) {
         return $this->getAccueil();
     }
+    
+    /**
+     * @Template()
+     */
+    public function evennementAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();
+
+        return array(
+            'events' => $events,
+        );
+    }
+    
 
     /**
      * @Template()
@@ -35,7 +49,6 @@ class FrontController extends Controller {
     }
 
     private function getAccueil() {
-
         //User        
         $user = $this->container->get('security.context')->getToken()->getUser();
         $connected = !($user == "anon.") && $user->isActif();

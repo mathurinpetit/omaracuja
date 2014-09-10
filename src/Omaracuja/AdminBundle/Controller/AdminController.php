@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
 use Omaracuja\AdminBundle\Form\PresentationType as PresentationType;
+use Omaracuja\FrontBundle\Entity\Event as Event;
+use Omaracuja\FrontBundle\Form\EventType as EventType;
 
 class AdminController extends Controller {
 
@@ -83,9 +85,40 @@ class AdminController extends Controller {
      * @Template()
      */
     public function eventPanelAction() {
+
+        //EvennementCreation
+        $newEvent = new Event();
+        $newEventForm = $this->createForm(new EventType(), $newEvent, array(
+            'action' => $this->generateUrl('admin_event_create'),
+            'method' => 'POST',
+        ));
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OmaracujaUserBundle:User')->findAll();
-        return array('users' => $entities);
+        $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAll();
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('events' => $events, 'newEvent' => $newEvent, 'newEventForm' => $newEventForm->createView()));
+    }
+    
+    public function eventCreateAction(Request $request) {
+        
+        $newEvent = new Event();
+        $newEventForm = $this->createForm(new EventType(), $newEvent, array(
+            'action' => $this->generateUrl('admin_event_create'),
+            'method' => 'POST',
+        ));
+
+        $newEventForm->handleRequest($request);
+
+        if ($newEventForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newEventForm);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('front_evennement'));
+        }
+
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array(
+                    'newEvent' => $newEvent,
+                    'newEventForm' => $newEventForm->createView(),
+        ));
     }
 
     public function userActivateAction($userId) {

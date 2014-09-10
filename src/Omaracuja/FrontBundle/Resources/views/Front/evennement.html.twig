@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Accueil{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h2>LISTE EVENTS</h2>
+        <div class="col-md-12">  
+            {% for event in events %}
+                <div class="row post panel panel-default">
+                    <div class="col-lg-3">
+                        <div class="row">
+                       
+                            <div class="col-lg-6">
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="post_user_description">{{ event.id }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        <br/>
+                        <div class="col-lg-9 panel panel-default  post_text">
+                            {% autoescape false %}
+                                {{ event.content }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

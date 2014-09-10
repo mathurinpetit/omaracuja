@@ -25,3 +25,7 @@ admin_new_presentation:
 admin_create_presentation:
      path:  /presentation/creation-page
      defaults: { _controller: OmaracujaAdminBundle:Admin:presentationCreate }
+     
+admin_event_create:
+     path:  /eventCreate
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventCreate }

@@ -9,3 +9,8 @@ front_presentation:
 front_blog_post_create:
      path:  /blogPostCreate
      defaults: { _controller: OmaracujaFrontBundle:Front:blogPostCreate }
+     
+front_evennement:
+     path:  /evennements
+     defaults: { _controller: OmaracujaFrontBundle:Front:evennement }    
+     
