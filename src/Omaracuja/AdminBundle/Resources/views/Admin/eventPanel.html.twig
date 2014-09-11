@@ -33,12 +33,12 @@
                 <div class="col-md-4 form-group">
                     <div class="error_list">{{ form_errors(newEventForm.startAt) }}</div>
                     {{form_label(newEventForm.startAt)}}
-                    {{ form_widget(newEventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'startAt'} }) }}
+                    {{ form_widget(newEventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
                 </div>        
                 <div class="col-md-4 form-group">
                     <div class="error_list">{{ form_errors(newEventForm.endAt) }}</div>
                     {{form_label(newEventForm.endAt)}}
-                    {{ form_widget(newEventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'endAt'} }) }}
+                    {{ form_widget(newEventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                 <div class="col-md-3 form-group">
                     <div class="error_list">{{ form_errors(newEventForm.place) }}</div>
                     {{form_label(newEventForm.place)}}
-                    {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'place'} }) }}
+                    {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
                     <br/>
                     <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
                 </div>
@@ -57,7 +57,7 @@
             <div class="form-group">
                 <div class="error_list">{{ form_errors(newEventForm.proposedTeam) }}</div>
                 {{form_label(newEventForm.proposedTeam)}}
-                {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control', 'placeholder': 'proposedTeam'} }) }}
+                {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
             </div>     
 
             <div class="form-group">

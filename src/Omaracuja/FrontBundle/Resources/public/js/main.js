@@ -77,6 +77,9 @@ $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initMap);
 
     $('#google_map_refresh_map').click(findAdress);
+    
+    $(".select2").select2();
+    
 });
 
 

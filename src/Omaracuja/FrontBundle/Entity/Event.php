@@ -4,6 +4,7 @@ namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use \DateTime;
 /**
@@ -24,36 +25,36 @@ class Event
     
     /**
      * @var string $title
-     *
      * @ORM\Column(name="title", type="string", length=1024, nullable=false)
+     * @Assert\NotBlank()
      */
     private $title;
     
     /**
-     * @var text $description
-     *
+     * @var text $description     
      * @ORM\Column(name="description", type="text", nullable=false)
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
-     * @var datetime $createdAt
-     *
+     * @var datetime $createdAt     
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     *       
      */
     private $createdAt;
     
     /**
      * @var boolean $public
      *
-     * @ORM\Column(name="public", type="boolean", nullable=false)
+     * @ORM\Column(name="public", type="boolean", nullable=true)
      */
     private $public;
 
      /**
-     * @var datetime $startAt
-     *
+     * @var datetime $startAt    
      * @ORM\Column(name="start_at", type="datetime", nullable=false)
+     * @Assert\NotBlank()
      */
     private $startAt;
     
@@ -66,8 +67,9 @@ class Event
     
     /**
      * @var string $place
-     *
+     * 
      * @ORM\Column(name="place", type="string", length=1024, nullable=false)
+     * @Assert\NotBlank()
      */
     private $place;
     
