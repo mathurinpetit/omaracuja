@@ -18,8 +18,9 @@ class AdminController extends Controller {
      */
     public function userPanelAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OmaracujaUserBundle:User')->findAll();
-        return array('users' => $entities);
+        $usersAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByRole('ROLE_ADMIN');
+        $usersNoAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByHasNotRole('ROLE_ADMIN');
+        return array('usersAdmin' => $usersAdmin, 'usersNoAdmin' => $usersNoAdmin);
     }
 
     /**

@@ -11,6 +11,7 @@ use Omaracuja\FrontBundle\Entity\Event as Event;
 /**
  * @ORM\Entity
  * @ORM\Table(name="omaracuja_user")
+ * @ORM\Entity(repositoryClass="Omaracuja\UserBundle\Entity\UserRepository")
  */
 class User extends BaseUser {
 
@@ -140,6 +141,7 @@ class User extends BaseUser {
         $this->blogPosts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->proposedEvents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participateEvents = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
     }
 
     /**

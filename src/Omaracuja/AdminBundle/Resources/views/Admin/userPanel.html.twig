@@ -1,11 +1,39 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Omaracuja - Administation{% endblock %}
+{% block title %}Omaracuja - Administation Utilisateurs{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
 
 
 {% block content %}
     <div class="main">   
 
+        <h1>Liste des Administrateurs</h1>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td>Nom d'utilisateur</td>
+                    <td>Prénom</td>
+                    <td>Nom</td>
+                    <td>Email</td>
+                    <td>Role</td></tr>
+            </thead>
+            <tbody>
+                {% for user in usersAdmin %}
+                    <tr class="{% if(not user.isAdmin) %} {% if(user.isActif) %}success{% else %}danger{% endif %} {% endif %}">
+                        <td>{{ user.username|e }}</td>
+                        <td>{{ user.firstname|e }}</td>
+                        <td>{{ user.name|e }}</td>
+                        <td>{{ user.email|e }}</td>
+                        <td>{% if(user.isAdmin) %}ADMINISTRATEUR{% else %}UTILISATEUR{% endif %}</td>
+                        </tr>   
+                    {% endfor %}
+            </tbody>
+        </table>
+        <br/>
+        <br/>
         <h1>Liste des Utilisateurs</h1>
         <table class="table table-responsive">
             <thead>
@@ -18,7 +46,7 @@
                     <td>Action</td></tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                {% for user in usersNoAdmin %}
                     <tr class="{% if(not user.isAdmin) %} {% if(user.isActif) %}success{% else %}danger{% endif %} {% endif %}">
                         <td>{{ user.username|e }}</td>
                         <td>{{ user.firstname|e }}</td>
@@ -37,6 +65,8 @@
                     {% endfor %}
             </tbody>
         </table>
+
+
     </div>
 
 
