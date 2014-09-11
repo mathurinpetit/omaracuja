@@ -43,3 +43,20 @@
 .post_user_description{
     font-weight: bold;
 }
+
+
+.event_left
+{
+    margin-left: 20px;
+}
+
+.event_map_show
+{
+    height: 280px;
+}
+
+.event_map_choose{
+    height:250px;
+    margin-right: 15px; 
+    float: right;
+}

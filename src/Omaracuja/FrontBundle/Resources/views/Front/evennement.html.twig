@@ -8,30 +8,34 @@
 
 {% block content %}
     <div class="main">
-        <h2>LISTE EVENTS</h2>
+        <h1>Les Evènements à venir...</h1> 
+        <br/>
         <div class="col-md-12">  
             {% for event in events %}
                 <div class="row post panel panel-default">
-                    <div class="col-lg-3">
-                        <div class="row">
-                       
-                            <div class="col-lg-6">
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="post_user_description">{{ event.id }}</p>
-                            </div>
+                    <div class="text-center col-md-12">  
+                        <h3>{{ event.title }}</h3>
+                    </div>
+                    <br/>
+                    <br/><br/><br/>
+                    <div class="post row col-lg-4">
+                        <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
+                        <input type="hidden" value="{{ event.mapX }}" id="google_map_x" />
+                        <div class="row event_left">
+                            <strong>{{ event.place }}</strong>
+                        </div>
+                        <br/>
+                        <div class="row event_left">
+                            <div id="map-canvas" class="col-md-8 event_map_show " ></div>
                         </div>
                     </div>
-                    <div>
-
-                        <br/>
-                        <div class="col-lg-9 panel panel-default  post_text">
-                            {% autoescape false %}
-                                {{ event.description }}
-                            {% endautoescape %}
-                        </div>
+                    <div class="row col-lg-8">
+                        {% autoescape false %}
+                            {{ event.description }}
+                        {% endautoescape %}
                     </div>
                 </div>
+
             {% endfor %}
         </div>
     </div>

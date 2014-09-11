@@ -30,7 +30,9 @@ class EventType extends AbstractType {
                 ->add('proposedTeam', 'entity', array(
                     'class' => 'OmaracujaUserBundle:User',
                     'label' => 'Proposer à',
-                    'property' => 'username', 'expanded' => false, 'multiple' => true));
+                    'property' => 'username', 'expanded' => false, 'multiple' => true))
+                ->add('mapX', 'hidden')
+                ->add('mapY', 'hidden');
     }
 
     /**

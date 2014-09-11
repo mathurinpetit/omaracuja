@@ -1,19 +1,19 @@
 <?php
-namespace Omaracuja\FrontBundle\Entity;
 
+namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use \DateTime;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="omaracuja_event")
  * @ORM\Entity(repositoryClass="Omaracuja\FrontBundle\Entity\EventRepository")
  */
-class Event
-{
+class Event {
+
     /**
      * @var bigint $id
      *
@@ -22,14 +22,14 @@ class Event
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
+
     /**
      * @var string $title
      * @ORM\Column(name="title", type="string", length=1024, nullable=false)
      * @Assert\NotBlank()
      */
     private $title;
-    
+
     /**
      * @var text $description     
      * @ORM\Column(name="description", type="text", nullable=false)
@@ -43,7 +43,7 @@ class Event
      *       
      */
     private $createdAt;
-    
+
     /**
      * @var boolean $public
      *
@@ -51,20 +51,20 @@ class Event
      */
     private $public;
 
-     /**
+    /**
      * @var datetime $startAt    
      * @ORM\Column(name="start_at", type="datetime", nullable=false)
      * @Assert\NotBlank()
      */
     private $startAt;
-    
+
     /**
      * @var datetime $endAt
      *
      * @ORM\Column(name="end_at", type="datetime", nullable=true)
      */
     private $endAt;
-    
+
     /**
      * @var string $place
      * 
@@ -72,20 +72,32 @@ class Event
      * @Assert\NotBlank()
      */
     private $place;
-    
-   /**
-    * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="proposedEvents")
-    * @ORM\JoinTable(name="omaracuja_user_proposed_event")
-    */
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="proposedEvents")
+     * @ORM\JoinTable(name="omaracuja_user_proposed_event")
+     */
     private $proposedTeam;
-    
-   /**
-    * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="participateEvents")
-    * @ORM\JoinTable(name="omaracuja_user_participate_event")
-    */
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="participateEvents")
+     * @ORM\JoinTable(name="omaracuja_user_participate_event")
+     */
     private $actualTeam;
-    
-    
+
+    /**
+     * @var float $mapX
+     *
+     * @ORM\Column(name="map_x", type="float", nullable=true)
+     */
+    private $mapX;
+
+    /**
+     * @var float $mapY
+     *
+     * @ORM\Column(name="map_y", type="float", nullable=true)
+     */
+    private $mapY;
 
     public function __construct() {
         $this->createdAt = new DateTime();
@@ -93,15 +105,13 @@ class Event
         $this->proposedTeam = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -111,8 +121,7 @@ class Event
      * @param string $title
      * @return Event
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -123,8 +132,7 @@ class Event
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -134,8 +142,7 @@ class Event
      * @param string $description
      * @return Event
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -146,8 +153,7 @@ class Event
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -157,8 +163,7 @@ class Event
      * @param \DateTime $createdAt
      * @return Event
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -169,8 +174,7 @@ class Event
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -180,8 +184,7 @@ class Event
      * @param boolean $public
      * @return Event
      */
-    public function setPublic($public)
-    {
+    public function setPublic($public) {
         $this->public = $public;
 
         return $this;
@@ -192,8 +195,7 @@ class Event
      *
      * @return boolean 
      */
-    public function getPublic()
-    {
+    public function getPublic() {
         return $this->public;
     }
 
@@ -203,8 +205,7 @@ class Event
      * @param \DateTime $startAt
      * @return Event
      */
-    public function setStartAt($startAt)
-    {
+    public function setStartAt($startAt) {
         $this->startAt = $startAt;
 
         return $this;
@@ -215,8 +216,7 @@ class Event
      *
      * @return \DateTime 
      */
-    public function getStartAt()
-    {
+    public function getStartAt() {
         return $this->startAt;
     }
 
@@ -226,8 +226,7 @@ class Event
      * @param \DateTime $endAt
      * @return Event
      */
-    public function setEndAt($endAt)
-    {
+    public function setEndAt($endAt) {
         $this->endAt = $endAt;
 
         return $this;
@@ -238,8 +237,7 @@ class Event
      *
      * @return \DateTime 
      */
-    public function getEndAt()
-    {
+    public function getEndAt() {
         return $this->endAt;
     }
 
@@ -249,8 +247,7 @@ class Event
      * @param string $place
      * @return Event
      */
-    public function setPlace($place)
-    {
+    public function setPlace($place) {
         $this->place = $place;
 
         return $this;
@@ -261,8 +258,7 @@ class Event
      *
      * @return string 
      */
-    public function getPlace()
-    {
+    public function getPlace() {
         return $this->place;
     }
 
@@ -272,8 +268,7 @@ class Event
      * @param \Omaracuja\UserBundle\Entity\User $proposedTeam
      * @return Event
      */
-    public function addProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam)
-    {
+    public function addProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam) {
         $this->proposedTeam[] = $proposedTeam;
 
         return $this;
@@ -284,8 +279,7 @@ class Event
      *
      * @param \Omaracuja\UserBundle\Entity\User $proposedTeam
      */
-    public function removeProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam)
-    {
+    public function removeProposedTeam(\Omaracuja\UserBundle\Entity\User $proposedTeam) {
         $this->proposedTeam->removeElement($proposedTeam);
     }
 
@@ -294,8 +288,7 @@ class Event
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getProposedTeam()
-    {
+    public function getProposedTeam() {
         return $this->proposedTeam;
     }
 
@@ -305,8 +298,7 @@ class Event
      * @param \Omaracuja\UserBundle\Entity\User $actualTeam
      * @return Event
      */
-    public function addActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam)
-    {
+    public function addActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam) {
         $this->actualTeam[] = $actualTeam;
 
         return $this;
@@ -317,8 +309,7 @@ class Event
      *
      * @param \Omaracuja\UserBundle\Entity\User $actualTeam
      */
-    public function removeActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam)
-    {
+    public function removeActualTeam(\Omaracuja\UserBundle\Entity\User $actualTeam) {
         $this->actualTeam->removeElement($actualTeam);
     }
 
@@ -327,8 +318,54 @@ class Event
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getActualTeam()
-    {
+    public function getActualTeam() {
         return $this->actualTeam;
+    }
+
+
+    /**
+     * Set mapX
+     *
+     * @param float $mapX
+     * @return Event
+     */
+    public function setMapX($mapX)
+    {
+        $this->mapX = $mapX;
+
+        return $this;
+    }
+
+    /**
+     * Get mapX
+     *
+     * @return float 
+     */
+    public function getMapX()
+    {
+        return $this->mapX;
+    }
+
+    /**
+     * Set mapY
+     *
+     * @param float $mapY
+     * @return Event
+     */
+    public function setMapY($mapY)
+    {
+        $this->mapY = $mapY;
+
+        return $this;
+    }
+
+    /**
+     * Get mapY
+     *
+     * @return float 
+     */
+    public function getMapY()
+    {
+        return $this->mapY;
     }
 }

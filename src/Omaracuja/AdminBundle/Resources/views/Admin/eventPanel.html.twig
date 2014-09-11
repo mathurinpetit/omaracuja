@@ -50,8 +50,9 @@
                     <br/>
                     <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
                 </div>
-                <div id="map-canvas" class="col-md-8" style="height:250px;margin-right: 15px; float: right;"></div>
-
+                <div id="map-canvas" class="col-md-8" style=""></div>
+                    {{ form_widget(newEventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
+                    {{ form_widget(newEventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
             </div>
 
             <div class="form-group">
@@ -60,10 +61,8 @@
                 {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
             </div>     
 
-            <div class="form-group">
-                <div class="text-right col-lg-6">
+            <div class="form-group text-center">
                     <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
-                </div>
             </div>
             {{form_end(newEventForm)}}
 
