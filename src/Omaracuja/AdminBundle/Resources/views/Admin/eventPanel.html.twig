@@ -7,80 +7,45 @@
 {% endblock %}
 
 {% block content %}
-    <div class="main" id="crop-eventPicture">   
-
-        <h3>Ajout d'un Evènements</h3>    
+    <div class="main">
+        <h1>Les Evènements</h1> 
+        <br/>
+        <div class="form-group">
+                <div class="text-left col-lg-6">
+                    <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
+                </div>
+                <div class="text-right col-lg-6">
+                    <a href="{{ path('admin_event_create') }}" class="btn btn-default btn-warning text-right">Ajouter un evennement</a>
+                </div>
+            </div>
         <br/>
         <div class="col-md-12">  
-            {{ form_start(newEventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
-            <div class="row">  
-                <div class="post">
-                    <div class="form-group">
-                        <div class="error_list">{{ form_errors(newEventForm.title) }}</div>
-                        {{ form_label(newEventForm.title) }}
-                        {{ form_widget(newEventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            {% for event in events %}
+                <div class="row post panel panel-default">
+                    <div class="text-center col-md-12">  
+                        <h3>{{ event.title }}</h3>
                     </div>
-                </div>
-            </div>
-            <div class="row">  
-                <div class=" col-md-5">        
-                    <div class="form-group">
-                        <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
-                            <img src="{{newEvent.getPicturePath}}" alt="{{newEvent.title}}" class="img-rounded">
+                    <br/>
+                    <br/><br/><br/>
+                    <div class="post row col-lg-4">
+                        <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
+                        <input type="hidden" value="{{ event.mapX }}" id="google_map_x" />
+                        <div class="row event_left">
+                            <strong>{{ event.place }}</strong>
                         </div>
                         <br/>
-                        {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'newEventForm': newEventForm} %}
+                        <div class="row event_left">
+                            <div id="map-canvas" class="col-md-8 event_map_show " ></div>
+                        </div>
+                    </div>
+                    <div class="row col-lg-8">
+                        {% autoescape false %}
+                            {{ event.description }}
+                        {% endautoescape %}
                     </div>
                 </div>
-                <div class=" col-md-7">        
-                    <div class="form-group event_description">
-                        <div class="error_list">{{ form_errors(newEventForm.description) }}</div>
-                        {{ form_widget(newEventForm.description, {'attr': {'class': 'form-control summernote_event', 'placeholder': 'Description'} }) }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">  
-                <div class="col-md-4 post">
-                    {{ form_label(newEventForm.public) }}
-                    {{ form_widget(newEventForm.public) }}
-                </div>
 
-                <div class="col-md-4 form-group">
-                    <div class="error_list">{{ form_errors(newEventForm.startAt) }}</div>
-                    {{form_label(newEventForm.startAt)}}
-                    {{ form_widget(newEventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
-                </div>        
-                <div class="col-md-4 form-group">
-                    <div class="error_list">{{ form_errors(newEventForm.endAt) }}</div>
-                    {{form_label(newEventForm.endAt)}}
-                    {{ form_widget(newEventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
-                </div>
-            </div>
-
-            <div class="row">  
-                <div class="col-md-3 form-group">
-                    <div class="error_list">{{ form_errors(newEventForm.place) }}</div>
-                    {{form_label(newEventForm.place)}}
-                    {{ form_widget(newEventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
-                    <br/>
-                    <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
-                </div>
-                <div id="map-canvas" class="col-md-8 event_map_choose" ></div>
-                {{ form_widget(newEventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
-                {{ form_widget(newEventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
-            </div>
-
-            <div class="form-group">
-                <div class="error_list">{{ form_errors(newEventForm.proposedTeam) }}</div>
-                {{form_label(newEventForm.proposedTeam)}}
-                {{ form_widget(newEventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
-            </div>     
-
-            <div class="form-group text-center">
-                <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
-            </div>
-            {{form_end(newEventForm)}}
-
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

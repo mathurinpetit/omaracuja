@@ -32,10 +32,7 @@ class EventType extends AbstractType {
         'label' => 'Proposer à',
         'property' => 'username', 'expanded' => false, 'multiple' => true))
         ->add('mapX', 'hidden')
-        ->add('mapY', 'hidden')
-        ->add('file')
-        ->add('src', 'hidden')
-        ->add('data', 'hidden');
+        ->add('mapY', 'hidden');
     }
 
     /**

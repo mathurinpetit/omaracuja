@@ -10,9 +10,6 @@ admin_user_desactivate:
      pattern: /desactivate/{userId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:userDesactivate }
      
-admin_panel_event:
-     path:  /evenements
-     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel }  
      
 admin_panel_presentation:
      path:  /presentation
@@ -25,10 +22,18 @@ admin_new_presentation:
 admin_create_presentation:
      path:  /presentation/creation-page
      defaults: { _controller: OmaracujaAdminBundle:Admin:presentationCreate }
-     
+
+admin_panel_event:
+     path:  /evenements
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel }  
+
 admin_event_create:
-     path:  /eventCreate
-     defaults: { _controller: OmaracujaAdminBundle:Admin:eventCreate }
+     path:  /creationEvenement
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventCreate }     
+     
+admin_event_edit:
+     path:  /editionEvenement/{eventId}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventEdit }
      
 admin_event_picture_upload:
      path:  /evenementTelechargement
