@@ -29,3 +29,7 @@ admin_create_presentation:
 admin_event_create:
      path:  /eventCreate
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventCreate }
+     
+admin_event_picture_upload:
+     path:  /evenementTelechargement
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPictureUpload }

@@ -4,6 +4,7 @@ namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
+use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Symfony\Component\Validator\Constraints as Assert;
 use \DateTime;
 
@@ -98,6 +99,12 @@ class Event {
      * @ORM\Column(name="map_y", type="float", nullable=true)
      */
     private $mapY;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventPicture", cascade={"persist", "merge", "remove"})
+     * @ORM\JoinColumn(name="event_picture", referencedColumnName="id")
+     */
+    private $picture;
 
     public function __construct() {
         $this->createdAt = new DateTime();
@@ -320,6 +327,48 @@ class Event {
      */
     public function getActualTeam() {
         return $this->actualTeam;
+    }
+
+    /**
+     * Set mapX
+     *
+     * @param float $mapX
+     * @return Event
+     */
+    public function setMapX($mapX) {
+        $this->mapX = $mapX;
+
+        return $this;
+    }
+
+    /**
+     * Get mapX
+     *
+     * @return float 
+     */
+    public function getMapX() {
+        return $this->mapX;
+    }
+
+    /**
+     * Set mapY
+     *
+     * @param float $mapY
+     * @return Event
+     */
+    public function setMapY($mapY) {
+        $this->mapY = $mapY;
+
+        return $this;
+    }
+
+    /**
+     * Get mapY
+     *
+     * @return float 
+     */
+    public function getMapY() {
+        return $this->mapY;
     }
 
 }

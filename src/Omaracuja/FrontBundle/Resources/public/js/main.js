@@ -34,9 +34,23 @@ $(document).ready(function() {
         ]
     });
 
+    $('.summernote_event').summernote({
+        lang: 'fr-FR',
+        height: 520,
+        minHeight: 520,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+        ]
+    });
+
     var geocoder;
     var map;
-    
+
     var initMap = function() {
         geocoder = new google.maps.Geocoder();
         var mapX = 48.856614;
@@ -46,35 +60,35 @@ $(document).ready(function() {
             mapX = $('#google_map_x').val();
             mapY = $('#google_map_y').val();
         }
-        var latlng = new google.maps.LatLng(mapX,mapY);
+        var latlng = new google.maps.LatLng(mapX, mapY);
         var mapOptions = {
             zoom: 14,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        
+
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        
-       if (adressExist) {
+
+        if (adressExist) {
             var marker = new google.maps.Marker({
-                        map: map,
-                        position: latlng
-                    });
+                map: map,
+                position: latlng
+            });
         }
     }
 
     var findAdress = function() {
-        
+
         var adresse = $('.google_map_adress').val();
-        
+
         geocoder.geocode({'address': adresse}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
-                
-                
+
+
                 $('.mapX_setting').val(results[0].geometry.location.k);
                 $('.mapY_setting').val(results[0].geometry.location.B);
-                
+
                 var marker = new google.maps.Marker({
                     map: map,
                     position: results[0].geometry.location

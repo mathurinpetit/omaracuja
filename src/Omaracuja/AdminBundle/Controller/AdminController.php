@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
 use Omaracuja\AdminBundle\Form\PresentationType as PresentationType;
 use Omaracuja\FrontBundle\Entity\Event as Event;
+use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
 
 class AdminController extends Controller {
@@ -93,13 +94,47 @@ class AdminController extends Controller {
             'action' => $this->generateUrl('admin_event_create'),
             'method' => 'POST',
         ));
+
         $em = $this->getDoctrine()->getManager();
         $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAll();
-        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('events' => $events, 'newEvent' => $newEvent, 'newEventForm' => $newEventForm->createView()));
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('events' => $events,
+                    'newEvent' => $newEvent,
+                    'newEventForm' => $newEventForm->createView()));
     }
     
-    public function eventCreateAction(Request $request) {
+    
+    public function eventPictureUploadAction(Request $request) {
+        $event = new Event();     
         
+        $form = $this->createFormBuilder($event, array('csrf_protection' => false))
+                ->add('file')
+                ->add('src', 'hidden')
+                ->add('data', 'hidden')
+                ->getForm();
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $em = $this->getDoctrine()->getManager();
+
+                $em->persist($event);
+                $em->flush();
+
+                $response = new Response(json_encode(array(
+                            'state' => 200,
+                            'message' => $event->getAjaxMsg(),
+                            'result' => $event->getResult()
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+        }
+        return $this->redirect($retour);
+    }
+
+    public function eventCreateAction(Request $request) {
+
         $newEvent = new Event();
         $newEventForm = $this->createForm(new EventType(), $newEvent, array(
             'action' => $this->generateUrl('admin_event_create'),

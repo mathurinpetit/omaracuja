@@ -14,31 +14,28 @@
         } catch (e) {}
       };
 
-  function CropAvatar($element) {
+  function CropEventPicture($element) {
     this.$container = $element;
 
-    this.$avatarLink = this.$container.find(".avatar-link");
-    this.$avatarView = this.$container.find(".avatar-view");    
-    this.$avatar = this.$avatarView.find("img");
-    this.$avatarModal = this.$container.find("#avatar-modal");
-    this.$avatarsViewModal = this.$container.find("#avatars-view-modal");
+    this.$eventPictureLink = this.$container.find(".eventPicture-link");  
+    this.$eventPicture = this.$eventPictureLink.find("img");
+    this.$eventPictureModal = this.$container.find("#eventPicture-modal");
     this.$loading = this.$container.find(".loading");
 
-    this.$avatarForm = this.$avatarModal.find(".avatar-form");
-    this.$avatarUpload = this.$avatarForm.find(".avatar-upload");
-    this.$avatarSrc = this.$avatarForm.find(".avatar-src");
-    this.$avatarData = this.$avatarForm.find(".avatar-data");
-    this.$avatarInput = this.$avatarForm.find(".avatar-input");
-    this.$avatarSave = this.$avatarForm.find(".avatar-save");
+    this.$eventPictureForm = this.$eventPictureModal.find(".eventPicture-form");
+    this.$eventPictureUpload = this.$eventPictureForm.find(".eventPicture-upload");
+    this.$eventPictureSrc = this.$eventPictureForm.find(".eventPicture-src");
+    this.$eventPictureData = this.$eventPictureForm.find(".eventPicture-data");
+    this.$eventPictureInput = this.$eventPictureForm.find(".eventPicture-input");
+    this.$eventPictureSave = this.$eventPictureForm.find(".eventPicture-save");
 
-    this.$avatarWrapper = this.$avatarModal.find(".avatar-wrapper");
-    this.$avatarPreview = this.$avatarModal.find(".avatar-preview");
+    this.$eventPictureWrapper = this.$eventPictureModal.find(".eventPicture-wrapper");
 
     this.init();
   }
 
-  CropAvatar.prototype = {
-    constructor: CropAvatar,
+  CropEventPicture.prototype = {
+    constructor: CropEventPicture,
 
     support: {
       fileList: !!$("<input type=\"file\">").prop("files"),
@@ -59,37 +56,35 @@
     },
 
     addListener: function () {
-      this.$avatarLink.on("click", $.proxy(this.click, this));
-      this.$avatarView.on("click", $.proxy(this.clickView, this));
-      this.$avatarInput.on("change", $.proxy(this.change, this));
-      this.$avatarForm.on("submit", $.proxy(this.submit, this));
+      this.$eventPictureLink.on("click", $.proxy(this.click, this));
+      this.$eventPictureInput.on("change", $.proxy(this.change, this));
+      this.$eventPictureForm.on("submit", $.proxy(this.submit, this));
     },
 
     initTooltip: function () {
-      this.$avatarView.tooltip({
+      this.$eventPictureLink.tooltip({
         placement: "bottom"
       });
     },
 
     initModal: function () {
-      this.$avatarModal.modal("hide");
+      this.$eventPictureModal.modal("hide");
       this.initPreview();
     },
 
     initPreview: function () {
-      var url = this.$avatar.attr("src");
-
-      this.$avatarPreview.empty().html('<img src="' + url + '">');
+      var url = this.$eventPicture.attr("src");
+      this.$eventPictureWrapper.empty().html('<img src="' + url + '">');
     },
 
     initIframe: function () {
-      var iframeName = "avatar-iframe-" + Math.random().toString().replace(".", ""),
+      var iframeName = "eventPicture-iframe-" + Math.random().toString().replace(".", ""),
           $iframe = $('<iframe name="' + iframeName + '" style="display:none;"></iframe>'),
           firstLoad = true,
           _this = this;
 
       this.$iframe = $iframe;
-      this.$avatarForm.attr("target", iframeName).after($iframe);
+      this.$eventPictureForm.attr("target", iframeName).after($iframe);
 
       this.$iframe.on("load", function () {
         var data,
@@ -119,19 +114,16 @@
     },
 
     click: function () {
-      this.$avatarModal.modal("show");
-    },
-    
-    clickView: function(){
-        this.$avatarsViewModal.modal("show");
-    },
+      this.$eventPictureModal.modal("show");
+    },    
 
     change: function () {
+        console.log("change");
       var files,
           file;
 
       if (this.support.datauri) {
-        files = this.$avatarInput.prop("files");
+        files = this.$eventPictureInput.prop("files");
 
         if (files.length > 0) {
           file = files[0];
@@ -141,8 +133,7 @@
           }
         }
       } else {
-        file = this.$avatarInput.val();
-
+        file = this.$eventPictureInput.val();
         if (this.isImageFile(file)) {
           this.syncUpload();
         }
@@ -150,7 +141,7 @@
     },
 
     submit: function () {
-      if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
+      if (!this.$eventPictureSrc.val() && !this.$eventPictureInput.val()) {
         return false;
       }
 
@@ -181,16 +172,16 @@
     },
 
     startCropper: function () {
+        console.log('start Cropper');
       var _this = this;
-
       if (this.active) {
         this.$img.cropper("setImgSrc", this.url);
       } else {
         this.$img = $('<img src="' + this.url + '">');
-        this.$avatarWrapper.empty().html(this.$img);
+        this.$eventPictureWrapper.empty().html(this.$img);
         this.$img.cropper({
-          aspectRatio: 1,
-          preview: this.$avatarPreview.selector,
+          aspectRatio: 1.5,
+          preview: this.$eventPicturePreview.selector,
           done: function (data) {
             var json = [
                   '{"x":' + data.x,
@@ -199,7 +190,7 @@
                   '"width":' + data.width + "}"
                 ].join();
 
-            _this.$avatarData.val(json);
+            _this.$eventPictureData.val(json);
           }
         });
 
@@ -216,8 +207,8 @@
     },
 
     ajaxUpload: function () {
-      var url = this.$avatarForm.attr("action"),
-          data = new FormData(this.$avatarForm[0]),
+      var url = this.$eventPictureForm.attr("action"),
+          data = new FormData(this.$eventPictureForm[0]),
           _this = this;
 
       $.ajax(url, {
@@ -245,7 +236,7 @@
     },
 
     syncUpload: function () {
-      this.$avatarSave.click();
+      this.$eventPictureSave.click();
     },
 
     submitStart: function () {
@@ -267,11 +258,11 @@
             this.cropDone();
           } else {
             this.uploaded = true;
-            this.$avatarSrc.val('/'+this.url);
+            this.$eventPictureSrc.val('/'+this.url);
             this.startCropper();
           }
 
-          this.$avatarInput.val("");
+          this.$eventPictureInput.val("");
         } else if (data.message) {
           this.alert(data.message);
         }
@@ -289,11 +280,11 @@
     },
 
     cropDone: function () {
-      this.$avatarSrc.val("");
-      this.$avatarData.val("");
-      this.$avatar.attr("src", this.url);
+      this.$eventPictureSrc.val("");
+      this.$eventPictureData.val("");
+      this.$eventPicture.attr("src", this.url);
       this.stopCropper();
-      this.$avatarModal.modal("hide");
+      this.$eventPictureModal.modal("hide");
     },
 
     alert: function (msg) {
@@ -304,19 +295,11 @@
             '</div>'
           ].join("");
 
-      this.$avatarUpload.after($alert);
+      this.$eventPictureUpload.after($alert);
     }
   };
 
   $(function () {
-    var example = new CropAvatar($("#crop-avatar"));  
-    $("div.avatar-view-choice img.img-rounded").click(function() {
-       var avatar_id =  $(this).data('avatar_id');
-       $("select.avatar_select").val(avatar_id);
-       $("div.avatar-view-choice img.img-rounded").each(function(){
-           $(this).removeClass("avatar_selected");
-       })
-       $(this).addClass("avatar_selected");
-    });
+    var example = new CropEventPicture($("#crop-eventPicture"));      
   });
 });

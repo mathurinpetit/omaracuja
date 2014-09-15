@@ -14,25 +14,28 @@ class EventType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('title', 'text', array(
-                    'label' => 'Titre',
-                    'required' => true
-                ))
-                ->add('description')
-                ->add('public', 'checkbox', array(
-                    'label' => 'Evènement publique'
-                ))
-                ->add('startAt', 'datetime', array('label' => 'Date de début', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
-                ->add('endAt', 'datetime', array('label' => 'Date de fin', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
-                ->add('place', 'text', array(
-                    'label' => 'Lieu'
-                ))
-                ->add('proposedTeam', 'entity', array(
-                    'class' => 'OmaracujaUserBundle:User',
-                    'label' => 'Proposer à',
-                    'property' => 'username', 'expanded' => false, 'multiple' => true))
-                ->add('mapX', 'hidden')
-                ->add('mapY', 'hidden');
+        ->add('title', 'text', array(
+        'label' => 'Titre',
+        'required' => true
+        ))
+        ->add('description')
+        ->add('public', 'checkbox', array(
+        'label' => 'Evènement publique'
+        ))
+        ->add('startAt', 'datetime', array('label' => 'Date de début', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
+        ->add('endAt', 'datetime', array('label' => 'Date de fin', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
+        ->add('place', 'text', array(
+        'label' => 'Lieu'
+        ))
+        ->add('proposedTeam', 'entity', array(
+        'class' => 'OmaracujaUserBundle:User',
+        'label' => 'Proposer à',
+        'property' => 'username', 'expanded' => false, 'multiple' => true))
+        ->add('mapX', 'hidden')
+        ->add('mapY', 'hidden')
+        ->add('file')
+        ->add('src', 'hidden')
+        ->add('data', 'hidden');
     }
 
     /**

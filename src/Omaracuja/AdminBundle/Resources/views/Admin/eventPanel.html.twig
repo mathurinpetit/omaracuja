@@ -7,23 +7,38 @@
 {% endblock %}
 
 {% block content %}
-    <div class="main">   
+    <div class="main" id="crop-eventPicture">   
 
         <h3>Ajout d'un Evènements</h3>    
         <br/>
         <div class="col-md-12">  
-            {{ form_start(newEventForm, {'attr': {'novalidate': 'novalidate'} }) }}
-            <div class="form-group">
-                <div class="error_list">{{ form_errors(newEventForm.title) }}</div>
-                {{ form_label(newEventForm.title) }}
-                {{ form_widget(newEventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            {{ form_start(newEventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
+            <div class="row">  
+                <div class="post">
+                    <div class="form-group">
+                        <div class="error_list">{{ form_errors(newEventForm.title) }}</div>
+                        {{ form_label(newEventForm.title) }}
+                        {{ form_widget(newEventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <div class="error_list">{{ form_errors(newEventForm.description) }}</div>
-                {{form_label(newEventForm.description)}}
-                {{ form_widget(newEventForm.description, {'attr': {'class': 'form-control summernote', 'placeholder': 'Description'} }) }}
+            <div class="row">  
+                <div class=" col-md-5">        
+                    <div class="form-group">
+                        <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
+                            <img src="{{newEvent.getPicturePath}}" alt="{{newEvent.title}}" class="img-rounded">
+                        </div>
+                        <br/>
+                        {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'newEventForm': newEventForm} %}
+                    </div>
+                </div>
+                <div class=" col-md-7">        
+                    <div class="form-group event_description">
+                        <div class="error_list">{{ form_errors(newEventForm.description) }}</div>
+                        {{ form_widget(newEventForm.description, {'attr': {'class': 'form-control summernote_event', 'placeholder': 'Description'} }) }}
+                    </div>
+                </div>
             </div>
-
             <div class="row">  
                 <div class="col-md-4 post">
                     {{ form_label(newEventForm.public) }}
@@ -50,9 +65,9 @@
                     <br/>
                     <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
                 </div>
-                <div id="map-canvas" class="col-md-8" style=""></div>
-                    {{ form_widget(newEventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
-                    {{ form_widget(newEventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
+                <div id="map-canvas" class="col-md-8 event_map_choose" ></div>
+                {{ form_widget(newEventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
+                {{ form_widget(newEventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
             </div>
 
             <div class="form-group">
@@ -62,11 +77,10 @@
             </div>     
 
             <div class="form-group text-center">
-                    <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
+                <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
             </div>
             {{form_end(newEventForm)}}
 
         </div>
-
-
-    {% endblock %}
+    </div>
+{% endblock %}

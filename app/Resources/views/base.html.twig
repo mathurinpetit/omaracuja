@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>{% block title %}Omaracuja{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon_omaracuja.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">  
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/bootstrap/css/bootstrap.min.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/jquery-ui-1.10.4.custom.css') }}" />
@@ -26,6 +26,7 @@
         {% stylesheets '@OmaracujaUserBundle/Resources/Public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        
         <script src="http://code.jquery.com/jquery.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr"></script>
         <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -39,6 +40,9 @@
         <script src="{{ asset('/bundles/omaracujafront/summernote/summernote-fr-FR.js') }}"></script>
 
         {% javascripts '@OmaracujaUserBundle/Resources/Public/js/*' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts '@OmaracujaAdminBundle/Resources/Public/js/*' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% block head %}{% endblock %}

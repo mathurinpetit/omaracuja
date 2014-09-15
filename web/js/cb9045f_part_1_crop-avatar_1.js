@@ -35,7 +35,6 @@
     this.$avatarPreview = this.$avatarModal.find(".avatar-preview");
 
     this.init();
-    log(this);
   }
 
   CropAvatar.prototype = {
@@ -254,7 +253,6 @@
     },
 
     submitDone: function (data) {
-      log(data);
 
       try {
         data = $.parseJSON(data);
