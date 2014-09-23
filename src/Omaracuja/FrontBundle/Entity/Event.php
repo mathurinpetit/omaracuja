@@ -101,7 +101,7 @@ class Event {
     private $mapY;
 
     /**
-     * @ORM\OneToOne(targetEntity="EventPicture", cascade={"persist", "merge", "remove"})
+     * @ORM\OneToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventPicture", cascade={"persist", "merge", "remove"})
      * @ORM\JoinColumn(name="event_picture", referencedColumnName="id")
      */
     private $eventPicture;
@@ -373,6 +373,11 @@ class Event {
         return $this->mapY;
     }
 
+    public function setPicture($ev) {
+        $this->eventPicture = $ev; 
+        return $this;
+    }
+    
     public function getPicture() {
         return $this->eventPicture;
     }

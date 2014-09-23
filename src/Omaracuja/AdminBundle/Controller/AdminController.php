@@ -132,22 +132,24 @@ class AdminController extends Controller {
 
     public function eventPictureUploadAction(Request $request,$eventId) {
         $eventPicture = new EventPicture();
-
         $form = $this->createFormBuilder($eventPicture, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
                 ->getForm();
+        $em = $this->getDoctrine()->getManager();   
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);       
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
             if ($form->isValid()) {
 
-                $em = $this->getDoctrine()->getManager();
-                
                 $em->persist($eventPicture);
                 $em->flush();
-
+                
+                $event->setPicture($eventPicture);
+                $em->flush();
+                
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $eventPicture->getAjaxMsg(),
