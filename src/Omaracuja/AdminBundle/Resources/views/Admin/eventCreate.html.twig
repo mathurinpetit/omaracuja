@@ -12,8 +12,9 @@
         <h3>Ajout d'un Evènements</h3>    
         <br/>
         <div class="col-md-12">  
+            {{ form_start(eventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
             <div class="row">  
-                <div class=" col-md-5">        
+                <div class="col-md-5">        
                     <div class="form-group">
                         <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
                             <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
@@ -21,7 +22,6 @@
                         <br/>
                     </div>
                 </div>
-                {{ form_start(eventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
                 <div class=" col-md-7">  
                     <div class="form-group">
                         <div class="error_list">{{ form_errors(eventForm.title) }}</div>

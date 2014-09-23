@@ -88,8 +88,8 @@ class AdminController extends Controller {
      */
     public function eventPanelAction() {
         $em = $this->getDoctrine()->getManager();
-        $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAll();
-        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('events' => $events));
+        $lastEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('lastEvents' => $lastEvents));
     }
     
     /**
