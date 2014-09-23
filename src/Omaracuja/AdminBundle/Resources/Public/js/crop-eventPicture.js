@@ -17,10 +17,9 @@
 
     function CropEventPicture($element) {
         this.$container = $element;
-
         this.$eventPictureLink = this.$container.find(".eventPicture-link");
         this.$eventPicture = this.$eventPictureLink.find("img");
-        this.$eventPictureModal = this.$container.find(".eventPicture-modal");
+        this.$eventPictureModal = this.$container.find("#eventPicture-modal-"+$element.attr('id'));
         this.$loading = this.$container.find(".loading");
 
         this.$eventPictureForm = this.$eventPictureModal.find(".eventPicture-form");
