@@ -89,14 +89,26 @@ class AdminController extends Controller {
     public function eventPanelAction() {
         $em = $this->getDoctrine()->getManager();
         $lastEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();
-        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('lastEvents' => $lastEvents));
+        $eventPictureForms = array();
+        foreach ($lastEvents as $lastEvent) {
+            $eventPicture = new EventPicture();
+            $formFactory = $this->container->get('form.factory');
+
+            $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
+            $eventPictureForm = $eventPictureFormBuilder->add('file')
+                            ->add('src', 'hidden')
+                            ->add('data', 'hidden')->getForm();
+            $eventPictureForms['event_' . $lastEvent->getId()] = $eventPictureForm->createView();
+        }
+        
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('lastEvents' => $lastEvents,
+            'eventPictureForms' => $eventPictureForms));
     }
-    
+
     /**
      * @Template()
      */
-    public function eventCreateAction(Request $request)
-    {
+    public function eventCreateAction(Request $request) {
         $event = new Event();
         $form = $this->createForm(new EventType(), $event, array(
             'action' => $this->generateUrl('admin_create_event'),
@@ -110,14 +122,13 @@ class AdminController extends Controller {
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
-        }       
+        }
         return array(
             'event' => $event,
             'eventForm' => $form->createView(),
         );
     }
-    
-    
+
     public function eventPictureUploadAction(Request $request) {
         $event = new Event();
 
@@ -158,7 +169,7 @@ class AdminController extends Controller {
         ));
 
         $event->getPicture();
-        
+
         $eventPictureForm = $this->createFormBuilder($event->getPicture(), array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')

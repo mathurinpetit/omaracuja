@@ -26,7 +26,10 @@
         {% stylesheets '@OmaracujaUserBundle/Resources/Public/css/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-        
+        {% stylesheets '@OmaracujaAdminBundle/Resources/Public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
         <script src="http://code.jquery.com/jquery.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr"></script>
         <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -70,7 +73,7 @@
                                 <li><a href="{{ path('admin_panel_presentation') }}">Page de présentation</a></li>
                             </ul>
                         </li>                        
-                        {% endif %}
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-form">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

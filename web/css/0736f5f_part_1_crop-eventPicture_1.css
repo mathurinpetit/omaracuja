@@ -131,11 +131,3 @@ body {
 .eventPicture-view-col {
     padding-top: 50px;
 }
-
-.eventPicture_select{
-    display: none;
-}
-
-.eventPicture_selected {
-    border: 3px solid darkred;
-}

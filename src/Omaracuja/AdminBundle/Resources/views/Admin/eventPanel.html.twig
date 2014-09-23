@@ -54,8 +54,11 @@
                                     <div class="col-md-5">
                                         <div class="row event_left">
                                             <br/>
-                                            <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
-                                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                                            <div id="crop-eventPicture">
+                                                <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
+                                                    <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                                                </div>   
+                                                {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~event.id] } %}
                                             </div>
                                             <br/>
                                             <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            

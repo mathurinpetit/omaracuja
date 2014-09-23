@@ -44,7 +44,7 @@ body {
 }
 
 .eventPicture-wrapper {
-  height: 364px;
+  height: 583px;
   width: 100%;
   margin-top: 15px;
   box-shadow: inset 0 0 5px rgba(0,0,0,.25);
@@ -130,12 +130,4 @@ body {
 
 .eventPicture-view-col {
     padding-top: 50px;
-}
-
-.eventPicture_select{
-    display: none;
-}
-
-.eventPicture_selected {
-    border: 3px solid darkred;
 }
