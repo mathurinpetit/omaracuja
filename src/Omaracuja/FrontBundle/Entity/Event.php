@@ -386,7 +386,7 @@ class Event {
         if (!$this->eventPicture) {
             return "/data/events/omaracuja_event_no_picture.jpg";
         }
-        return $this->getWebPath();
+        return $this->eventPicture->getWebPath();
     }
 
 }
