@@ -38,5 +38,5 @@ admin_event_edit:
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventEdit }
      
 admin_event_picture_upload:
-     path:  /evenementTelechargement
+     path:  /evenementTelechargement/{eventId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventPictureUpload }

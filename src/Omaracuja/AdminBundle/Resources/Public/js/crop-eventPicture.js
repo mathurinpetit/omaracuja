@@ -20,7 +20,7 @@
 
         this.$eventPictureLink = this.$container.find(".eventPicture-link");
         this.$eventPicture = this.$eventPictureLink.find("img");
-        this.$eventPictureModal = this.$container.find("#eventPicture-modal");
+        this.$eventPictureModal = this.$container.find(".eventPicture-modal");
         this.$loading = this.$container.find(".loading");
 
         this.$eventPictureForm = this.$eventPictureModal.find(".eventPicture-form");
@@ -279,6 +279,8 @@
     };
 
     $(function() {
-        var example = new CropEventPicture($("#crop-eventPicture"));
+        $('.crop-eventPicture').each(function() {
+            var example = new CropEventPicture($(this));
+        });
     });
 });

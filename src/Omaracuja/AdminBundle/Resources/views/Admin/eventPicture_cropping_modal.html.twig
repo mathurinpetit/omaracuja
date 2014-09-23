@@ -1,7 +1,7 @@
-<div class="modal fade" id="eventPicture-modal" tabindex="-1" role="dialog" aria-labelledby="eventPicture-modal-label" aria-hidden="true">
+<div class="modal fade" id="eventPicture-modal-{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="eventPicture-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <form class="eventPicture-form" action="{{ path("avatar_upload") }}" method="post" enctype="multipart/form-data" >
+            <form class="eventPicture-form" action="{{ path("admin_event_picture_upload", { 'eventId': event.id }) }}" method="post" enctype="multipart/form-data" >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title" id="eventPicture-modal-label">Ajouter une image à l'événement</h4>

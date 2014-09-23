@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
 use Omaracuja\AdminBundle\Form\PresentationType as PresentationType;
 use Omaracuja\FrontBundle\Entity\Event as Event;
@@ -129,10 +130,10 @@ class AdminController extends Controller {
         );
     }
 
-    public function eventPictureUploadAction(Request $request) {
-        $event = new Event();
+    public function eventPictureUploadAction(Request $request,$eventId) {
+        $eventPicture = new EventPicture();
 
-        $form = $this->createFormBuilder($event, array('csrf_protection' => false))
+        $form = $this->createFormBuilder($eventPicture, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
@@ -143,14 +144,14 @@ class AdminController extends Controller {
             if ($form->isValid()) {
 
                 $em = $this->getDoctrine()->getManager();
-
-                $em->persist($event);
+                
+                $em->persist($eventPicture);
                 $em->flush();
 
                 $response = new Response(json_encode(array(
                             'state' => 200,
-                            'message' => $event->getAjaxMsg(),
-                            'result' => $event->getResult()
+                            'message' => $eventPicture->getAjaxMsg(),
+                            'result' => $eventPicture->getResult()
                 )));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;

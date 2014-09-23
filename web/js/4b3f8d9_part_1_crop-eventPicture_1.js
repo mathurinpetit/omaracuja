@@ -20,7 +20,7 @@
 
         this.$eventPictureLink = this.$container.find(".eventPicture-link");
         this.$eventPicture = this.$eventPictureLink.find("img");
-        this.$eventPictureModal = this.$container.find("#eventPicture-modal");
+        this.$eventPictureModal = this.$container.find(".eventPicture-modal");
         this.$loading = this.$container.find(".loading");
 
         this.$eventPictureForm = this.$eventPictureModal.find(".eventPicture-form");
@@ -170,7 +170,7 @@
                 this.$img = $('<img src="' + this.url + '">');
                 this.$eventPictureWrapper.empty().html(this.$img);
                 this.$img.cropper({
-                    aspectRatio: 1.5,
+                    aspectRatio: 0.6666,
                     preview: this.$eventPicturePreview.selector,
                     done: function(data) {
                         var json = [
@@ -279,6 +279,8 @@
     };
 
     $(function() {
-        var example = new CropEventPicture($("#crop-eventPicture"));
+        $('.eventPicture-modal').each(function() {
+            new CropEventPicture($(this));
+        });
     });
 });

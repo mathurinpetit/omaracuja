@@ -21,7 +21,6 @@ class EventPicture {
      */
     protected $id;
 
-
     /**
      * @Assert\File(maxSize="6000000")
      */
@@ -77,8 +76,8 @@ class EventPicture {
     private $ajaxMsg = null;
     private $type = null;
 
-    const HEIGHT = 220;
-    const WIDTH = 220;
+    const HEIGHT = 600;
+    const WIDTH = 400;
 
     /**
      * Get id
@@ -94,15 +93,15 @@ class EventPicture {
     }
 
     public function getWebOriginalPath($prefix = '/') {
-        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->event->getId() . '/original/' . $this->getPath();
+        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->getId() . '/original/' . $this->getPath();
     }
 
     public function getWebPath($prefix = '/') {
-        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->event->getId() . '/' . $this->getPath();
+        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->getId() . '/' . $this->getPath();
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir() . '/event_' . $this->event->getId() . '/original/';
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir() . '/event_' . $this->getId() . '/original/';
     }
 
     protected function getUploadDir() {
