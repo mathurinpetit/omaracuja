@@ -36,8 +36,8 @@ $(document).ready(function() {
 
     $('.summernote_event').summernote({
         lang: 'fr-FR',
-        height: 520,
-        minHeight: 520,
+        height: 480,
+        minHeight: 480,
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough']],

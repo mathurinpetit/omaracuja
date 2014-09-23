@@ -13,22 +13,17 @@
         <br/>
         <div class="col-md-12">  
             <div class="row">  
-                <div class="post">
-                   
-                </div>
-            </div>
-            <div class="row">  
                 <div class=" col-md-5">        
                     <div class="form-group">
                         <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet Evenement">
                             <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
                         </div>
                         <br/>
-                        </div>
+                    </div>
                 </div>
-            {{ form_start(eventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
+                {{ form_start(eventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
                 <div class=" col-md-7">  
-                     <div class="form-group">
+                    <div class="form-group">
                         <div class="error_list">{{ form_errors(eventForm.title) }}</div>
                         {{ form_widget(eventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
                     </div>
@@ -39,44 +34,48 @@
                 </div>
             </div>
             <div class="row">  
-                <div class="col-md-4 post">
-                    {{ form_label(eventForm.public) }}
-                    {{ form_widget(eventForm.public) }}
-                </div>
+                <div class="col-md-3">
+                    <div class="form-group" >
+                        {{ form_label(eventForm.public) }}
+                        {{ form_widget(eventForm.public) }}
+                    </div>
+                    <div class="form-group" >
+                        <div class="error_list">{{ form_errors(eventForm.place) }}</div>
+                        {{form_label(eventForm.place)}}
+                        {{ form_widget(eventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
+                    </div>
+                    <div class="form-group" >
+                        <div class="error_list">{{ form_errors(eventForm.startAt) }}</div>
+                        {{form_label(eventForm.startAt)}}
+                        {{ form_widget(eventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
 
-                <div class="col-md-4 form-group">
-                    <div class="error_list">{{ form_errors(eventForm.startAt) }}</div>
-                    {{form_label(eventForm.startAt)}}
-                    {{ form_widget(eventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
-                </div>        
-                <div class="col-md-4 form-group">
-                    <div class="error_list">{{ form_errors(eventForm.endAt) }}</div>
-                    {{form_label(eventForm.endAt)}}
-                    {{ form_widget(eventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
-                </div>
-            </div>
+                    </div>
+                    <div class="form-group" >
+                        <div class="error_list">{{ form_errors(eventForm.endAt) }}</div>
+                        {{form_label(eventForm.endAt)}}
+                        {{ form_widget(eventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
 
-            <div class="row">  
-                <div class="col-md-3 form-group">
-                    <div class="error_list">{{ form_errors(eventForm.place) }}</div>
-                    {{form_label(eventForm.place)}}
-                    {{ form_widget(eventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
-                    <br/>
-                    <input id="google_map_refresh_map" type="button" class="btn btn-default"  value="Localiser" />
+                    </div>
                 </div>
                 <div id="map-canvas" class="col-md-8 event_map_choose" ></div>
                 {{ form_widget(eventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
                 {{ form_widget(eventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
             </div>
-
-            <div class="form-group">
-                <div class="error_list">{{ form_errors(eventForm.proposedTeam) }}</div>
-                {{form_label(eventForm.proposedTeam)}}
-                {{ form_widget(eventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
-            </div>     
-
-            <div class="form-group text-center">
-                <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
+            <div class="row">  
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="error_list">{{ form_errors(eventForm.proposedTeam) }}</div>
+                        {{form_label(eventForm.proposedTeam)}}
+                        {{ form_widget(eventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
+                    </div>     
+                </div>
+            </div> 
+            <div class="row event_create_submit">  
+                <div class="form-group">
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
+                    </div>
+                </div>
             </div>
             {{form_end(eventForm)}}
 

@@ -110,11 +110,7 @@ class AdminController extends Controller {
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
-        }
-        
-
-        $form->add('submit', 'submit', array('label' => 'Valider'));
-
+        }       
         return array(
             'event' => $event,
             'eventForm' => $form->createView(),
