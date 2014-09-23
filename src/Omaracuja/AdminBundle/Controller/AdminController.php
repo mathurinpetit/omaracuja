@@ -91,7 +91,37 @@ class AdminController extends Controller {
         $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAll();
         return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('events' => $events));
     }
+    
+    /**
+     * @Template()
+     */
+    public function eventCreateAction(Request $request)
+    {
+        $event = new Event();
+        $form = $this->createForm(new EventType(), $event, array(
+            'action' => $this->generateUrl('admin_create_event'),
+            'method' => 'POST',
+        ));
+        $form->handleRequest($request);
 
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_panel_event'));
+        }
+        
+
+        $form->add('submit', 'submit', array('label' => 'Valider'));
+
+        return array(
+            'event' => $event,
+            'eventForm' => $form->createView(),
+        );
+    }
+    
+    
     public function eventPictureUploadAction(Request $request) {
         $event = new Event();
 
@@ -120,14 +150,6 @@ class AdminController extends Controller {
             }
         }
         return $this->redirect($retour);
-    }
-
-    public function eventCreateAction(Request $request) {
-        $newEvent = new Event();
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($newEvent);
-        $em->flush();
-        return $this->redirect($this->generateUrl('admin_event_edit', array('eventId' => $newEvent->getId())));
     }
 
     public function eventEditAction(Request $request, $eventId) {

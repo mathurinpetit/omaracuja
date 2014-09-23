@@ -109,8 +109,6 @@ class Event {
     public function __construct() {
         $this->createdAt = new DateTime();
         $this->public = true;
-        $this->title = "Sans titre " . $this->id;
-        $this->description = "Sans description";
         $this->startAt = new DateTime();
         $this->proposedTeam = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
@@ -131,7 +129,7 @@ class Event {
      * @param string $title
      * @return Event
      */
-    public function setTitle() {
+    public function setTitle($title) {
 
         $this->title = $title;
 

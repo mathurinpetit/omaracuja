@@ -24,8 +24,7 @@
                             <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
                         </div>
                         <br/>
-                        {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForm} %}
-                    </div>
+                        </div>
                 </div>
             {{ form_start(eventForm, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data' } }) }} 
                 <div class=" col-md-7">  
