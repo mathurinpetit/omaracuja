@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Omaracuja - Accueil{% endblock %}
+{% block title %}Omaracuja - Evénements{% endblock %}
 
 {% block connexion %}
     {% render url('fos_user_security_login') %}
@@ -8,35 +8,69 @@
 
 {% block content %}
     <div class="main">
-        <h1>Les Evènements à venir...</h1> 
+        <h1>Les événements</h1> 
+        <br/>
+        <br/>
         <br/>
         <div class="col-md-12">  
-            {% for event in events %}
-                <div class="row post panel panel-default">
-                    <div class="text-center col-md-12">  
-                        <h3>{{ event.title }}</h3>
-                    </div>
-                    <br/>
-                    <br/><br/><br/>
-                    <div class="post row col-lg-4">
-                        <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
-                        <input type="hidden" value="{{ event.mapX }}" id="google_map_x" />
-                        <div class="row event_left">
-                            <strong>{{ event.place }}</strong>
-                        </div>
-                        <br/>
-                        <div class="row event_left">
-                            <div id="map-canvas" class="col-md-8 event_map_show " ></div>
-                        </div>
-                    </div>
-                    <div class="row col-lg-8">
-                        {% autoescape false %}
-                            {{ event.description }}
-                        {% endautoescape %}
-                    </div>
-                </div>
+            <div class="panel-group" id="accordion">
+                {% for event in events %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{event.id}}">
 
-            {% endfor %}
+                                    <div class="col-md-12 text-danger">  
+                                        <h3>{{ event.title }}</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>Début : {{ event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>Fin : {{ event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <strong>{{ event.place }}</strong>
+                                    </div>
+                                    <div class="col-md-12">&nbsp;</div>
+                                </a>                                    
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </h4>
+                        </div>
+                        <div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="row event_left">
+                                            <br/>
+                                            <div id="{{event.id}}" >
+                                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                                            </div>
+                                            <br/>
+                                            <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
+                                            <input type="hidden" value="{{ event.mapX }}" id="google_map_x" />
+                                        </div>
+                                        <br/>
+                                        <div class="row event_left">
+                                            <div id="map-canvas" class="col-md-11 event_map_show " ></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {% autoescape false %}
+                                            {{ event.description }}
+                                        {% endautoescape %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

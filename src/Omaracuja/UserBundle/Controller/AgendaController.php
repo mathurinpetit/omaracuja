@@ -28,9 +28,9 @@ class AgendaController extends Controller {
             $localEvent = new \stdClass();
             $localEvent->event = $eventProposed;
             $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
-            $events[] = $localEvent;
+            $events[$eventProposed->getStartAt()->format('YmdHi')] = $localEvent;
         }
-
+        krsort($events);
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
                     'events' => $events,
                     'user' => $user,

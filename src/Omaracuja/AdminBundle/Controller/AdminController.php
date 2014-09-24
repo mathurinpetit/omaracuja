@@ -87,11 +87,16 @@ class AdminController extends Controller {
     /**
      * @Template()
      */
-    public function eventPanelAction() {
+    public function eventPanelAction() {  
+        
+        $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $lastEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();
+
+        $eventsAccepted = $user->getParticipateEvents();
+        $lastEventsByDate = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();  
+        
         $eventPictureForms = array();
-        foreach ($lastEvents as $lastEvent) {
+        foreach ($lastEventsByDate as $lastEvent) {
             $eventPicture = new EventPicture();
             $formFactory = $this->container->get('form.factory');
 
@@ -101,6 +106,16 @@ class AdminController extends Controller {
                             ->add('data', 'hidden')->getForm();
             $eventPictureForms['event_' . $lastEvent->getId()] = $eventPictureForm->createView();
         }
+
+        $lastEvents = array();
+        foreach ($lastEventsByDate as $lastEventByDate) {
+            $localEvent = new \stdClass();
+            $localEvent->event = $lastEventByDate;
+            $localEvent->accepted = in_array($lastEventByDate, $eventsAccepted->toArray());
+            $lastEvents[] = $localEvent;
+        }
+        
+        
         
         return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('lastEvents' => $lastEvents,
             'eventPictureForms' => $eventPictureForms));
@@ -110,7 +125,8 @@ class AdminController extends Controller {
      * @Template()
      */
     public function eventCreateAction(Request $request) {
-        $event = new Event();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $event = new Event($user);
         $form = $this->createForm(new EventType(), $event, array(
             'action' => $this->generateUrl('admin_create_event'),
             'method' => 'POST',

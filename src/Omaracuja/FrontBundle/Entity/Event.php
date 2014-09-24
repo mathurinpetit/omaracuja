@@ -4,8 +4,8 @@ namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
-use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Symfony\Component\Validator\Constraints as Assert;
+use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use \DateTime;
 
 /**
@@ -106,12 +106,13 @@ class Event {
      */
     private $eventPicture;
 
-    public function __construct() {
+    public function __construct(User $user) {
         $this->createdAt = new DateTime();
         $this->public = true;
         $this->startAt = new DateTime();
         $this->proposedTeam = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addProposedTeam($user);
     }
 
     /**
