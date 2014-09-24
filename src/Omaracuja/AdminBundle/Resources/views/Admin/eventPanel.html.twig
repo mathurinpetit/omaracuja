@@ -18,60 +18,66 @@
                 <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning text-right">Ajouter un événement</a>
             </div>
         </div>
-                <br/>
+        <br/>
         <br/>
         <div class="col-md-12">  
             <div class="panel-group" id="accordion">
                 {% for eventObj in lastEvents %}
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{eventObj.event.id}}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{eventObj.event.id}}">
 
-                                        <div class="col-md-8 text-danger">  
-                                            <h3>{{ eventObj.event.title }}</h3>
-                                        </div>
-                                        <div class="col-md-4 text-danger text-right">  
-                                            <h3>{% if eventObj.accepted %}J'y vais{% endif %}&nbsp;({{ eventObj.event.actualTeam|length }}/{{ eventObj.event.proposedTeam|length }}&nbsp;participent)</h3>
-                                        </div>
+                                    <div class="col-md-8 text-danger">  
+                                        <h3>{{ eventObj.event.title }}</h3>
+                                    </div>
+                                    <div class="col-md-4 text-danger text-right">  
+                                        <h3>{% if eventObj.accepted %}J'y vais{% endif %}&nbsp;({{ eventObj.event.actualTeam|length }}/{{ eventObj.event.proposedTeam|length }}&nbsp;participent)</h3>
+                                    </div>
 
-                                        <div class="col-md-4">
-                                            <strong>Début : {{ eventObj.event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Fin : {{ eventObj.event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
-                                        </div>
-                                        <div class="col-md-4 text-right">
-                                            <strong>{{ eventObj.event.place }}</strong>
-                                        </div>
-                                        <div class="col-md-12 agenda-event_show">                                              
-                                            {% for proposeUser in eventObj.event.proposedTeam %}
-                                                {% set participeLocalUser = null %}
-                                                {% for participeUser in eventObj.event.actualTeam %}
-                                                    {% if participeUser == proposeUser %}
-                                                        {% set participeLocalUser = true %}
-                                                    {% endif %}
-                                                {% endfor %}                                            
-                                                <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
-                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                    </a>                                    
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                </h4>
-                            </div>
-                            <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
+                                    <div class="col-md-4">
+                                        <strong>Début : {{ eventObj.event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>Fin : {{ eventObj.event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <strong>{{ eventObj.event.place }}</strong>
+                                    </div>
+                                    <div class="col-md-12 agenda-event_show">                                              
+                                        {% for proposeUser in eventObj.event.proposedTeam %}
+                                            {% set participeLocalUser = null %}
+                                            {% for participeUser in eventObj.event.actualTeam %}
+                                                {% if participeUser == proposeUser %}
+                                                    {% set participeLocalUser = true %}
+                                                {% endif %}
+                                            {% endfor %}                                            
+                                            <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
+                                                <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </a>                                    
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                {% if eventObj.event.proposedTeam | length > 13 %}
+                                    {% for i in range(0, (eventObj.event.proposedTeam|length / 13)*4) %}
+                                       <br/>
+                                    {% endfor %}
+                                {% endif %}
+                            </h4>
+                        </div>
+                        <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-5">
