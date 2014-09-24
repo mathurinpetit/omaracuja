@@ -1,15 +1,14 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Omaracuja - Administation Evénements{% endblock %}
+{% block title %}Mon Agenda{% endblock %}
 
 {% block connexion %}
     {% render url('fos_user_security_login') %}
 {% endblock %}
-
 {% block content %}
-    <div class="main">
-        <h1>Les événements</h1> 
-        <br/>
+<div class="main">
+    <h2>Evénements à venir</h2>
+    <br/>
         <div class="form-group event_panel_button">
             <div class="text-left col-lg-6">
                 <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
@@ -22,7 +21,7 @@
         <br/>
         <div class="col-md-12">  
             <div class="panel-group" id="accordion">
-                {% for event in lastEvents %}
+                {% for event in events %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -48,17 +47,15 @@
                                 <br/>
                             </h4>
                         </div>
-                        <div id="event_collapse_{{event.id}}" class="panel-collapse collapse in">
+                        <div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="row event_left">
                                             <br/>
-                                            <div id="{{event.id}}" class='crop-eventPicture'>
-                                                <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
+                                            <div id="{{event.id}}">
                                                     <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
-                                                </div>   
-                                                {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~event.id], 'event':event } %}
+                                                
                                             </div>
                                             <br/>
                                             <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
@@ -81,5 +78,5 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
-{% endblock %}
+</div>
+{% endblock content %}

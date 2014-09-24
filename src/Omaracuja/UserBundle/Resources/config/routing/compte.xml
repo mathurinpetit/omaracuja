@@ -29,5 +29,8 @@
         <default key="_controller">OmaracujaUserBundle:Avatar:select</default>
     </route>
     
+    <route id="compte_agenda" pattern="/agenda">
+        <default key="_controller">OmaracujaUserBundle:Agenda:agenda</default>
+    </route>
 
 </routes>

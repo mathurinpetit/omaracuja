@@ -79,7 +79,7 @@
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         {% if app.user.isActif() %}
                             <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
-                            <li><a href="{{ path('fos_user_profile_show') }}">Mon Agenda</a></li>
+                            <li><a href="{{ path('compte_agenda') }}">Mon Agenda</a></li>
                             {% endif %}
                         <li>
                             <a href="{{ path('fos_user_profile_show') }}">
