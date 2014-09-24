@@ -6,17 +6,8 @@
     {% render url('fos_user_security_login') %}
 {% endblock %}
 {% block content %}
-<div class="main">
-    <h2>Evénements à venir</h2>
-    <br/>
-        <div class="form-group event_panel_button">
-            <div class="text-left col-lg-6">
-                <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
-            </div>
-            <div class="text-right col-lg-6">
-                <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning text-right">Ajouter un événement</a>
-            </div>
-        </div>
+    <div class="main">
+        <h2>Evénements à venir</h2>
         <br/>
         <br/>
         <div class="col-md-12">  
@@ -39,7 +30,20 @@
                                     <div class="col-md-4 text-right">
                                         <strong>{{ event.place }}</strong>
                                     </div>
+                                    <div class="col-md-12 agenda-event_show">                                              
+                                        {% for proposeUser in event.proposedTeam %}
+                                            <div class="agenda-avatar-view">
+                                                <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 </a>                                    
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
                                 <br/>
                                 <br/>
                                 <br/>
@@ -54,8 +58,8 @@
                                         <div class="row event_left">
                                             <br/>
                                             <div id="{{event.id}}">
-                                                    <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
-                                                
+                                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+
                                             </div>
                                             <br/>
                                             <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
@@ -78,5 +82,5 @@
                 {% endfor %}
             </div>
         </div>
-</div>
+    </div>
 {% endblock content %}

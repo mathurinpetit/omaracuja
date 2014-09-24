@@ -10,13 +10,6 @@ class EventRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('e');
         $qb->orderBy('e.createdAt', 'DESC');
         return $qb->getQuery()->getResult();
-    }
-    
-//    public function findUserProposedEvent($user) {
-//        $qb = $this->createQueryBuilder('e');
-//        $qb->where('e.createdAt', 'DESC');
-//        $qb->orderBy('bp.createdAt', 'DESC');
-//        return $qb->getQuery()->getResult();
-//    }
+    }  
 
 }

@@ -20,8 +20,8 @@ class AgendaController extends Controller {
         
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $events = $em->getRepository('OmaracujaFrontBundle:Event')->findUserProposedEvent($user);
         
+        $events = $user->getProposedEvents();        
         
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
             'events' => $events,
