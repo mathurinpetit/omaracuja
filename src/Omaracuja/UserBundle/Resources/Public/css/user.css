@@ -49,3 +49,8 @@ form .form-group .error_list li{
 .agenda-avatar-view img {
   width: 100%;
 }
+
+.agenda-avatar-not-in-event img {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}

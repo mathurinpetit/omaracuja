@@ -1,11 +1,10 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 
 namespace Omaracuja\UserBundle\Controller;
 
@@ -17,15 +16,35 @@ use Omaracuja\FronBundle\Entity\Event as Event;
 class AgendaController extends Controller {
 
     public function agendaAction(Request $request) {
-        
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        
-        $events = $user->getProposedEvents();        
-        
+
+        $eventsProposed = $user->getProposedEvents();
+        $eventsAccepted = $user->getParticipateEvents();
+
+        $events = array();
+        foreach ($eventsProposed as $eventProposed) {
+            $localEvent = new \stdClass();
+            $localEvent->event = $eventProposed;
+            $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
+            $events[] = $localEvent;
+        }
+
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
-            'events' => $events,
+                    'events' => $events,
+                    'user' => $user,
         ));
     }
-    
+
+    public function eventAcceptAction(Request $request, $idEvent) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($idEvent);
+        $event->addActualTeam($user);
+        $em->persist($event);
+        $em->flush();
+        return $this->redirect($this->generateUrl('compte_agenda'));
+    }
+
 }

@@ -32,5 +32,9 @@
     <route id="compte_agenda" pattern="/agenda">
         <default key="_controller">OmaracujaUserBundle:Agenda:agenda</default>
     </route>
+    
+     <route id="compte_accept_event" pattern="/agenda/{idEvent}">
+        <default key="_controller">OmaracujaUserBundle:Agenda:eventAccept</default>
+    </route>    
 
 </routes>
