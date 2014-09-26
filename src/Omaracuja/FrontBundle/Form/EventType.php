@@ -13,6 +13,7 @@ class EventType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        
         $builder
         ->add('title', 'text', array(
         'label' => 'Titre',
@@ -22,8 +23,8 @@ class EventType extends AbstractType {
         ->add('public', 'checkbox', array(
         'label' => 'Evènement publique'
         ))
-        ->add('startAt', 'datetime', array('label' => 'Date de début', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
-        ->add('endAt', 'datetime', array('label' => 'Date de fin', 'widget' => 'single_text', 'attr' => array('class' => 'datetimepicker')))
+        ->add('startAtFr', 'text', array( 'label' => 'Date de début', 'attr' => array('class' => 'datetimepicker')))
+        ->add('endAtFr', 'text', array('label' => 'Date de fin', 'attr' => array('class' => 'datetimepicker')))
         ->add('place', 'text', array(
         'label' => 'Lieu'
         ))

@@ -221,6 +221,20 @@ class Event {
         return $this;
     }
 
+    public function getStartAtFr() {
+        $d = $this->getStartAt();
+        if ($d) {
+            return $d->format('d M Y H:i');
+        }
+        return '';
+    }
+
+    public function setStartAtFr($dateString) {
+        $date = DateTime::createFromFormat('d M Y H:i', $dateString);
+        $d = $this->setStartAt($date);
+        return $this;
+    }
+
     /**
      * Get startAt
      *
@@ -239,6 +253,20 @@ class Event {
     public function setEndAt($endAt) {
         $this->endAt = $endAt;
 
+        return $this;
+    }
+
+    public function getEndAtFr() {
+        $d = $this->getEndAt();
+        if ($d) {
+            return $d->format('d M Y H:i');
+        }
+        return '';
+    }
+
+    public function setEndAtFr($dateString) {
+        $date = DateTime::createFromFormat('d M Y H:i', $dateString);
+        $d = $this->setEndAt($date);
         return $this;
     }
 
@@ -375,14 +403,14 @@ class Event {
     }
 
     public function setPicture($ev) {
-        $this->eventPicture = $ev; 
+        $this->eventPicture = $ev;
         return $this;
     }
-    
+
     public function getPicture() {
         return $this->eventPicture;
     }
-    
+
     public function getPicturePath() {
         if (!$this->eventPicture) {
             return "/data/events/omaracuja_event_no_picture.jpg";

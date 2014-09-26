@@ -42,10 +42,10 @@
                                             <h3>{{ event.title }}</h3>
                                         </div>
                                         <div class="col-md-4">
-                                            <strong>Début : {{ event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                            <strong>Du {{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
                                         </div>
                                         <div class="col-md-4">
-                                            <strong>Fin : {{ event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                            <strong>Au {{ event.endAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
                                         </div>
                                         <div class="col-md-4 text-right">
                                             <strong>{{ event.place }}</strong>

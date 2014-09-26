@@ -125,7 +125,7 @@ class AdminController extends Controller {
                     'eventPictureForms' => $eventPictureForms));
     }
 
-    public function eventsPastPanelAction(){
+    public function eventsPastPanelAction() {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
@@ -161,9 +161,7 @@ class AdminController extends Controller {
         return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('pastEvent' => true, 'nextEvents' => $pastEventsForView,
                     'eventPictureForms' => $eventPictureForms));
     }
-    
-    
-    
+
     /**
      * @Template()
      */
@@ -198,7 +196,7 @@ class AdminController extends Controller {
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
-
+        $retour = $this->generateUrl('admin_panel_event');
         if ($request->isMethod('POST')) {
             $form->bind($request);
             if ($form->isValid()) {
@@ -238,10 +236,10 @@ class AdminController extends Controller {
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
-        
+
         return $this->render('OmaracujaAdminBundle:Admin:eventCreate.html.twig', array(
-            'event' => $event,
-            'eventForm' => $form->createView(),
+                    'event' => $event,
+                    'eventForm' => $form->createView(),
         ));
     }
 

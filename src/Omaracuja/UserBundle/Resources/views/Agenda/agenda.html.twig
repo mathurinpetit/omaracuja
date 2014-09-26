@@ -61,10 +61,10 @@
                                                 </div>
 
                                                 <div class="col-md-4">
-                                                    <strong>Début : {{ eventObj.event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                                    <strong>Du {{ eventObj.event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <strong>Fin : {{ eventObj.event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                                    <strong>Au {{ eventObj.event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
                                                 </div>
                                                 <div class="col-md-4 text-right">
                                                     <strong>{{ eventObj.event.place }}</strong>
@@ -84,6 +84,7 @@
                                                     {% endfor %}
                                                 </div>
                                             </a>
+                                            <br/>
                                             <br/>
                                             <br/>
                                             <br/>

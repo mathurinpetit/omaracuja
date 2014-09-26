@@ -43,15 +43,15 @@
                         {{ form_widget(eventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
                     </div>
                     <div class="form-group" >
-                        <div class="error_list">{{ form_errors(eventForm.startAt) }}</div>
-                        {{form_label(eventForm.startAt)}}
-                        {{ form_widget(eventForm.startAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
+                        <div class="error_list">{{ form_errors(eventForm.startAtFr) }}</div>
+                        {{form_label(eventForm.startAtFr)}}
+                        {{ form_widget(eventForm.startAtFr, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
 
                     </div>
                     <div class="form-group" >
-                        <div class="error_list">{{ form_errors(eventForm.endAt) }}</div>
-                        {{form_label(eventForm.endAt)}}
-                        {{ form_widget(eventForm.endAt, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
+                        <div class="error_list">{{ form_errors(eventForm.endAtFr) }}</div>
+                        {{form_label(eventForm.endAtFr)}}
+                        {{ form_widget(eventForm.endAtFr, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
 
                     </div>
                 </div>

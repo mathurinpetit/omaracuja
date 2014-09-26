@@ -6,6 +6,8 @@
 
 $(document).ready(function() {
 
+    $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+
     $('.datetimepicker').datetimepicker({
         lang: 'fr',
         i18n: {
