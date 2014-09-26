@@ -18,20 +18,30 @@ class FrontController extends Controller {
     public function accueilAction(Request $request) {
         return $this->getAccueil();
     }
-    
+
     /**
      * @Template()
      */
     public function evennementAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $events = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();
-
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate();
         return array(
-            'events' => $events,
+            'pastEvent' => false,
+            'events' => $nextEvents,
         );
     }
-    
+
+    public function evennementPastAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate();
+
+        return $this->render('OmaracujaFrontBundle:Front:evennement.html.twig', array(
+                    'pastEvent' => true,
+                    'events' => $nextEvents,
+        ));
+    }    
 
     /**
      * @Template()
@@ -52,7 +62,7 @@ class FrontController extends Controller {
         //User        
         $user = $this->container->get('security.context')->getToken()->getUser();
         $connected = !($user == "anon.") && $user->isActif();
-        $blogPosts = $this->getBlogPostsStrategy($connected,$user);
+        $blogPosts = $this->getBlogPostsStrategy($connected, $user);
 
         //PostCreation
         $newBlogPost = null;
@@ -69,16 +79,16 @@ class FrontController extends Controller {
         return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected));
     }
 
-    private function getBlogPostsStrategy($connected = false, $user = false){
+    private function getBlogPostsStrategy($connected = false, $user = false) {
         $em = $this->getDoctrine()->getManager();
         $blogPostRepository = $em->getRepository('OmaracujaFrontBundle:BlogPost');
-        if($connected && $user->isActif()){
-           return $blogPostRepository->findAllOrderedByDateWithLimit();
-        }else{
+        if ($connected && $user->isActif()) {
+            return $blogPostRepository->findAllOrderedByDateWithLimit();
+        } else {
             return $blogPostRepository->findPublicOrderedByDateWithLimit();
         }
     }
-    
+
     public function blogPostCreateAction(Request $request) {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $newBlogPost = new BlogPost($user);
@@ -102,6 +112,5 @@ class FrontController extends Controller {
                     'form' => $newBlogPostForm->createView(),
         ));
     }
-
 
 }

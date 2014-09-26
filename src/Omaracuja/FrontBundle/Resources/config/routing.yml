@@ -14,3 +14,7 @@ front_evennement:
      path:  /evennements
      defaults: { _controller: OmaracujaFrontBundle:Front:evennement }    
      
+front_evennement_past:
+     path:  /evennements-passes
+     defaults: { _controller: OmaracujaFrontBundle:Front:evennementPast }
+     
