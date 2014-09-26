@@ -23,16 +23,20 @@ class AgendaController extends Controller {
         $eventsProposed = $user->getProposedEvents();
         $eventsAccepted = $user->getParticipateEvents();
 
-        $events = array();
+        $nextEvents = array();
         foreach ($eventsProposed as $eventProposed) {
             $localEvent = new \stdClass();
             $localEvent->event = $eventProposed;
             $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
-            $events[$eventProposed->getStartAt()->format('YmdHi')] = $localEvent;
+            $startDate = $localEvent->event->getStartAt();
+            $today = new \DateTime();
+            if($startDate >= $today){
+            $nextEvents[$startDate->format('YmdHi')] = $localEvent;                
+            }            
         }
-        krsort($events);
+        krsort($nextEvents);
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
-                    'events' => $events,
+                    'events' => $nextEvents,
                     'user' => $user,
         ));
     }

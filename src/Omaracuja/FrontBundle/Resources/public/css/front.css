@@ -70,6 +70,14 @@
     margin-bottom: 20px;
 }
 
+.event_passed_link{
+    height: 70px;
+    vertical-align: bottom;
+    text-decoration: underline;
+    padding-right: 40px;
+    padding-top: 35px;
+}
+
 
 .panel-heading a:after {
     font-family: 'Glyphicons Halflings';
