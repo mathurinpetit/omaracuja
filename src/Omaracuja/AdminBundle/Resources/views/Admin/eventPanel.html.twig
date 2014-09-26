@@ -8,14 +8,19 @@
 
 {% block content %}
     <div class="main">
-        <h1>Les événements</h1> 
+        <h1>Administration - {%if pastEvent %}Les événements passés{% else %}Les événements{% endif %}</h1> 
         <br/>
         <div class="form-group event_panel_button">
             <div class="text-left col-lg-6">
                 <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
             </div>
             <div class="text-right col-lg-6">
-                <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning text-right">Ajouter un événement</a>
+                {% if pastEvent %}
+                    <a href="{{ path('admin_panel_event') }}" class="btn btn-default btn-warning text-right">Retour aux événements actuels</a>
+                {% else %}
+                    <a href="{{ path('admin_events_passed') }}" class="btn btn-default btn-warning text-right">Evénements passés</a>
+                    <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-danger text-right">Ajouter un événement</a>
+                {% endif %}
             </div>
         </div>
         <br/>

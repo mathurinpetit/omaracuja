@@ -121,10 +121,49 @@ class AdminController extends Controller {
         }
 
 
-        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('nextEvents' => $nextEventsForView,
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('pastEvent' => false, 'nextEvents' => $nextEventsForView,
                     'eventPictureForms' => $eventPictureForms));
     }
 
+    public function eventsPastPanelAction(){
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $eventsAccepted = $user->getParticipateEvents();
+        $pastEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate();
+
+        $eventPictureForms = array();
+        foreach ($pastEventsByMonth as $month => $pastEvents) {
+            foreach ($pastEvents as $pastEvent) {
+                $eventPicture = new EventPicture();
+                $formFactory = $this->container->get('form.factory');
+
+                $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
+                $eventPictureForm = $eventPictureFormBuilder->add('file')
+                                ->add('src', 'hidden')
+                                ->add('data', 'hidden')->getForm();
+                $eventPictureForms['event_' . $pastEvent->getId()] = $eventPictureForm->createView();
+            }
+        }
+
+        $pastEventsForView = array();
+        foreach ($pastEventsByMonth as $month => $pastEvents) {
+            $nextEventsForView[$month] = array();
+            foreach ($pastEvents as $pastEventByDate) {
+                $localEvent = new \stdClass();
+                $localEvent->event = $pastEventByDate;
+                $localEvent->accepted = in_array($pastEventByDate, $eventsAccepted->toArray());
+                $pastEventsForView[$month][] = $localEvent;
+            }
+        }
+
+
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('pastEvent' => true, 'nextEvents' => $pastEventsForView,
+                    'eventPictureForms' => $eventPictureForms));
+    }
+    
+    
+    
     /**
      * @Template()
      */

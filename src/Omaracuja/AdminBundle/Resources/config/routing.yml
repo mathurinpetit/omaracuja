@@ -27,8 +27,12 @@ admin_create_presentation:
 
 admin_panel_event:
      path:  /evenements
-     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel }  
-
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel } 
+     
+admin_events_passed:
+     path:  /evenements-passes
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventsPastPanel } 
+     
 admin_create_event:
      path:  /creationEvenement
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventCreate }     
