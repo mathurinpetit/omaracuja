@@ -23,18 +23,29 @@ class AgendaController extends Controller {
         $eventsProposed = $user->getProposedEvents();
         $eventsAccepted = $user->getParticipateEvents();
 
+        $eventsProposedByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->sortEventsByIsoMonth($eventsProposed);
+
         $nextEvents = array();
-        foreach ($eventsProposed as $eventProposed) {
-            $localEvent = new \stdClass();
-            $localEvent->event = $eventProposed;
-            $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
-            $startDate = $localEvent->event->getStartAt();
-            $today = new \DateTime();
-            if ($startDate >= $today) {
-                $nextEvents[$startDate->format('YmdHi')] = $localEvent;
+        foreach ($eventsProposedByMonth as $month => $eventsProposed) {
+            $localEventsArray = array();
+            foreach ($eventsProposed as $eventProposed) {
+                $localEvent = new \stdClass();
+                $localEvent->event = $eventProposed;
+                $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
+                $startDate = $localEvent->event->getStartAt();
+                $today = new \DateTime();
+                if ($startDate >= $today) {
+                    $localEventsArray[$startDate->format('YmdHi')] = $localEvent;
+                }
+            }
+            if (count($localEventsArray)) {
+                $nextEvents[$month] = array();
+                krsort($localEventsArray);
+                $nextEvents[$month] = $localEventsArray;
             }
         }
         krsort($nextEvents);
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
                     'pastEvent' => false,
                     'events' => $nextEvents,
@@ -50,18 +61,29 @@ class AgendaController extends Controller {
         $eventsProposed = $user->getProposedEvents();
         $eventsAccepted = $user->getParticipateEvents();
 
+        $eventsProposedByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->sortEventsByIsoMonth($eventsProposed);
+
         $lastEvents = array();
-        foreach ($eventsProposed as $eventProposed) {
-            $localEvent = new \stdClass();
-            $localEvent->event = $eventProposed;
-            $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
-            $startDate = $localEvent->event->getStartAt();
-            $today = new \DateTime();
-            if ($startDate < $today) {
-                $lastEvents[$startDate->format('YmdHi')] = $localEvent;
+        foreach ($eventsProposedByMonth as $month => $eventsProposed) {
+            $localEventsArray = array();
+            foreach ($eventsProposed as $eventProposed) {
+                $localEvent = new \stdClass();
+                $localEvent->event = $eventProposed;
+                $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
+                $startDate = $localEvent->event->getStartAt();
+                $today = new \DateTime();
+                if ($startDate < $today) {
+                    $localEventsArray[$startDate->format('YmdHi')] = $localEvent;
+                }
+            }
+            if (count($localEventsArray)) {
+                $lastEvents[$month] = array();
+                krsort($localEventsArray);
+                $lastEvents[$month] = $localEventsArray;
             }
         }
         krsort($lastEvents);
+        setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
                     'pastEvent' => true,
                     'events' => $lastEvents,

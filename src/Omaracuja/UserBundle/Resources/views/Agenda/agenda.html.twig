@@ -25,116 +25,121 @@
         <br/>
         <br/>
         <div class="col-md-12">  
-            <div class="panel-group" id="accordion">
-                {% for eventObj in events %}
-                    <div class="row">
-                        <div class="col-md-4">    
-                            {%if not pastEvent %}
+            {% for month,eventsByMonth in events %}
+                {% set stringMonth = events[month]|first.event.startAt |localizeddate('none', 'none', 'fr_FR', null, "MMMM Y") %}
+                <h2>{{ stringMonth|slice(0, 1)|upper~stringMonth|slice(1,stringMonth|length)  }}</h2>
+                <div class="panel-group" id="accordion">
+                    {% for eventObj in eventsByMonth %}
+                        <div class="row">
+                            <div class="col-md-4">    
                                 <h3>
-                                    {% if not eventObj.accepted %}
-                                        <form id="{{eventObj.event.id}}" method="post" action="{{ path('compte_accept_event',{ 'idEvent': eventObj.event.id }) }}">
-                                            <button type="submit" class="btn btn-default btn-danger">J'y vais!</button>
-                                        </form>
+                                    {%if not pastEvent %}
+                                        {% if not eventObj.accepted %}
+                                            <form id="{{eventObj.event.id}}" method="post" action="{{ path('compte_accept_event',{ 'idEvent': eventObj.event.id }) }}">
+                                                <button type="submit" class="btn btn-default btn-danger">J'y vais!</button>
+                                            </form>
+                                        {% endif %}
                                     {% endif %}
                                 </h3>
-                            {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{eventObj.event.id}}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{eventObj.event.id}}">
 
-                                    <div class="col-md-10 text-danger">  
-                                        <h3>{{ eventObj.event.title }}</h3>
-                                    </div>
-                                    <div class="col-md-2 text-right">  
-                                        <h3>{% if not pastEvent %} 
-                                            {% if eventObj.accepted %}<span class="text-danger">J'y vais</span>{% endif %}
-                                            {% else %}
-                                                {% if eventObj.accepted %}<span class="text-danger">J'y étais!</span>{% else %}<span class="text-info">Snif...</span>{% endif %}
-                                                {% endif %}
-                                                </h3>
-                                            </div>
+                                        <div class="col-md-10 text-danger">  
+                                            <h3>{{ eventObj.event.title }}</h3>
+                                        </div>
+                                        <div class="col-md-2 text-right">  
+                                            <h3>{% if not pastEvent %} 
+                                                {% if eventObj.accepted %}<span class="text-danger">J'y vais</span>{% endif %}
+                                                {% else %}
+                                                    {% if eventObj.accepted %}<span class="text-danger">J'y étais!</span>{% else %}<span class="text-info">Snif...</span>{% endif %}
+                                                    {% endif %}
+                                                    </h3>
+                                                </div>
 
-                                            <div class="col-md-4">
-                                                <strong>Début : {{ eventObj.event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <strong>Fin : {{ eventObj.event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
-                                            </div>
-                                            <div class="col-md-4 text-right">
-                                                <strong>{{ eventObj.event.place }}</strong>
-                                            </div>
-                                            <div class="col-md-12 agenda-event_show">                                              
-                                                {% for proposeUser in eventObj.event.proposedTeam %}
-                                                    {% set participeLocalUser = null %}
-                                                    {% for participeUser in eventObj.event.actualTeam %}
-                                                        {% if participeUser == proposeUser %}
-                                                            {% set participeLocalUser = true %}
-                                                        {% endif %}
-                                                    {% endfor %} 
-                                                    <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
-                                                        <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                        <span>{{proposeUser.username}}</span>
-                                                    </div>
+                                                <div class="col-md-4">
+                                                    <strong>Début : {{ eventObj.event.startAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <strong>Fin : {{ eventObj.event.endAt | date("F jS \\a\\t g:ia", "Europe/Paris") }}</strong>
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <strong>{{ eventObj.event.place }}</strong>
+                                                </div>
+                                                <div class="col-md-12 agenda-event_show">                                              
+                                                    {% for proposeUser in eventObj.event.proposedTeam %}
+                                                        {% set participeLocalUser = null %}
+                                                        {% for participeUser in eventObj.event.actualTeam %}
+                                                            {% if participeUser == proposeUser %}
+                                                                {% set participeLocalUser = true %}
+                                                            {% endif %}
+                                                        {% endfor %} 
+                                                        <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
+                                                            <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                                            <span>{{proposeUser.username}}</span>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </a>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            {% if eventObj.event.proposedTeam | length > 10 %}
+                                                {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
+                                                    <br/>
                                                 {% endfor %}
-                                            </div>
-                                        </a>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        {% if eventObj.event.proposedTeam | length > 10 %}
-                                            {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
-                                                <br/>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </h4>
-                                </div>
-                                <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <div class="row event_left">
-                                                    <br/>
-                                                    <div id="{{eventObj.event.id}}">
-                                                        <img src="{{eventObj.event.getPicturePath}}" alt="{{eventObj.event.title}}" class="img-rounded">
+                                            {% endif %}
+                                        </h4>
+                                    </div>
+                                    <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="row event_left">
+                                                        <br/>
+                                                        <div id="{{eventObj.event.id}}">
+                                                            <img src="{{eventObj.event.getPicturePath}}" alt="{{eventObj.event.title}}" class="img-rounded">
 
+                                                        </div>
+                                                        <br/>
+                                                        <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y_{{ eventObj.event.id }}" />                            
+                                                        <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x_{{ eventObj.event.id }}" />
                                                     </div>
                                                     <br/>
-                                                    <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y_{{ eventObj.event.id }}" />                            
-                                                    <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x_{{ eventObj.event.id }}" />
+                                                    <div class="row event_left">
+                                                        <a href="http://maps.google.com/maps?q={{eventObj.event.place | url_encode }}" target='_blank'>
+                                                            <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ eventObj.event.mapX }},{{ eventObj.event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ eventObj.event.mapX }},{{ eventObj.event.mapY }}">
+                                                        </a>
+                                                        {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
+                                                    </div>
                                                 </div>
-                                                <br/>
-                                                <div class="row event_left">
-                                                    <a href="http://maps.google.com/maps?q={{eventObj.event.place | url_encode }}" target='_blank'>
-                                                        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ eventObj.event.mapX }},{{ eventObj.event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ eventObj.event.mapX }},{{ eventObj.event.mapY }}">
-                                                    </a>
-                                                    {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
+                                                <div class="col-md-7">
+                                                    {% autoescape false %}
+                                                        {{ eventObj.event.description }}
+                                                    {% endautoescape %}
                                                 </div>
-                                            </div>
-                                            <div class="col-md-7">
-                                                {% autoescape false %}
-                                                    {{ eventObj.event.description }}
-                                                {% endautoescape %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>
+                                <hr>
+                                {% endfor %}
+                                </div>
                             </div>
-                            {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endblock content %}
+                            {% endblock content %}

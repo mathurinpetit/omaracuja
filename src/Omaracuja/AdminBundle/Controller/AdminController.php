@@ -87,38 +87,42 @@ class AdminController extends Controller {
     /**
      * @Template()
      */
-    public function eventPanelAction() {  
-        
+    public function eventPanelAction() {
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $eventsAccepted = $user->getParticipateEvents();
-        $lastEventsByDate = $em->getRepository('OmaracujaFrontBundle:Event')->findAllOrderedByDate();  
-        
+        $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate();
+
         $eventPictureForms = array();
-        foreach ($lastEventsByDate as $lastEvent) {
-            $eventPicture = new EventPicture();
-            $formFactory = $this->container->get('form.factory');
+        foreach ($nextEventsByMonth as $month => $nextEvents) {
+            foreach ($nextEvents as $nextEvent) {
+                $eventPicture = new EventPicture();
+                $formFactory = $this->container->get('form.factory');
 
-            $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
-            $eventPictureForm = $eventPictureFormBuilder->add('file')
-                            ->add('src', 'hidden')
-                            ->add('data', 'hidden')->getForm();
-            $eventPictureForms['event_' . $lastEvent->getId()] = $eventPictureForm->createView();
+                $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
+                $eventPictureForm = $eventPictureFormBuilder->add('file')
+                                ->add('src', 'hidden')
+                                ->add('data', 'hidden')->getForm();
+                $eventPictureForms['event_' . $nextEvent->getId()] = $eventPictureForm->createView();
+            }
         }
 
-        $lastEvents = array();
-        foreach ($lastEventsByDate as $lastEventByDate) {
-            $localEvent = new \stdClass();
-            $localEvent->event = $lastEventByDate;
-            $localEvent->accepted = in_array($lastEventByDate, $eventsAccepted->toArray());
-            $lastEvents[] = $localEvent;
+        $nextEventsForView = array();
+        foreach ($nextEventsByMonth as $month => $nextEvents) {
+            $nextEventsForView[$month] = array();
+            foreach ($nextEvents as $nextEventByDate) {
+                $localEvent = new \stdClass();
+                $localEvent->event = $nextEventByDate;
+                $localEvent->accepted = in_array($nextEventByDate, $eventsAccepted->toArray());
+                $nextEventsForView[$month][] = $localEvent;
+            }
         }
-        
-        
-        
-        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('lastEvents' => $lastEvents,
-            'eventPictureForms' => $eventPictureForms));
+
+
+        return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('nextEvents' => $nextEventsForView,
+                    'eventPictureForms' => $eventPictureForms));
     }
 
     /**
@@ -146,15 +150,15 @@ class AdminController extends Controller {
         );
     }
 
-    public function eventPictureUploadAction(Request $request,$eventId) {
+    public function eventPictureUploadAction(Request $request, $eventId) {
         $eventPicture = new EventPicture();
         $form = $this->createFormBuilder($eventPicture, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
                 ->getForm();
-        $em = $this->getDoctrine()->getManager();   
-        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);       
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
 
         if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -162,10 +166,10 @@ class AdminController extends Controller {
 
                 $em->persist($eventPicture);
                 $em->flush();
-                
+
                 $event->setPicture($eventPicture);
                 $em->flush();
-                
+
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $eventPicture->getAjaxMsg(),
