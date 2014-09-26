@@ -53,25 +53,28 @@
                                                 {% endif %}
                                             {% endfor %}                                            
                                             <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
-                                                <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </a>                                    
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                {% if eventObj.event.proposedTeam | length > 13 %}
-                                    {% for i in range(0, (eventObj.event.proposedTeam|length / 13)*4) %}
+                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                                    <span>{{proposeUser.username}}</span>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </a>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                {% if eventObj.event.proposedTeam | length > 10 %}
+                                    {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
                                         <br/>
                                     {% endfor %}
                                 {% endif %}
