@@ -30,13 +30,41 @@ class AgendaController extends Controller {
             $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
             $startDate = $localEvent->event->getStartAt();
             $today = new \DateTime();
-            if($startDate >= $today){
-            $nextEvents[$startDate->format('YmdHi')] = $localEvent;                
-            }            
+            if ($startDate >= $today) {
+                $nextEvents[$startDate->format('YmdHi')] = $localEvent;
+            }
         }
         krsort($nextEvents);
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
+                    'pastEvent' => false,
                     'events' => $nextEvents,
+                    'user' => $user,
+        ));
+    }
+
+    public function eventsPastAction(Request $request) {
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $eventsProposed = $user->getProposedEvents();
+        $eventsAccepted = $user->getParticipateEvents();
+
+        $lastEvents = array();
+        foreach ($eventsProposed as $eventProposed) {
+            $localEvent = new \stdClass();
+            $localEvent->event = $eventProposed;
+            $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
+            $startDate = $localEvent->event->getStartAt();
+            $today = new \DateTime();
+            if ($startDate < $today) {
+                $lastEvents[$startDate->format('YmdHi')] = $localEvent;
+            }
+        }
+        krsort($lastEvents);
+        return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
+                    'pastEvent' => true,
+                    'events' => $lastEvents,
                     'user' => $user,
         ));
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <routes xmlns="http://symfony.com/schema/routing"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="fos_user_profile_show" pattern="/">
         <default key="_controller">FOSUserBundle:Profile:show</default>
@@ -33,8 +33,12 @@
         <default key="_controller">OmaracujaUserBundle:Agenda:agenda</default>
     </route>
     
-     <route id="compte_accept_event" pattern="/agenda/{idEvent}">
+    <route id="compte_accept_event" pattern="/agenda/{idEvent}">
         <default key="_controller">OmaracujaUserBundle:Agenda:eventAccept</default>
-    </route>    
+    </route> 
+    
+    <route id="compte_events_past" pattern="/evennements-passes">
+        <default key="_controller">OmaracujaUserBundle:Agenda:eventsPast</default>
+    </route>           
 
 </routes>
