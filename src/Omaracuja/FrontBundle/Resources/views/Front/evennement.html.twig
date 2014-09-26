@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="main">
-        <h1>Les événements</h1> 
+        <h1>Prochains événements</h1> 
         <br/>
         <br/>
         <br/>
@@ -40,6 +40,7 @@
                                 <br/>
                                 <br/>
                                 <br/>
+                                <br/>
                             </h4>
                         </div>
                         <div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
@@ -52,12 +53,15 @@
                                                 <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
                                             </div>
                                             <br/>
-                                            <input type="hidden" value="{{ event.mapY }}" id="google_map_y" />                            
-                                            <input type="hidden" value="{{ event.mapX }}" id="google_map_x" />
+                                            <input type="hidden" value="{{ event.mapY }}" id="google_map_y_{{ event.id }}" />                            
+                                            <input type="hidden" value="{{ event.mapX }}" id="google_map_x_{{ event.id }}" />
                                         </div>
                                         <br/>
                                         <div class="row event_left">
-                                            <div id="map-canvas" class="col-md-11 event_map_show " ></div>
+                                            <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
+                                                <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
+                                            </a>
+                                            {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
                                         </div>
                                     </div>
                                     <div class="col-md-7">

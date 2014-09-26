@@ -72,7 +72,7 @@
                                 <br/>
                                 {% if eventObj.event.proposedTeam | length > 13 %}
                                     {% for i in range(0, (eventObj.event.proposedTeam|length / 13)*4) %}
-                                       <br/>
+                                        <br/>
                                     {% endfor %}
                                 {% endif %}
                             </h4>
@@ -90,12 +90,15 @@
                                                 {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~eventObj.event.id], 'event':eventObj.event } %}
                                             </div>
                                             <br/>
-                                            <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y" />                            
-                                            <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x" />
+                                            <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y_{{ eventObj.event.id }}" />                            
+                                            <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x_{{ eventObj.event.id }}" />
                                         </div>
                                         <br/>
                                         <div class="row event_left">
-                                            <div id="map-canvas" class="col-md-11 event_map_show " ></div>
+                                            <a href="http://maps.google.com/maps?q={{eventObj.event.place | url_encode }}" target='_blank'>
+                                                <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ eventObj.event.mapX }},{{ eventObj.event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ eventObj.event.mapX }},{{ eventObj.event.mapY }}">
+                                            </a>
+                                            {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
                                         </div>
                                     </div>
                                     <div class="col-md-7">

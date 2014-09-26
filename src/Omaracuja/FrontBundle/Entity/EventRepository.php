@@ -8,7 +8,8 @@ class EventRepository extends EntityRepository {
 
     public function findAllOrderedByDate() {
         $qb = $this->createQueryBuilder('e');
-        $qb->orderBy('e.createdAt', 'DESC');
+        $qb->where('e.endAt >= CURRENT_DATE()');
+        $qb->orderBy('e.startAt', 'DESC');
         return $qb->getQuery()->getResult();
     }  
 

@@ -50,9 +50,10 @@
     margin-left: 20px;
 }
 
-.event_map_show
+.event_map_show, .event_map_show_multiple
 {
     height: 280px;
+    width: 400px;
 }
 
 .event_map_choose{
