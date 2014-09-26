@@ -225,32 +225,23 @@ class AdminController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
-        $eventForm = $this->createForm(new EventType(), $event, array(
-            'action' => $this->generateUrl('admin_event_create'),
+        $form = $this->createForm(new EventType(), $event, array(
+            'action' => $this->generateUrl('admin_create_event'),
             'method' => 'POST',
         ));
+        $form->handleRequest($request);
 
-        $event->getPicture();
-
-        $eventPictureForm = $this->createFormBuilder($event->getPicture(), array('csrf_protection' => false))
-                ->add('file')
-                ->add('src', 'hidden')
-                ->add('data', 'hidden')
-                ->getForm();
-        $eventForm->handleRequest($request);
-
-        if ($eventForm->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($eventForm);
+            $em->persist($event);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
-
-        return $this->render('OmaracujaAdminBundle:Admin:eventEdit.html.twig', array(
-                    'event' => $event,
-                    'eventForm' => $eventForm->createView(),
-                    'eventPictureForm' => $eventPictureForm->createView()
+        
+        return $this->render('OmaracujaAdminBundle:Admin:eventCreate.html.twig', array(
+            'event' => $event,
+            'eventForm' => $form->createView(),
         ));
     }
 
