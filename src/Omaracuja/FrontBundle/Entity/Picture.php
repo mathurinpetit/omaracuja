@@ -6,13 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-
 /**
  * @ORM\Entity
- * @ORM\Table(name="omaracuja_event_picture")
+ * @ORM\Table(name="omaracuja_picture")
  * @ORM\HasLifecycleCallbacks
  */
-class EventPicture {
+class Picture {
 
     /**
      * @ORM\Id
@@ -20,6 +19,13 @@ class EventPicture {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string $title
+     *
+     * @ORM\Column(name="title", type="text", nullable=false)
+     */
+    private $title;
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -93,19 +99,19 @@ class EventPicture {
     }
 
     public function getWebOriginalPath($prefix = '/') {
-        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->getId() . '/original/' . $this->getPath();
+        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/photo_' . $this->getId() . '/original/' . $this->getPath();
     }
 
     public function getWebPath($prefix = '/') {
-        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/event_' . $this->getId() . '/' . $this->getPath();
+        return null === $this->getPath() ? null : $prefix . $this->getUploadDir() . '/photo_' . $this->getId() . '/' . $this->getPath();
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir() . '/event_' . $this->getId() . '/original/';
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir() . '/photo_' . $this->getId() . '/original/';
     }
 
     protected function getUploadDir() {
-        return 'data/events';
+        return 'data/pictures';
     }
 
     public function getPath() {

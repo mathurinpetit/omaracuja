@@ -11,6 +11,7 @@ use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
 use Omaracuja\AdminBundle\Form\PresentationType as PresentationType;
 use Omaracuja\FrontBundle\Entity\Event as Event;
 use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
+use Omaracuja\FrontBundle\Entity\Picture as Picture;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
 
 class AdminController extends Controller {
@@ -260,5 +261,36 @@ class AdminController extends Controller {
         $em->flush();
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
-
+    
+    public function picturePanelAction(Request $request) {
+        $picture = new Picture();
+        $form = $this->createFormBuilder($picture, array('csrf_protection' => false))
+                ->add('file')
+                ->add('src', 'hidden')
+                ->add('data', 'hidden')
+                ->getForm();
+        $em = $this->getDoctrine()->getManager();
+        $pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findAll();
+        $retour = $this->generateUrl('admin_panel_pictures');
+//        if ($request->isMethod('POST')) {
+//            $form->bind($request);
+//            if ($form->isValid()) {
+//
+//                $em->persist($picture);
+//                $em->flush();
+//
+//                $response = new Response(json_encode(array(
+//                            'state' => 200,
+//                            'message' => $picture->getAjaxMsg(),
+//                            'result' => $picture->getResult()
+//                )));
+//                $response->headers->set('Content-Type', 'application/json');
+//                return $response;
+//            }
+//        }
+        return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
+                    'pictures' => $pictures,
+                    'form' => $form->createView(),
+        ));
+    }
 }

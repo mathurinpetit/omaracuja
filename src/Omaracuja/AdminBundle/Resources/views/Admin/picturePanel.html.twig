@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Administation Evénements{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+
+        <div class="col-md-12">
+            <div class="row">
+                {%for picture in pictures %}
+                    <div class="col-md-5">
+                        <div class="row event_left">
+                            <br/>
+                            <h1>{{picture.title}}</h1>
+                            <div id="{{picture.id}}" class='crop-eventPicture'>
+                                <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
+                                    <img src="{{picture.getPicturePath}}" alt="{{picture.title}}" class="img-rounded">
+                                </div>   
+                                {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': form } %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
