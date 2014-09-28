@@ -17,8 +17,9 @@
 
     function CropPicture($element) {
         this.$container = $element;
+        this.$pictureDefaultView = this.$container.find(".picture-default-view");
         this.$pictureLink = this.$container.find(".picture-link");
-        this.$picture = this.$pictureLink.find("img");
+        this.$picture = this.$pictureDefaultView.find("img");
         this.$pictureModal = this.$container.find("#picture-modal");
         this.$loading = this.$container.find(".loading");
 
@@ -69,6 +70,7 @@
         },
         initPreview: function() {
             var url = this.$picture.attr("src");
+            console.log(url);
             this.$pictureWrapper.empty().html('<img src="' + url + '">');
         },
         initIframe: function() {

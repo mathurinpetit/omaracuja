@@ -263,17 +263,18 @@ class AdminController extends Controller {
     }
 
     public function picturePanelAction() {
-        $picture = new Picture();
-        $form = $this->createFormBuilder($picture, array('csrf_protection' => false))
+        $newPicture = new Picture();
+        $form = $this->createFormBuilder($newPicture, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
-                ->add('data', 'hidden')                
+                ->add('data', 'hidden')
                 ->add('title', 'text')
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
         $pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findAll();
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
                     'pictures' => $pictures,
+                    'newPicture' => $newPicture,
                     'form' => $form->createView(),
         ));
     }
@@ -287,14 +288,13 @@ class AdminController extends Controller {
                 ->add('title', 'text')
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
-        $retour = $this->generateUrl('admin_panel_pictures');
         if ($request->isMethod('POST')) {
             $form->bind($request);
             if ($form->isValid()) {
 
                 $em->persist($picture);
                 $em->flush();
-
+                
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $picture->getAjaxMsg(),
@@ -304,7 +304,7 @@ class AdminController extends Controller {
                 return $response;
             }
         }
-        return $this->redirect($retour);
+        return $this->redirect($this->generateUrl('admin_panel_pictures'));
     }
 
 }

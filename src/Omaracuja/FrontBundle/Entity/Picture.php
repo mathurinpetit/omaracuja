@@ -82,8 +82,6 @@ class Picture {
     private $ajaxMsg = null;
     private $type = null;
 
-    const HEIGHT = 600;
-    const WIDTH = 400;
 
     /**
      * Get id
@@ -139,6 +137,13 @@ class Picture {
         $this->title = $title;
     }
 
+    public function getCurrentPicturePath(){
+        if (!$this->getWebPath()) {
+            return "/data/pictures/omaracuja_default_picture.jpg";
+        }
+        return $this->getWebPath();
+    }
+    
 // Gestion d'image
     public function image_resize($src, $dst, $data) {
         if (!empty($src) && !empty($dst) && !empty($data)) {
@@ -167,15 +172,14 @@ class Picture {
                 return;
             }
 
-            $dst_img = imagecreatetruecolor(self::WIDTH, self::HEIGHT);
+            $dst_img = imagecreatetruecolor($data->width, $data->height);
 
             if ($this->type == IMAGETYPE_GIF or $this->type == IMAGETYPE_PNG) {
                 imagecolortransparent($dst_img, imagecolorallocatealpha($dst_img, 0, 0, 0, 127));
                 imagealphablending($dst_img, false);
                 imagesavealpha($dst_img, true);
             }
-
-            $result = imagecopyresampled($dst_img, $src_img, 0, 0, $data->x, $data->y, self::WIDTH, self::HEIGHT, $data->width, $data->height);
+            $result = imagecopyresampled($dst_img, $src_img, 0, 0, $data->x, $data->y, $data->width, $data->height, $data->width, $data->height);
 
             if ($result) {
                 switch ($this->type) {

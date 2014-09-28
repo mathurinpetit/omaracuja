@@ -1,5 +1,5 @@
 <div class="modal fade" id="picture-modal" tabindex="-1" role="dialog" aria-labelledby="picture-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="picture-form" action="{{ path("admin_picture_upload") }}" method="post" enctype="multipart/form-data" >
                 <div class="modal-header">
@@ -18,13 +18,19 @@
 
                         <!-- Crop and preview -->
                         <div class="row">
-                            <div class="col-md-9">
-                                <div class="picture-wrapper"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="picture-wrapper"></div>
+
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9">
-                                {{ form_widget(pictureForm.title, {'attr': {'class': ''} }) }}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="error_list">{{ form_errors(pictureForm.title) }}</div>
+                                    {{ form_widget(pictureForm.title, {'attr': {'class': 'form-control picture-modal-form-title', 'placeholder': 'Titre'} }) }}
+                                </div>
                             </div>
                         </div>
                     </div>

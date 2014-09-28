@@ -11,20 +11,21 @@
 
         <div class="col-md-12">
             <div class="row" id="crop-picture">
-                <a href="#" class="picture-link btn btn-default btn-danger text-right">Ajouter une photo</a>
+                <div class="picture-default-view">
+                    <img src="{{newPicture.getCurrentPicturePath}}" style="display: none;">
+                </div>
+                <div class="col-md-12">
+                    <a href="#" class="picture-link btn btn-default btn-danger text-right">Ajouter une photo</a>
+                </div>
                 {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': form } %}
+                <div id="new-picture-place"></div>
                 {%for picture in pictures %}
-                    <div class="col-md-5">
-                        <div class="row event_left">
-                            <br/>
-                            <h1>{{picture.title}}</h1>
-                            <div id="{{picture.id}}" class='crop-picture'>
-                                <div class="picture-link picture-view" title="Choisir une image pour cet événement">
-                                    <img src="{{picture.getWebPath}}" alt="{{picture.title}}" class="img-rounded">
-                                </div>   
-                            </div>
-                        </div>
-                    </div>
+                    <div class="picture-view col-lg-3 col-md-4 col-xs-6 thumb">
+                        <a class="thumbnail" href="#">
+                            <span class="caption">{{picture.title}}</span>
+                            <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
+                        </a>
+                    </div>   
                 {% endfor %}
             </div>
         </div>
