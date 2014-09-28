@@ -261,36 +261,50 @@ class AdminController extends Controller {
         $em->flush();
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
-    
-    public function picturePanelAction(Request $request) {
+
+    public function picturePanelAction() {
         $picture = new Picture();
         $form = $this->createFormBuilder($picture, array('csrf_protection' => false))
                 ->add('file')
                 ->add('src', 'hidden')
-                ->add('data', 'hidden')
+                ->add('data', 'hidden')                
+                ->add('title', 'text')
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
         $pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findAll();
-        $retour = $this->generateUrl('admin_panel_pictures');
-//        if ($request->isMethod('POST')) {
-//            $form->bind($request);
-//            if ($form->isValid()) {
-//
-//                $em->persist($picture);
-//                $em->flush();
-//
-//                $response = new Response(json_encode(array(
-//                            'state' => 200,
-//                            'message' => $picture->getAjaxMsg(),
-//                            'result' => $picture->getResult()
-//                )));
-//                $response->headers->set('Content-Type', 'application/json');
-//                return $response;
-//            }
-//        }
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
                     'pictures' => $pictures,
                     'form' => $form->createView(),
         ));
     }
+
+    public function pictureUploadAction(Request $request) {
+        $picture = new Picture();
+        $form = $this->createFormBuilder($picture, array('csrf_protection' => false))
+                ->add('file')
+                ->add('src', 'hidden')
+                ->add('data', 'hidden')
+                ->add('title', 'text')
+                ->getForm();
+        $em = $this->getDoctrine()->getManager();
+        $retour = $this->generateUrl('admin_panel_pictures');
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $em->persist($picture);
+                $em->flush();
+
+                $response = new Response(json_encode(array(
+                            'state' => 200,
+                            'message' => $picture->getAjaxMsg(),
+                            'result' => $picture->getResult()
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+        }
+        return $this->redirect($retour);
+    }
+
 }

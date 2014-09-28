@@ -1,3 +1,5 @@
+#USERS
+
 admin_panel_users:
      path:  /utilisateurs
      defaults: { _controller: OmaracujaAdminBundle:Admin:userPanel }
@@ -11,7 +13,7 @@ admin_user_desactivate:
      defaults: { _controller: OmaracujaAdminBundle:Admin:userDesactivate }
 
      
-     
+#PRESENTATION  
 admin_panel_presentation:
      path:  /presentation
      defaults: { _controller: OmaracujaAdminBundle:Admin:presentationPanel }     
@@ -25,13 +27,10 @@ admin_create_presentation:
      defaults: { _controller: OmaracujaAdminBundle:Admin:presentationCreate }
 
 
+#EVENTS  
 admin_panel_event:
      path:  /evenements
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel } 
-     
-admin_panel_pictures:
-     path:  /photos
-     defaults: { _controller: OmaracujaAdminBundle:Admin:picturePanel }
      
 admin_events_passed:
      path:  /evenements-passes
@@ -48,3 +47,14 @@ admin_event_edit:
 admin_event_picture_upload:
      path:  /evenementTelechargement/{eventId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventPictureUpload }
+     
+     
+#PHOTOS         
+admin_panel_pictures:
+     path:  /photos
+     defaults: { _controller: OmaracujaAdminBundle:Admin:picturePanel }   
+     
+     
+admin_picture_upload:
+     path:  /photoTelechargement
+     defaults: { _controller: OmaracujaAdminBundle:Admin:pictureUpload }

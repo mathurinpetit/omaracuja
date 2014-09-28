@@ -129,6 +129,15 @@ class Picture {
     public function setFile($file) {
         $this->file = $file;
     }
+    
+    
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
 
 // Gestion d'image
     public function image_resize($src, $dst, $data) {
