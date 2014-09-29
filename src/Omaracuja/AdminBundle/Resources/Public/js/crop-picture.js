@@ -266,8 +266,10 @@
             this.$pictureModal.modal("hide");
             $("#new-picture-place").after("<div class=\"picture-view col-lg-3 col-md-4 col-xs-6 thumb\">"+
                         "<a href=\"#\" class=\"thumbnail\">"+
+                    "<div class=\"img-with-title\">"+
                             "<span class=\"caption\">jfojzeggsdgdfg</span>"+
                             "<img class=\"img-responsive\" alt=\"jfojzeggsdgdfg\" src=\""+this.url+"\">"+
+                        "</div>"+
                         "</a>"+
                     "</div>")
         },

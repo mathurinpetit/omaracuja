@@ -33,6 +33,15 @@
                                 </div>
                             </div>
                         </div>
+                                
+                                <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="error_list">{{ form_errors(pictureForm.description) }}</div>
+                                    {{ form_widget(pictureForm.description, {'attr': {'class': 'form-control picture-modal-form-title', 'placeholder': 'Description'} }) }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

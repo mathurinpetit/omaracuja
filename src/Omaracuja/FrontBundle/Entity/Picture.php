@@ -26,6 +26,13 @@ class Picture {
      * @ORM\Column(name="title", type="text", nullable=false)
      */
     private $title;
+    
+     /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -135,6 +142,14 @@ class Picture {
 
     public function setTitle($title) {
         $this->title = $title;
+    }
+    
+        public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
     }
 
     public function getCurrentPicturePath(){

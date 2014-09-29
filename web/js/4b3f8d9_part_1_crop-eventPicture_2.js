@@ -15,29 +15,28 @@
         }
     };
 
-    function CropPicture($element) {
+    function CropEventPicture($element) {
         this.$container = $element;
-        this.$pictureDefaultView = this.$container.find(".picture-default-view");
-        this.$pictureLink = this.$container.find(".picture-link");
-        this.$picture = this.$pictureDefaultView.find("img");
-        this.$pictureModal = this.$container.find("#picture-modal");
+        this.$eventPictureLink = this.$container.find(".eventPicture-link");
+        this.$eventPicture = this.$eventPictureLink.find("img");
+        this.$eventPictureModal = this.$container.find("#eventPicture-modal-"+$element.attr('id'));
         this.$loading = this.$container.find(".loading");
 
-        this.$pictureForm = this.$pictureModal.find(".picture-form");
-        this.$pictureUpload = this.$pictureForm.find(".picture-upload");
-        this.$pictureSrc = this.$pictureForm.find(".picture-src");
-        this.$pictureData = this.$pictureForm.find(".picture-data");
-        this.$pictureInput = this.$pictureForm.find(".picture-input");
-        this.$pictureSave = this.$pictureForm.find(".picture-save");
+        this.$eventPictureForm = this.$eventPictureModal.find(".eventPicture-form");
+        this.$eventPictureUpload = this.$eventPictureForm.find(".eventPicture-upload");
+        this.$eventPictureSrc = this.$eventPictureForm.find(".eventPicture-src");
+        this.$eventPictureData = this.$eventPictureForm.find(".eventPicture-data");
+        this.$eventPictureInput = this.$eventPictureForm.find(".eventPicture-input");
+        this.$eventPictureSave = this.$eventPictureForm.find(".eventPicture-save");
 
-        this.$pictureWrapper = this.$pictureModal.find(".picture-wrapper");
-        this.$picturePreview = this.$pictureModal.find(".picture-preview");
+        this.$eventPictureWrapper = this.$eventPictureModal.find(".eventPicture-wrapper");
+        this.$eventPicturePreview = this.$eventPictureModal.find(".eventPicture-preview");
 
         this.init();
     }
 
-    CropPicture.prototype = {
-        constructor: CropPicture,
+    CropEventPicture.prototype = {
+        constructor: CropEventPicture,
         support: {
             fileList: !!$("<input type=\"file\">").prop("files"),
             fileReader: !!window.FileReader,
@@ -55,31 +54,31 @@
             this.addListener();
         },
         addListener: function() {
-            this.$pictureLink.on("click", $.proxy(this.click, this));
-            this.$pictureInput.on("change", $.proxy(this.change, this));
-            this.$pictureForm.on("submit", $.proxy(this.submit, this));
+            this.$eventPictureLink.on("click", $.proxy(this.click, this));
+            this.$eventPictureInput.on("change", $.proxy(this.change, this));
+            this.$eventPictureForm.on("submit", $.proxy(this.submit, this));
         },
         initTooltip: function() {
-            this.$pictureLink.tooltip({
+            this.$eventPictureLink.tooltip({
                 placement: "bottom"
             });
         },
         initModal: function() {
-            this.$pictureModal.modal("hide");
+            this.$eventPictureModal.modal("hide");
             this.initPreview();
         },
         initPreview: function() {
-            var url = this.$picture.attr("src");
-            this.$pictureWrapper.empty().html('<div class="cropper-container" style="height: 600px; left: 200px; top: 0px; width: 400px;" ><img src="' + url + '" ></div>');
+            var url = this.$eventPicture.attr("src");
+            this.$eventPictureWrapper.empty().html('<img src="' + url + '">');
         },
         initIframe: function() {
-            var iframeName = "picture-iframe-" + Math.random().toString().replace(".", ""),
+            var iframeName = "eventPicture-iframe-" + Math.random().toString().replace(".", ""),
                     $iframe = $('<iframe name="' + iframeName + '" style="display:none;"></iframe>'),
                     firstLoad = true,
                     _this = this;
 
             this.$iframe = $iframe;
-            this.$pictureForm.attr("target", iframeName).after($iframe);
+            this.$eventPictureForm.attr("target", iframeName).after($iframe);
 
             this.$iframe.on("load", function() {
                 var data,
@@ -109,7 +108,7 @@
             });
         },
         click: function() {
-            this.$pictureModal.modal("show");
+            this.$eventPictureModal.modal("show");
         },
         change: function() {
             console.log("change");
@@ -117,7 +116,7 @@
                     file;
 
             if (this.support.datauri) {
-                files = this.$pictureInput.prop("files");
+                files = this.$eventPictureInput.prop("files");
 
                 if (files.length > 0) {
                     file = files[0];
@@ -127,14 +126,14 @@
                     }
                 }
             } else {
-                file = this.$pictureInput.val();
+                file = this.$eventPictureInput.val();
                 if (this.isImageFile(file)) {
                     this.syncUpload();
                 }
             }
         },
         submit: function() {
-            if (!this.$pictureSrc.val() && !this.$pictureInput.val()) {
+            if (!this.$eventPictureSrc.val() && !this.$eventPictureInput.val()) {
                 return false;
             }
 
@@ -168,9 +167,10 @@
                 this.$img.cropper("setImgSrc", this.url);
             } else {
                 this.$img = $('<img src="' + this.url + '">');
-                this.$pictureWrapper.empty().html(this.$img);
+                this.$eventPictureWrapper.empty().html(this.$img);
                 this.$img.cropper({
-                    preview: this.$picturePreview.selector,
+                    aspectRatio: 0.6666,
+                    preview: this.$eventPicturePreview.selector,
                     done: function(data) {
                         var json = [
                             '{"x":' + data.x,
@@ -179,7 +179,7 @@
                             '"width":' + data.width + "}"
                         ].join();
 
-                        _this.$pictureData.val(json);
+                        _this.$eventPictureData.val(json);
                     }
                 });
 
@@ -194,8 +194,8 @@
             }
         },
         ajaxUpload: function() {
-            var url = this.$pictureForm.attr("action"),
-                    data = new FormData(this.$pictureForm[0]),
+            var url = this.$eventPictureForm.attr("action"),
+                    data = new FormData(this.$eventPictureForm[0]),
                     _this = this;
 
             $.ajax(url, {
@@ -218,7 +218,7 @@
             });
         },
         syncUpload: function() {
-            this.$pictureSave.click();
+            this.$eventPictureSave.click();
         },
         submitStart: function() {
             this.$loading.fadeIn();
@@ -240,11 +240,11 @@
                         this.cropDone();
                     } else {
                         this.uploaded = true;
-                        this.$pictureSrc.val('/' + this.url);
+                        this.$eventPictureSrc.val('/' + this.url);
                         this.startCropper();
                     }
 
-                    this.$pictureInput.val("");
+                    this.$eventPictureInput.val("");
                 } else if (data.message) {
                     this.alert(data.message);
                 }
@@ -259,19 +259,11 @@
             this.$loading.fadeOut();
         },
         cropDone: function() {
-            this.$pictureSrc.val("");
-            this.$pictureData.val("");
-            this.$picture.attr("src", this.url);
+            this.$eventPictureSrc.val("");
+            this.$eventPictureData.val("");
+            this.$eventPicture.attr("src", this.url);
             this.stopCropper();
-            this.$pictureModal.modal("hide");
-            $("#new-picture-place").after("<div class=\"picture-view col-lg-3 col-md-4 col-xs-6 thumb\">"+
-                        "<a href=\"#\" class=\"thumbnail\">"+
-                    "<div class=\"img-with-title\">"+
-                            "<span class=\"caption\">jfojzeggsdgdfg</span>"+
-                            "<img class=\"img-responsive\" alt=\"jfojzeggsdgdfg\" src=\""+this.url+"\">"+
-                        "</div>"+
-                        "</a>"+
-                    "</div>")
+            this.$eventPictureModal.modal("hide");
         },
         alert: function(msg) {
             var $alert = [
@@ -281,11 +273,13 @@
                 '</div>'
             ].join("");
 
-            this.$pictureUpload.after($alert);
+            this.$eventPictureUpload.after($alert);
         }
     };
 
     $(function() {
-        var example = new CropPicture($("#crop-picture"));  
+        $('.crop-eventPicture').each(function() {
+            var example = new CropEventPicture($(this));
+        });
     });
 });

@@ -21,13 +21,22 @@
                 <div id="new-picture-place"></div>
                 {%for picture in pictures %}
                     <div class="picture-view col-lg-3 col-md-4 col-xs-6 thumb">
-                        <a class="thumbnail" href="#">
-                            <span class="caption">{{picture.title}}</span>
-                            <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
-                        </a>
+                        <div class="thumbnail">
+                            <div class="img-with-title">
+                                <div class="caption">
+                                    <h2>{{picture.title}}</h2>
+                                    <p>{{picture.description}}</p>
+                                    <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{loop.index0}}" >Zoom</a>
+                                        <a href="#" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a></p>
+                                </div>
+                                <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
+
+                            </div>
+                        </div>
                     </div>   
                 {% endfor %}
             </div>
         </div>
-    </div>
+{% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'pictures': pictures } %}
+   </div>  
 {% endblock %}

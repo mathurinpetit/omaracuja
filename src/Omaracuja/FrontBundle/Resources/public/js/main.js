@@ -6,7 +6,7 @@
 
 $(document).ready(function() {
 
-    $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
+    $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);
 
     $('.datetimepicker').datetimepicker({
         lang: 'fr',
@@ -49,8 +49,25 @@ $(document).ready(function() {
             ['height', ['height']],
         ]
     });
-    $(".select2").select2();   
+    $(".select2").select2();
+    
+    
+    $("[rel='tooltip']").tooltip();
 
+    $('.thumbnail').hover(
+            function() {
+                $(this).find('.caption').slideDown(250); //.fadeIn(250)
+            },
+            function() {
+                $(this).find('.caption').slideUp(250); //.fadeOut(205)
+            }
+    );
+    $('.carousel').carousel('pause');
+    
+    $('.btn-zoom').click(function (){
+        console.log('click');
+        $('#picture-view-modal').modal("show");
+    });
 });
 
 

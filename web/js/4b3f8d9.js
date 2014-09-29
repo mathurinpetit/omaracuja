@@ -356,8 +356,7 @@
         },
         initPreview: function() {
             var url = this.$picture.attr("src");
-            console.log(url);
-            this.$pictureWrapper.empty().html('<img src="' + url + '">');
+            this.$pictureWrapper.empty().html('<div class="cropper-container" style="height: 600px; left: 200px; top: 0px; width: 400px;" ><img src="' + url + '" ></div>');
         },
         initIframe: function() {
             var iframeName = "picture-iframe-" + Math.random().toString().replace(".", ""),
@@ -457,7 +456,6 @@
                 this.$img = $('<img src="' + this.url + '">');
                 this.$pictureWrapper.empty().html(this.$img);
                 this.$img.cropper({
-                    aspectRatio: 0.6666,
                     preview: this.$picturePreview.selector,
                     done: function(data) {
                         var json = [
@@ -552,6 +550,14 @@
             this.$picture.attr("src", this.url);
             this.stopCropper();
             this.$pictureModal.modal("hide");
+            $("#new-picture-place").after("<div class=\"picture-view col-lg-3 col-md-4 col-xs-6 thumb\">"+
+                        "<a href=\"#\" class=\"thumbnail\">"+
+                    "<div class=\"img-with-title\">"+
+                            "<span class=\"caption\">jfojzeggsdgdfg</span>"+
+                            "<img class=\"img-responsive\" alt=\"jfojzeggsdgdfg\" src=\""+this.url+"\">"+
+                        "</div>"+
+                        "</a>"+
+                    "</div>")
         },
         alert: function(msg) {
             var $alert = [

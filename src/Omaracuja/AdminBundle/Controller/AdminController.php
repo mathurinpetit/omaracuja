@@ -268,6 +268,7 @@ class AdminController extends Controller {
                 ->add('file')
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
+                ->add('description', 'text')
                 ->add('title', 'text')
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
@@ -286,6 +287,7 @@ class AdminController extends Controller {
                 ->add('src', 'hidden')
                 ->add('data', 'hidden')
                 ->add('title', 'text')
+                ->add('description', 'text')
                 ->getForm();
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
