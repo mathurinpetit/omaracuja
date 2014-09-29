@@ -19,6 +19,10 @@ front_evennement_past:
      defaults: { _controller: OmaracujaFrontBundle:Front:evennementPast }
      
 front_picture_download:
-     path:  /photos/{idPicture}
+     path:  /photos/telechargement/{idPicture}
      defaults: { _controller: OmaracujaFrontBundle:Front:downloadPicture }
+     
+front_pictures:
+     path:  /photos/{mois}
+     defaults: { _controller: OmaracujaFrontBundle:Front:pictures, mois: now }   
      

@@ -114,6 +114,54 @@ class FrontController extends Controller {
         ));
     }
 
+    public function picturesAction($mois) {
+$em = $this->getDoctrine()->getManager();
+        $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
+
+
+        $pictureForView = array();
+
+        $last_month = null;
+        $last_month_label = null;
+        $next_month = null;
+        $next_month_label = null;
+
+        if (($mois == "now") || !preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois)) {
+            $mois = date('Y-m');
+        }
+
+        foreach ($picturesByMonth as $month => $pictures) {
+            foreach ($pictures as $picture) {
+                if ($picture->getCreatedAt()->format("Ym") != str_replace('-', '', $mois)) {
+                    if (!$last_month && ($picture->getCreatedAt()->format("Ym") < str_replace('-', '', $mois))) {
+                        $last_month = $picture->getCreatedAt()->format("Y-m");
+                        $last_month_label = $month;
+                        continue;
+                    }
+                    if ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
+                        $next_month = $picture->getCreatedAt()->format("Y-m");
+                        $next_month_label = $month;
+                        continue;
+                    }
+                    continue;
+                }
+                if (!array_key_exists($month, $pictureForView)) {
+                    $pictureForView[$month] = array();
+                }
+                $pictureForView[$month][] = $picture;
+            }
+        }
+        return $this->render('OmaracujaFrontBundle:Front:picture.html.twig', array(
+                    'picturesByMonth' => $pictureForView,
+                    'last_month' => $last_month,
+                    'last_month_label' => $last_month_label,
+                    'next_month' => $next_month,
+                    'next_month_label' => $next_month_label
+        ));
+    }
+    
+    
+    
     public function downloadPictureAction($idPicture) {
         $em = $this->getDoctrine()->getManager();
         $picture = $em->getRepository('OmaracujaFrontBundle:Picture')->find($idPicture);

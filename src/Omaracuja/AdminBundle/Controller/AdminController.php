@@ -267,27 +267,37 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
 
-        $max_picture = 6;
 
         $pictureForView = array();
+
         $last_month = null;
         $last_month_label = null;
-        $hasMonth = ($mois != "now") && preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois);
+        $next_month = null;
+        $next_month_label = null;
+
+        if (($mois == "now") || !preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois)) {
+            $mois = date('Y-m');
+        }
+
         foreach ($picturesByMonth as $month => $pictures) {
-            if(!$max_picture){
-                continue;
-            }            
-            $pictureForView[$month] = array();
             foreach ($pictures as $picture) {
-                if($hasMonth && ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois))){
+                if ($picture->getCreatedAt()->format("Ym") != str_replace('-', '', $mois)) {
+                    if (!$last_month && ($picture->getCreatedAt()->format("Ym") < str_replace('-', '', $mois))) {
+                        $last_month = $picture->getCreatedAt()->format("Y-m");
+                        $last_month_label = $month;
+                        continue;
+                    }
+                    if ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
+                        $next_month = $picture->getCreatedAt()->format("Y-m");
+                        $next_month_label = $month;
+                        continue;
+                    }
                     continue;
                 }
-                if ($max_picture) {
-                    $pictureForView[$month][] = $picture;
-                    $last_month_label = $month;
-                    $max_picture--;
-                    $last_month = $picture->getCreatedAt()->format("Y-m");
+                if (!array_key_exists($month, $pictureForView)) {
+                    $pictureForView[$month] = array();
                 }
+                $pictureForView[$month][] = $picture;
             }
         }
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
@@ -295,7 +305,9 @@ class AdminController extends Controller {
                     'newPicture' => $newPicture,
                     'form' => $form->createView(),
                     'last_month' => $last_month,
-                    'last_month_label' => $last_month_label
+                    'last_month_label' => $last_month_label,
+                    'next_month' => $next_month,
+                    'next_month_label' => $next_month_label
         ));
     }
 
