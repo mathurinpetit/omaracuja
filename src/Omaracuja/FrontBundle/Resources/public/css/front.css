@@ -97,7 +97,14 @@
     height: 800px;
 }
 
+.pictures-show {
+    padding-top: 40px;
+}
 
+.carousel-caption{
+    color: #000;
+    position: initial;
+}
 
 hr {
   -moz-border-bottom-colors: none;

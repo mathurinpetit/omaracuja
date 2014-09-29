@@ -5,6 +5,7 @@ namespace Omaracuja\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use \DateTime;
 
 /**
  * @ORM\Entity
@@ -26,8 +27,8 @@ class Picture {
      * @ORM\Column(name="title", type="text", nullable=false)
      */
     private $title;
-    
-     /**
+
+    /**
      * @var string $description
      *
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -35,7 +36,17 @@ class Picture {
     private $description;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @var datetime $createdAt     
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     *       
+     */
+    private $createdAt;
+
+    /**
+     * @Assert\File(maxSize = "8M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/bmp", "image/x-ms-bmp"},
+     *     mimeTypesMessage = "Choisissez un fichier jpg, png, gif ou bmp"
+     * )
      */
     protected $file;
 
@@ -43,6 +54,10 @@ class Picture {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $path;
+
+    public function __construct() {
+        $this->createdAt = new DateTime();
+    }
 
     /**
      * @ORM\PrePersist()
@@ -89,7 +104,6 @@ class Picture {
     private $ajaxMsg = null;
     private $type = null;
 
-
     /**
      * Get id
      *
@@ -119,12 +133,34 @@ class Picture {
         return 'data/pictures';
     }
 
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Event
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
     public function getPath() {
         return $this->path;
     }
 
     public function setPath($path) {
-        $this->path = $path;
+        $this->path = $path; 
+        return $this;
     }
 
     public function getFile() {
@@ -132,10 +168,10 @@ class Picture {
     }
 
     public function setFile($file) {
-        $this->file = $file;
+        $this->file = $file; 
+        return $this;
     }
-    
-    
+
     public function getTitle() {
         return $this->title;
     }
@@ -143,22 +179,23 @@ class Picture {
     public function setTitle($title) {
         $this->title = $title;
     }
-    
-        public function getDescription() {
+
+    public function getDescription() {
         return $this->description;
     }
 
     public function setDescription($description) {
-        $this->description = $description;
+        $this->description = $description; 
+        return $this;
     }
 
-    public function getCurrentPicturePath(){
+    public function getCurrentPicturePath() {
         if (!$this->getWebPath()) {
             return "/data/pictures/omaracuja_default_picture.jpg";
         }
         return $this->getWebPath();
     }
-    
+
 // Gestion d'image
     public function image_resize($src, $dst, $data) {
         if (!empty($src) && !empty($dst) && !empty($data)) {
@@ -183,7 +220,7 @@ class Picture {
             }
 
             if (!$src_img) {
-                $this->ajaxMsg = "Failed to read the image file";
+                $this->ajaxMsg = "Immposible de lire le fichier";
                 return;
             }
 
@@ -216,10 +253,10 @@ class Picture {
                 }
 
                 if (!$result) {
-                    $this->ajaxMsg = "Failed to save the cropped image file";
+                    $this->ajaxMsg = "Impossible de sauvegarder l'image.";
                 }
             } else {
-                $this->ajaxMsg = "Failed to crop the image file";
+                $this->ajaxMsg = "Impossible de transformer l'image.";
             }
 
             imagedestroy($src_img);
@@ -253,43 +290,6 @@ class Picture {
 
     public function getData() {
         return $this->data;
-    }
-
-    private function codeToMessage($code) {
-        switch ($code) {
-            case UPLOAD_ERR_INI_SIZE:
-                $message = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
-                break;
-
-            case UPLOAD_ERR_FORM_SIZE:
-                $message = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
-                break;
-
-            case UPLOAD_ERR_PARTIAL:
-                $message = 'The uploaded file was only partially uploaded';
-                break;
-
-            case UPLOAD_ERR_NO_FILE:
-                $message = 'No file was uploaded';
-                break;
-
-            case UPLOAD_ERR_NO_TMP_DIR:
-                $message = 'Missing a temporary folder';
-                break;
-
-            case UPLOAD_ERR_CANT_WRITE:
-                $message = 'Failed to write file to disk';
-                break;
-
-            case UPLOAD_ERR_EXTENSION:
-                $message = 'File upload stopped by extension';
-                break;
-
-            default:
-                $message = 'Unknown upload error';
-        }
-
-        return $message;
     }
 
     public function getResult() {

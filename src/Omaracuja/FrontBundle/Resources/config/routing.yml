@@ -18,3 +18,7 @@ front_evennement_past:
      path:  /evennements-passes
      defaults: { _controller: OmaracujaFrontBundle:Front:evennementPast }
      
+front_picture_download:
+     path:  /photos/{idPicture}
+     defaults: { _controller: OmaracujaFrontBundle:Front:downloadPicture }
+     

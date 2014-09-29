@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
 use Omaracuja\FrontBundle\Entity\BlogPost;
 use Omaracuja\FrontBundle\Form\BlogPostType;
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontController extends Controller {
 
@@ -41,7 +42,7 @@ class FrontController extends Controller {
                     'pastEvent' => true,
                     'events' => $nextEvents,
         ));
-    }    
+    }
 
     /**
      * @Template()
@@ -111,6 +112,22 @@ class FrontController extends Controller {
                     'entity' => $newBlogPost,
                     'form' => $newBlogPostForm->createView(),
         ));
+    }
+
+    public function downloadPictureAction($idPicture) {
+        $em = $this->getDoctrine()->getManager();
+        $picture = $em->getRepository('OmaracujaFrontBundle:Picture')->find($idPicture);
+        $path = $this->get('kernel')->getRootDir(). "/../web";
+        $content = file_get_contents($path.$picture->getCurrentPicturePath());
+
+        $response = new Response();
+        $ext = strstr($picture->getCurrentPicturePath(), '.');
+        
+        $response->headers->set('Content-Type', mime_content_type($path.$picture->getCurrentPicturePath()));
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $picture->getTitle().$ext);
+
+        $response->setContent($content);
+        return $response;
     }
 
 }

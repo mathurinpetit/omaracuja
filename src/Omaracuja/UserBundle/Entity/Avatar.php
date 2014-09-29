@@ -28,7 +28,10 @@ class Avatar {
     protected $user;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize = "4M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/bmp", "image/x-ms-bmp"},
+     *     mimeTypesMessage = "Choisissez un fichier jpg, png, gif ou bmp"
+     * )
      */
     protected $file;
 

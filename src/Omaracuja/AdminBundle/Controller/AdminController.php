@@ -4,7 +4,6 @@ namespace Omaracuja\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
@@ -264,13 +263,7 @@ class AdminController extends Controller {
 
     public function picturePanelAction() {
         $newPicture = new Picture();
-        $form = $this->createFormBuilder($newPicture, array('csrf_protection' => false))
-                ->add('file')
-                ->add('src', 'hidden')
-                ->add('data', 'hidden')
-                ->add('description', 'text')
-                ->add('title', 'text')
-                ->getForm();
+        $form = $this->createPictureUploadForm($newPicture);
         $em = $this->getDoctrine()->getManager();
         $pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findAll();
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
@@ -282,21 +275,23 @@ class AdminController extends Controller {
 
     public function pictureUploadAction(Request $request) {
         $picture = new Picture();
-        $form = $this->createFormBuilder($picture, array('csrf_protection' => false))
-                ->add('file')
-                ->add('src', 'hidden')
-                ->add('data', 'hidden')
-                ->add('title', 'text')
-                ->add('description', 'text')
-                ->getForm();
+        $form = $this->createPictureUploadForm($picture);
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $form->bind($request);
+            $errors = $this->get('validator')->validate($form);
+            $errorsArray = array();
+            foreach ($errors as $error) {
+                $errorsArray[] = array(
+                    'elementId' => str_replace('data.', '', $error->getPropertyPath()),
+                    'errorMessage' => $error->getMessage(),
+                );
+            }
             if ($form->isValid()) {
 
                 $em->persist($picture);
                 $em->flush();
-                
+
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $picture->getAjaxMsg(),
@@ -304,9 +299,28 @@ class AdminController extends Controller {
                 )));
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
+            } else {
+                $errorMessage = $errorsArray[0]['errorMessage'];
+                $response = new Response(json_encode(array(
+                            'state' => 200,
+                            'message' => $errorMessage,
+                            'result' => $picture->getResult()
+                )));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
         }
         return $this->redirect($this->generateUrl('admin_panel_pictures'));
+    }
+    
+    private function createPictureUploadForm($picture) {
+        return $this->createFormBuilder($picture, array('csrf_protection' => false))
+                ->add('file')
+                ->add('src', 'hidden')
+                ->add('data', 'hidden')
+                ->add('title', 'text')
+                ->add('description', 'text')
+                ->getForm();        
     }
 
 }
