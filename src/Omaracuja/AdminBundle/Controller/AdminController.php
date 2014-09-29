@@ -224,7 +224,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
         $form = $this->createForm(new EventType(), $event, array(
-            'action' => $this->generateUrl('admin_event_edit',array('eventId' => $eventId)),
+            'action' => $this->generateUrl('admin_event_edit', array('eventId' => $eventId)),
             'method' => 'POST',
         ));
         $form->handleRequest($request);
@@ -261,24 +261,41 @@ class AdminController extends Controller {
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
-    public function picturePanelAction() {
+    public function picturePanelAction($mois) {
         $newPicture = new Picture();
         $form = $this->createPictureUploadForm($newPicture);
         $em = $this->getDoctrine()->getManager();
         $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
-        
-                $pictureForView = array();
+
+        $max_picture = 6;
+
+        $pictureForView = array();
+        $last_month = null;
+        $last_month_label = null;
+        $hasMonth = ($mois != "now") && preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois);
         foreach ($picturesByMonth as $month => $pictures) {
+            if(!$max_picture){
+                continue;
+            }            
             $pictureForView[$month] = array();
             foreach ($pictures as $picture) {
-                $pictureForView[$month][] = $picture;
+                if($hasMonth && ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois))){
+                    continue;
+                }
+                if ($max_picture) {
+                    $pictureForView[$month][] = $picture;
+                    $last_month_label = $month;
+                    $max_picture--;
+                    $last_month = $picture->getCreatedAt()->format("Y-m");
+                }
             }
         }
-        
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
                     'picturesByMonth' => $pictureForView,
                     'newPicture' => $newPicture,
                     'form' => $form->createView(),
+                    'last_month' => $last_month,
+                    'last_month_label' => $last_month_label
         ));
     }
 
@@ -321,15 +338,15 @@ class AdminController extends Controller {
         }
         return $this->redirect($this->generateUrl('admin_panel_pictures'));
     }
-    
+
     private function createPictureUploadForm($picture) {
         return $this->createFormBuilder($picture, array('csrf_protection' => false))
-                ->add('file')
-                ->add('src', 'hidden')
-                ->add('data', 'hidden')
-                ->add('title', 'text')
-                ->add('description', 'text')
-                ->getForm();        
+                        ->add('file')
+                        ->add('src', 'hidden')
+                        ->add('data', 'hidden')
+                        ->add('title', 'text')
+                        ->add('description', 'text')
+                        ->getForm();
     }
 
 }
