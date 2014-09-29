@@ -62,10 +62,11 @@ $(document).ready(function() {
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
     );
-    $('.carousel').carousel('pause');
-    
+     $('#picture-carousel').carousel();
     $('.btn-zoom').click(function (){
-        console.log('click');
+       var id = $(this).attr('id');
+       console.log(id);
+   $('#picture-carousel').carousel(id);
         $('#picture-view-modal').modal("show");
     });
 });

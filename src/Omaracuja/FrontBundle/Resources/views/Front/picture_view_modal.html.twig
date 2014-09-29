@@ -1,39 +1,42 @@
 <div class="modal fade picture-view-modal" id="picture-view-modal" tabindex="-1" role="dialog" aria-labelledby="picture-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="col-lg-12">
-        <div class="modal-content picture-view-modal-content">
-            
-            <div id="picture-carousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    {%for picture in pictures %}
-                        <li data-target="#picture-carousel" data-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}"></li>
+            <div class="modal-content picture-view-modal-content">
+
+                <div id="picture-carousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        {% for pictures in picturesByMonth %}
+                            {%for picture in pictures %}
+                                <li data-target="#picture-carousel" data-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}"></li>
+                                {% endfor %}
+                            {% endfor %}
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        {% for pictures in picturesByMonth %}
+                            {%for picture in pictures %}
+                                <div class="item {% if loop.first %}active{% endif %}">
+                                    <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}">
+                                    <div class="carousel-caption">
+                                        <h2>{{picture.title}}</h2>
+                                        <p>{{picture.description}}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         {% endfor %}
-                </ol>
+                    </div>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    {%for picture in pictures %}
-                        <div class="item {% if loop.first %}active{% endif %}">
-                            <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}">
-                            <div class="carousel-caption">
-                                <h2>{{picture.title}}</h2>
-                                <p>{{picture.description}}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#picture-carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#picture-carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#picture-carousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#picture-carousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
             </div>
-        </div>
-    </div> 
+        </div> 
     </div>
 </div>
-                

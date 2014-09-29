@@ -265,9 +265,18 @@ class AdminController extends Controller {
         $newPicture = new Picture();
         $form = $this->createPictureUploadForm($newPicture);
         $em = $this->getDoctrine()->getManager();
-        $pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findAll();
+        $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
+        
+                $pictureForView = array();
+        foreach ($picturesByMonth as $month => $pictures) {
+            $pictureForView[$month] = array();
+            foreach ($pictures as $picture) {
+                $pictureForView[$month][] = $picture;
+            }
+        }
+        
         return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
-                    'pictures' => $pictures,
+                    'picturesByMonth' => $pictureForView,
                     'newPicture' => $newPicture,
                     'form' => $form->createView(),
         ));

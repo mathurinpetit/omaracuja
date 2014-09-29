@@ -249,6 +249,7 @@
                     this.alert(data.message);
                 }
             } else {
+                console.log(data);
                 this.alert("Erreur de téléchargement");
             }
         },

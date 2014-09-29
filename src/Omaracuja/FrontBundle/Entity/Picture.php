@@ -11,6 +11,7 @@ use \DateTime;
  * @ORM\Entity
  * @ORM\Table(name="omaracuja_picture")
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Omaracuja\FrontBundle\Entity\PictureRepository")
  */
 class Picture {
 

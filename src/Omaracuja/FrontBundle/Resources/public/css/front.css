@@ -106,6 +106,19 @@
     position: initial;
 }
 
+.carousel-indicators li {
+    background-color: rgb(204, 0, 0);
+    border: 1px solid #FF0000;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    width: 10px;
+}
+
+
 hr {
   -moz-border-bottom-colors: none;
   -moz-border-image: none;
