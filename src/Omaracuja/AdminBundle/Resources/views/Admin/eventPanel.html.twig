@@ -11,16 +11,24 @@
         <h1>Administration - {%if pastEvent %}Les événements passés{% else %}Les événements{% endif %}</h1> 
         <br/>
         <div class="form-group event_panel_button">
-            <div class="text-left col-lg-6">
-                <a href="{{ path('front_accueil') }}" class="btn btn-default text-left">Retour à l'accueil</a>
-            </div>
-            <div class="text-right col-lg-6">
-                {% if pastEvent %}
-                    <a href="{{ path('admin_panel_event') }}" class="btn btn-default btn-warning text-right">Retour aux événements actuels</a>
-                {% else %}
-                    <a href="{{ path('admin_events_passed') }}" class="btn btn-default btn-warning text-right">Evénements passés</a>
-                    <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-danger text-right">Ajouter un événement</a>
-                {% endif %}
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ path('front_accueil') }}" class="btn btn-default">Retour à l'accueil</a>
+                    <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning">Ajouter un événement</a>
+                </div>
+                <div class="col-md-6 text-right"> 
+                    {%if not pastEvent %}
+                        <div class="btn-group btn-toggle">
+                            <a class="btn btn-lg btn-danger active">Présent</a>
+                            <a class="btn btn-lg btn-default" href="{{ path('admin_events_passed') }}" >Passé</a>
+                        </div>
+                    {% else %}
+                        <div class="btn-group btn-toggle">
+                            <a class="btn btn-lg btn-default"  href="{{ path('admin_panel_event') }}" >Présent</a>
+                            <a class="btn btn-lg btn-danger active" >Passé</a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <br/>
@@ -33,9 +41,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <h3>
-                                <form id="{{eventObj.event.id}}" method="post" action="{{ path('admin_event_edit',{ 'eventId': eventObj.event.id }) }}">
-                                                <button type="submit" class="btn btn-default btn-danger">Modifier</button>
-                                </form>
+{#                                    
+A retirer lorsque les événements passé auront eu lieu
+{%if not pastEvent %}#}
+                                        <form id="{{eventObj.event.id}}" method="post" action="{{ path('admin_event_edit',{ 'eventId': eventObj.event.id }) }}">
+                                            <button type="submit" class="btn btn-default btn-danger">Modifier</button>
+                                        </form>
+{#                                  
+A retirer lorsque les événements passé auront eu lieu
+{% endif %}#}
                                 </h3>
                             </div>
                         </div>
@@ -45,94 +59,100 @@
                                     <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{eventObj.event.id}}">
 
                                         <div class="col-md-8 text-danger">  
-                                            <h3>{{ eventObj.event.title }}</h3>
-                                        </div>
-                                        <div class="col-md-4 text-danger text-right">  
-                                            <h3>{% if eventObj.accepted %}J'y vais{% endif %}&nbsp;({{ eventObj.event.actualTeam|length }}/{{ eventObj.event.proposedTeam|length }}&nbsp;participent)</h3>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <strong>Du {{ eventObj.event.startAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Au {{ eventObj.event.endAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-                                        </div>
-                                        <div class="col-md-4 text-right">
-                                            <strong>{{ eventObj.event.place }}</strong>
-                                        </div>
-                                        <div class="col-md-12 agenda-event_show">                                              
-                                            {% for proposeUser in eventObj.event.proposedTeam %}
-                                                {% set participeLocalUser = null %}
-                                                {% for participeUser in eventObj.event.actualTeam %}
-                                                    {% if participeUser == proposeUser %}
-                                                        {% set participeLocalUser = true %}
+                                            <h3>{% if eventObj.event.public %}
+                                                <span class="glyphicon glyphicon-star">&nbsp;</span>
+                                                {% else %}
+                                                    <span class=" glyphicon glyphicon-lock">&nbsp;</span>
                                                     {% endif %}
-                                                {% endfor %}                                            
-                                                <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
-                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                    <span>{{proposeUser.username}}</span>
+                                                        {{ eventObj.event.title }}
+                                                    </h3>
                                                 </div>
-                                            {% endfor %}
-                                        </div>
-                                    </a>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    {% if eventObj.event.proposedTeam | length > 10 %}
-                                        {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
-                                            <br/>
-                                        {% endfor %}
-                                    {% endif %}
-                                </h4>
-                            </div>
-                            <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="row event_left">
-                                                <br/>
-                                                <div id="{{eventObj.event.id}}" class='crop-eventPicture'>
-                                                    <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
-                                                        <img src="{{eventObj.event.getPicturePath}}" alt="{{eventObj.event.title}}" class="img-rounded">
-                                                    </div>   
-                                                    {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~eventObj.event.id], 'event':eventObj.event } %}
+                                                <div class="col-md-4 text-danger text-right"> 
+                                                    <h3>{% if eventObj.accepted %}J'y vais{% endif %}&nbsp;({{ eventObj.event.actualTeam|length }}/{{ eventObj.event.proposedTeam|length }}&nbsp;participent)</h3>
                                                 </div>
-                                                <br/>
-                                                <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y_{{ eventObj.event.id }}" />                            
-                                                <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x_{{ eventObj.event.id }}" />
-                                            </div>
+
+                                                <div class="col-md-4">
+                                                    <strong>Du {{ eventObj.event.startAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <strong>Au {{ eventObj.event.endAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+                                                </div>
+                                                <div class="col-md-4 text-right">
+                                                    <strong>{{ eventObj.event.place }}</strong>
+                                                </div>
+                                                <div class="col-md-12 agenda-event_show">                                              
+                                                    {% for proposeUser in eventObj.event.proposedTeam %}
+                                                        {% set participeLocalUser = null %}
+                                                        {% for participeUser in eventObj.event.actualTeam %}
+                                                            {% if participeUser == proposeUser %}
+                                                                {% set participeLocalUser = true %}
+                                                            {% endif %}
+                                                        {% endfor %}                                            
+                                                        <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
+                                                            <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                                            <span>{{proposeUser.username}}</span>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </a>
                                             <br/>
-                                            <div class="row event_left">
-                                                <a href="http://maps.google.com/maps?q={{eventObj.event.place | url_encode }}" target='_blank'>
-                                                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ eventObj.event.mapX }},{{ eventObj.event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ eventObj.event.mapX }},{{ eventObj.event.mapY }}">
-                                                </a>
-                                                {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            {% if eventObj.event.proposedTeam | length > 10 %}
+                                                {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
+                                                    <br/>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </h4>
+                                    </div>
+                                    <div id="event_collapse_{{eventObj.event.id}}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="row event_left">
+                                                        <br/>
+                                                        <div id="{{eventObj.event.id}}" class='crop-eventPicture'>
+                                                            <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
+                                                                <img src="{{eventObj.event.getPicturePath}}" alt="{{eventObj.event.title}}" class="img-rounded">
+                                                            </div>   
+                                                            {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~eventObj.event.id], 'event':eventObj.event } %}
+                                                        </div>
+                                                        <br/>
+                                                        <input type="hidden" value="{{ eventObj.event.mapY }}" id="google_map_y_{{ eventObj.event.id }}" />                            
+                                                        <input type="hidden" value="{{ eventObj.event.mapX }}" id="google_map_x_{{ eventObj.event.id }}" />
+                                                    </div>
+                                                    <br/>
+                                                    <div class="row event_left">
+                                                        <a href="http://maps.google.com/maps?q={{eventObj.event.place | url_encode }}" target='_blank'>
+                                                            <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ eventObj.event.mapX }},{{ eventObj.event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ eventObj.event.mapX }},{{ eventObj.event.mapY }}">
+                                                        </a>
+                                                        {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    {% autoescape false %}
+                                                        {{ eventObj.event.description }}
+                                                    {% endautoescape %}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {% autoescape false %}
-                                                {{ eventObj.event.description }}
-                                            {% endautoescape %}
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
+                                </div>            
+                                <hr>
+                                {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>            
-                <hr>
-            {% endfor %}
-        </div>
-    </div>
-{% endblock %}
+                            {% endblock %}

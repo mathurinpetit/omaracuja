@@ -6,16 +6,22 @@ use Doctrine\ORM\EntityRepository;
 
 class EventRepository extends EntityRepository {
 
-    public function findNextOrderedByDate() {
+   public function findNextOrderedByDate($restrictPublic = false) {
         $qb = $this->createQueryBuilder('e');
         $qb->where('e.endAt >= CURRENT_DATE()');
+        if($restrictPublic){
+            $qb->andWhere('e.public = 1');
+        }
         $qb->orderBy('e.startAt', 'DESC');
         return $this->sortEventsByMonth($qb->getQuery()->getResult());
     }
 
-    public function findPastEventOrderedByDate() {
+    public function findPastEventOrderedByDate($restrictPublic = false) {
         $qb = $this->createQueryBuilder('e');
         $qb->where('e.endAt < CURRENT_DATE()');
+        if($restrictPublic){
+            $qb->andWhere('e.public = 1');
+        }
         $qb->orderBy('e.startAt', 'DESC');
         return $this->sortEventsByMonth($qb->getQuery()->getResult());
     }

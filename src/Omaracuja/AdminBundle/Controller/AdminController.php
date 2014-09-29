@@ -224,7 +224,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
         $form = $this->createForm(new EventType(), $event, array(
-            'action' => $this->generateUrl('admin_create_event'),
+            'action' => $this->generateUrl('admin_event_edit',array('eventId' => $eventId)),
             'method' => 'POST',
         ));
         $form->handleRequest($request);
