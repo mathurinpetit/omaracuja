@@ -62,12 +62,16 @@ $(document).ready(function() {
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
     );
-     $('#picture-carousel').carousel();
-    $('.btn-zoom').click(function (){
+    
+    
+    var picture_slider = $('#picture-carousel').carousel({ interval: false });
+    
+    $('.btn-zoom').click(function(e){
        var id = $(this).attr('id');
        console.log(id);
-   $('#picture-carousel').carousel(id);
         $('#picture-view-modal').modal("show");
+        picture_slider.carousel(id);
+        e.preventDefault();
     });
 });
 

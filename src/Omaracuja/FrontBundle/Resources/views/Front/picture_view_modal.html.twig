@@ -6,11 +6,13 @@
                 <div id="picture-carousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
+                        {% set indexCarousel = 0 %}
                         {% for pictures in picturesByMonth %}
                             {%for picture in pictures %}
-                                <li data-target="#picture-carousel" data-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}"></li>
-                                {% endfor %}
+                                <li data-target="#picture-carousel" data-slide-to="{{ indexCarousel }}" class="{% if loop.first %}active{% endif %}"></li>
+                                {% set indexCarousel = indexCarousel + 1  %}       
                             {% endfor %}
+                        {% endfor %}
                     </ol>
 
                     <!-- Wrapper for slides -->

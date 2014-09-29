@@ -22,6 +22,7 @@
                 </div>
                 {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': form } %}
                 <br/>
+                {% set indexCarousel = 0 %}
                 {% for month,pictures in picturesByMonth %}
                     <div class="col-md-12 pictures-show" >
                         <h2>{{ month }}</h2>
@@ -35,13 +36,14 @@
                                         <div class="caption">
                                             <h2>{{picture.title}}</h2>
                                             <p>{{picture.description}}</p>
-                                        <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{loop.index0}}" >Zoom</a>
+                                        <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{ indexCarousel }}" >Zoom</a>
                                                 <a href="{{ path('front_picture_download',{ 'idPicture': picture.id }) }}" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a></p>
                                         </div>
                                         <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
                                     </div>
                                 </div>
-                            </div>   
+                            </div> 
+                             {% set indexCarousel = indexCarousel + 1  %}       
                         {% endfor %}
                     </div>
                     <hr>
