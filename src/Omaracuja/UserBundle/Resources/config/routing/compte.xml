@@ -33,8 +33,12 @@
         <default key="_controller">OmaracujaUserBundle:Agenda:agenda</default>
     </route>
     
-    <route id="compte_accept_event" pattern="/agenda/{idEvent}">
+    <route id="compte_accept_event" pattern="/agenda/jyvais/{idEvent}">
         <default key="_controller">OmaracujaUserBundle:Agenda:eventAccept</default>
+    </route> 
+    
+        <route id="compte_refuse_event" pattern="/agenda/jyvaispas/{idEvent}">
+        <default key="_controller">OmaracujaUserBundle:Agenda:eventRefuse</default>
     </route> 
     
     <route id="compte_events_past" pattern="/evennements-passes">
