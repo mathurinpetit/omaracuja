@@ -39,11 +39,18 @@ class Event {
     private $title;
 
     /**
-     * @var text $description     
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @var text $public_description     
+     * @ORM\Column(name="public_description", type="text", nullable=false)
      * @Assert\NotBlank()
      */
-    private $description;
+    private $public_description;
+    
+        /**
+     * @var text $private_description     
+     * @ORM\Column(name="private_description", type="text", nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $private_description;
 
     /**
      * @var datetime $createdAt     
@@ -468,4 +475,119 @@ class Event {
         return $this->eventPicture->getWebPath();
     }
 
+
+    /**
+     * Set public_description
+     *
+     * @param string $publicDescription
+     * @return Event
+     */
+    public function setPublicDescription($publicDescription)
+    {
+        $this->public_description = $publicDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get public_description
+     *
+     * @return string 
+     */
+    public function getPublicDescription()
+    {
+        return $this->public_description;
+    }
+
+    /**
+     * Set private_description
+     *
+     * @param string $privateDescription
+     * @return Event
+     */
+    public function setPrivateDescription($privateDescription)
+    {
+        $this->private_description = $privateDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get private_description
+     *
+     * @return string 
+     */
+    public function getPrivateDescription()
+    {
+        return $this->private_description;
+    }
+
+    /**
+     * Add refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUsers
+     * @return Event
+     */
+    public function addRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers)
+    {
+        $this->refusedUsers[] = $refusedUsers;
+
+        return $this;
+    }
+
+    /**
+     * Remove refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUsers
+     */
+    public function removeRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers)
+    {
+        $this->refusedUsers->removeElement($refusedUsers);
+    }
+
+    /**
+     * Set eventPicture
+     *
+     * @param \Omaracuja\FrontBundle\Entity\EventPicture $eventPicture
+     * @return Event
+     */
+    public function setEventPicture(\Omaracuja\FrontBundle\Entity\EventPicture $eventPicture = null)
+    {
+        $this->eventPicture = $eventPicture;
+
+        return $this;
+    }
+
+    /**
+     * Get eventPicture
+     *
+     * @return \Omaracuja\FrontBundle\Entity\EventPicture 
+     */
+    public function getEventPicture()
+    {
+        return $this->eventPicture;
+    }
+
+    /**
+     * Set album
+     *
+     * @param \Omaracuja\FrontBundle\Entity\EventAlbum $album
+     * @return Event
+     */
+    public function setAlbum(\Omaracuja\FrontBundle\Entity\EventAlbum $album = null)
+    {
+        $this->album = $album;
+
+        return $this;
+    }
+
+    /**
+     * Get album
+     *
+     * @return \Omaracuja\FrontBundle\Entity\EventAlbum 
+     */
+    public function getAlbum()
+    {
+        return $this->album;
+    }
 }

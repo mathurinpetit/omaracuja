@@ -37,4 +37,47 @@ class EventAlbum {
         $this->pictures = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add pictures
+     *
+     * @param \Omaracuja\FrontBundle\Entity\Picture $pictures
+     * @return EventAlbum
+     */
+    public function addPicture(\Omaracuja\FrontBundle\Entity\Picture $pictures)
+    {
+        $this->pictures[] = $pictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove pictures
+     *
+     * @param \Omaracuja\FrontBundle\Entity\Picture $pictures
+     */
+    public function removePicture(\Omaracuja\FrontBundle\Entity\Picture $pictures)
+    {
+        $this->pictures->removeElement($pictures);
+    }
+
+    /**
+     * Get pictures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
 }

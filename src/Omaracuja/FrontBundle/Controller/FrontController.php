@@ -105,7 +105,7 @@ class FrontController extends Controller {
             $em->persist($newBlogPost);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('front_accueil'));
+            return $this->redirect($this->generateUrl('front_presentation'));
         }
 
         return $this->render('OmaracujaFrontBundle:BlogPost:new.html.twig', array(

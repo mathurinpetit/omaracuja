@@ -19,7 +19,8 @@ class EventType extends AbstractType {
                     'label' => 'Titre',
                     'required' => true
                 ))
-                ->add('description')
+                ->add('public_description')
+                ->add('private_description')
                 ->add('public', 'checkbox', array(
                     'label' => 'Evènement publique'
                 ))

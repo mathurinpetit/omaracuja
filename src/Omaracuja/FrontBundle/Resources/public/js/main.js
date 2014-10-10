@@ -38,8 +38,8 @@ $(document).ready(function() {
 
     $('.summernote_event').summernote({
         lang: 'fr-FR',
-        height: 480,
-        minHeight: 480,
+        height: 170,
+        minHeight: 170,
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough']],

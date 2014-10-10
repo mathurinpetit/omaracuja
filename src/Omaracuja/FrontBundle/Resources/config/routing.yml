@@ -1,6 +1,6 @@
-front_accueil:
-     path:  /accueil
-     defaults: { _controller: OmaracujaFrontBundle:Front:accueil }
+#front_accueil:
+#     path:  /accueil
+#     defaults: { _controller: OmaracujaFrontBundle:Front:accueil }
      
 front_presentation:
      path:  /presentation

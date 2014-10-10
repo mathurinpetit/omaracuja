@@ -13,7 +13,7 @@
         <div class="form-group event_panel_button">
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{ path('front_accueil') }}" class="btn btn-default">Retour à l'accueil</a>
+                    <a href="{{ path('front_presentation') }}" class="btn btn-default">Retour à l'accueil</a>
                     <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning">Ajouter un événement</a>
                 </div>
                 <div class="col-md-6 text-right"> 
@@ -142,7 +142,12 @@ A retirer lorsque les événements passé auront eu lieu
                                                 </div>
                                                 <div class="col-md-7">
                                                     {% autoescape false %}
-                                                        {{ eventObj.event.description }}
+                                                        {{ eventObj.event.privateDescription }}
+                                                    {% endautoescape %}
+                                                </div>
+                                                <div class="col-md-7">
+                                                    {% autoescape false %}
+                                                        {{ eventObj.event.publicDescription }}
                                                     {% endautoescape %}
                                                 </div>
                                             </div>

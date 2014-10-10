@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * Description of EventAlbum
+ *
+ * @author mathurin
+ */
+
 namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
-use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Symfony\Component\Validator\Constraints as Assert;
+use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
+use Omaracuja\FrontBundle\Entity\EventAlbum as EventAlbum;
 use \DateTime;
 
 /**
@@ -32,11 +39,18 @@ class Event {
     private $title;
 
     /**
-     * @var text $description     
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @var text $public_description     
+     * @ORM\Column(name="public_description", type="text", nullable=false)
      * @Assert\NotBlank()
      */
-    private $description;
+    private $public_description;
+    
+        /**
+     * @var text $private_description     
+     * @ORM\Column(name="private_description", type="text", nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $private_description;
 
     /**
      * @var datetime $createdAt     
@@ -69,7 +83,7 @@ class Event {
     /**
      * @var string $place
      * 
-     * @ORM\Column(name="place", type="string", length=1024, nullable=false)
+     * @ORM\Column(name="place", type="string", length=1024, nullable=true)
      * @Assert\NotBlank()
      */
     private $place;
@@ -85,6 +99,12 @@ class Event {
      * @ORM\JoinTable(name="omaracuja_user_participate_event")
      */
     private $actualTeam;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="refusedEvents")
+     * @ORM\JoinTable(name="omaracuja_user_refuse_event")
+     */
+    private $refusedUsers;
 
     /**
      * @var float $mapX
@@ -104,13 +124,22 @@ class Event {
      * @ORM\OneToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventPicture", cascade={"persist", "merge", "remove"})
      * @ORM\JoinColumn(name="event_picture", referencedColumnName="id")
      */
-    private $picture;
+    private $eventPicture;
 
-    public function __construct() {
+    /**
+     * @ORM\OneToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventAlbum")
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     */
+    private $album;
+
+    public function __construct(User $user) {
         $this->createdAt = new DateTime();
         $this->public = true;
+        $this->startAt = new DateTime();
         $this->proposedTeam = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->refusedUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addProposedTeam($user);
     }
 
     /**
@@ -129,6 +158,7 @@ class Event {
      * @return Event
      */
     public function setTitle($title) {
+
         $this->title = $title;
 
         return $this;
@@ -218,6 +248,20 @@ class Event {
         return $this;
     }
 
+    public function getStartAtFr() {
+        $d = $this->getStartAt();
+        if ($d) {
+            return $d->format('d M Y H:i');
+        }
+        return '';
+    }
+
+    public function setStartAtFr($dateString) {
+        $date = DateTime::createFromFormat('d M Y H:i', $dateString);
+        $d = $this->setStartAt($date);
+        return $this;
+    }
+
     /**
      * Get startAt
      *
@@ -236,6 +280,20 @@ class Event {
     public function setEndAt($endAt) {
         $this->endAt = $endAt;
 
+        return $this;
+    }
+
+    public function getEndAtFr() {
+        $d = $this->getEndAt();
+        if ($d) {
+            return $d->format('d M Y H:i');
+        }
+        return '';
+    }
+
+    public function setEndAtFr($dateString) {
+        $date = DateTime::createFromFormat('d M Y H:i', $dateString);
+        $d = $this->setEndAt($date);
         return $this;
     }
 
@@ -328,6 +386,36 @@ class Event {
     public function getActualTeam() {
         return $this->actualTeam;
     }
+    
+        /**
+     * Add refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUser
+     * @return Event
+     */
+    public function addRefusedUsers(\Omaracuja\UserBundle\Entity\User $refusedUser) {
+        $this->refusedUsers[] = $refusedUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUser
+     */
+    public function removeRefusedUsers(\Omaracuja\UserBundle\Entity\User $refusedUser) {
+        $this->refusedUsers->removeElement($refusedUser);
+    }
+
+    /**
+     * Get refusedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRefusedUsers() {
+        return $this->refusedUsers;
+    }
 
     /**
      * Set mapX
@@ -369,6 +457,22 @@ class Event {
      */
     public function getMapY() {
         return $this->mapY;
+    }
+
+    public function setPicture($ev) {
+        $this->eventPicture = $ev;
+        return $this;
+    }
+
+    public function getPicture() {
+        return $this->eventPicture;
+    }
+
+    public function getPicturePath() {
+        if (!$this->eventPicture) {
+            return "/data/events/omaracuja_event_no_picture.jpg";
+        }
+        return $this->eventPicture->getWebPath();
     }
 
 }
