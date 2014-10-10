@@ -5,6 +5,7 @@ namespace Omaracuja\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Omaracuja\FrontBundle\Entity\EventAlbum as EventAlbum;
 use \DateTime;
 
 /**
@@ -56,8 +57,15 @@ class Picture {
      */
     protected $path;
 
+    /**
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventAlbum", inversedBy="pictures", cascade={"remove"})
+     */
+    private $album;
+
     public function __construct() {
         $this->createdAt = new DateTime();
+        $this->desks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -160,7 +168,7 @@ class Picture {
     }
 
     public function setPath($path) {
-        $this->path = $path; 
+        $this->path = $path;
         return $this;
     }
 
@@ -169,7 +177,7 @@ class Picture {
     }
 
     public function setFile($file) {
-        $this->file = $file; 
+        $this->file = $file;
         return $this;
     }
 
@@ -186,7 +194,7 @@ class Picture {
     }
 
     public function setDescription($description) {
-        $this->description = $description; 
+        $this->description = $description;
         return $this;
     }
 

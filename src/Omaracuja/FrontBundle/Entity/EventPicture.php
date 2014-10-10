@@ -79,8 +79,8 @@ class EventPicture {
     private $ajaxMsg = null;
     private $type = null;
 
-    const HEIGHT = 600;
-    const WIDTH = 400;
+    const HEIGHT = 400;
+    const WIDTH = 300;
 
     /**
      * Get id

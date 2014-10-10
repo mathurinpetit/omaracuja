@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * Description of EventAlbum
+ *
+ * @author mathurin
+ */
+
 namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\UserBundle\Entity\User as User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
+use Omaracuja\FrontBundle\Entity\EventAlbum as EventAlbum;
 use \DateTime;
 
 /**
@@ -105,6 +112,12 @@ class Event {
      * @ORM\JoinColumn(name="event_picture", referencedColumnName="id")
      */
     private $eventPicture;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventAlbum")
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     */
+    private $album;
 
     public function __construct(User $user) {
         $this->createdAt = new DateTime();

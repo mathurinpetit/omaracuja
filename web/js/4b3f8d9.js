@@ -169,7 +169,7 @@
                 this.$img = $('<img src="' + this.url + '">');
                 this.$eventPictureWrapper.empty().html(this.$img);
                 this.$img.cropper({
-                    aspectRatio: 0.6666,
+                    aspectRatio: 0.75,
                     preview: this.$eventPicturePreview.selector,
                     done: function(data) {
                         var json = [
