@@ -92,6 +92,12 @@ class Event {
      * @ORM\JoinTable(name="omaracuja_user_participate_event")
      */
     private $actualTeam;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="refusedEvents")
+     * @ORM\JoinTable(name="omaracuja_user_refuse_event")
+     */
+    private $refusedUsers;
 
     /**
      * @var float $mapX
@@ -125,6 +131,7 @@ class Event {
         $this->startAt = new DateTime();
         $this->proposedTeam = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actualTeam = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->refusedUsers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->addProposedTeam($user);
     }
 
@@ -371,6 +378,36 @@ class Event {
      */
     public function getActualTeam() {
         return $this->actualTeam;
+    }
+    
+        /**
+     * Add refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUser
+     * @return Event
+     */
+    public function addRefusedUsers(\Omaracuja\UserBundle\Entity\User $refusedUser) {
+        $this->refusedUsers[] = $refusedUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove refusedUsers
+     *
+     * @param \Omaracuja\UserBundle\Entity\User $refusedUser
+     */
+    public function removeRefusedUsers(\Omaracuja\UserBundle\Entity\User $refusedUser) {
+        $this->refusedUsers->removeElement($refusedUser);
+    }
+
+    /**
+     * Get refusedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRefusedUsers() {
+        return $this->refusedUsers;
     }
 
     /**

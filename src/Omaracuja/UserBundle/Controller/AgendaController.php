@@ -22,7 +22,7 @@ class AgendaController extends Controller {
 
         $eventsProposed = $user->getProposedEvents();
         $eventsAccepted = $user->getParticipateEvents();
-
+        $eventsRefused = $user->getRefusedEvents();
         $eventsProposedByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->sortEventsByIsoMonth($eventsProposed);
 
         $nextEvents = array();
@@ -32,6 +32,7 @@ class AgendaController extends Controller {
                 $localEvent = new \stdClass();
                 $localEvent->event = $eventProposed;
                 $localEvent->accepted = in_array($eventProposed, $eventsAccepted->toArray());
+                $localEvent->refused = in_array($eventProposed, $eventsRefused->toArray());
                 $startDate = $localEvent->event->getStartAt();
                 $today = new \DateTime();
                 if ($startDate >= $today) {

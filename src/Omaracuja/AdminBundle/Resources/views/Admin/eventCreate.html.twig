@@ -16,7 +16,7 @@
             <div class="row">  
                 <div class="col-md-5">        
                     <div class="form-group">
-                            <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                        <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
                         <br/>
                     </div>
                 </div>
@@ -65,6 +65,15 @@
                         <div class="error_list">{{ form_errors(eventForm.proposedTeam) }}</div>
                         {{form_label(eventForm.proposedTeam)}}
                         {{ form_widget(eventForm.proposedTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Proposer à'} }) }}
+                    </div>     
+                </div>
+            </div> 
+            <div class="row">  
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="error_list">{{ form_errors(eventForm.actualTeam) }}</div>
+                        {{form_label(eventForm.actualTeam)}}
+                        {{ form_widget(eventForm.actualTeam, {'attr': {'class': 'form-control select2', 'placeholder': 'Qui y va déjà'} }) }}
                     </div>     
                 </div>
             </div> 

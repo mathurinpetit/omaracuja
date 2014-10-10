@@ -39,8 +39,8 @@ security:
 
     access_control:
          - { path: ^/construction$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/,    role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
          - { path: ^/compte/login$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/compte/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/compte,          role: [ROLE_USER, ROLE_ADMIN] }    
-         - { path: ^/admin/,          role: [ROLE_ADMIN] }    
+         - { path: ^/admin,          role: [ROLE_ADMIN] }    

@@ -13,27 +13,31 @@ class EventType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        
+
         $builder
-        ->add('title', 'text', array(
-        'label' => 'Titre',
-        'required' => true
-        ))
-        ->add('description')
-        ->add('public', 'checkbox', array(
-        'label' => 'Evènement publique'
-        ))
-        ->add('startAtFr', 'text', array( 'label' => 'Date de début', 'attr' => array('class' => 'datetimepicker')))
-        ->add('endAtFr', 'text', array('label' => 'Date de fin', 'attr' => array('class' => 'datetimepicker')))
-        ->add('place', 'text', array(
-        'label' => 'Lieu'
-        ))
-        ->add('proposedTeam', 'entity', array(
-        'class' => 'OmaracujaUserBundle:User',
-        'label' => 'Proposer à',
-        'property' => 'username', 'expanded' => false, 'multiple' => true))
-        ->add('mapX', 'hidden')
-        ->add('mapY', 'hidden');
+                ->add('title', 'text', array(
+                    'label' => 'Titre',
+                    'required' => true
+                ))
+                ->add('description')
+                ->add('public', 'checkbox', array(
+                    'label' => 'Evènement publique'
+                ))
+                ->add('startAtFr', 'text', array('label' => 'Date de début', 'attr' => array('class' => 'datetimepicker')))
+                ->add('endAtFr', 'text', array('label' => 'Date de fin', 'attr' => array('class' => 'datetimepicker')))
+                ->add('place', 'text', array(
+                    'label' => 'Lieu'
+                ))
+                ->add('proposedTeam', 'entity', array(
+                    'class' => 'OmaracujaUserBundle:User',
+                    'label' => 'Proposer à',
+                    'property' => 'username', 'expanded' => false, 'multiple' => true))
+                ->add('actualTeam', 'entity', array(
+                    'class' => 'OmaracujaUserBundle:User',
+                    'label' => 'Qui y va déjà',
+                    'property' => 'username', 'expanded' => false, 'multiple' => true))
+                ->add('mapX', 'hidden')
+                ->add('mapY', 'hidden');
     }
 
     /**

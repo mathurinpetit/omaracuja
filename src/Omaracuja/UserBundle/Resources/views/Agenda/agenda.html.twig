@@ -45,6 +45,11 @@
                                                 <button type="submit" class="btn btn-default btn-danger">J'y vais!</button>
                                             </form>
                                         {% endif %}
+                                        {% if not eventObj.refused %}
+                                            <form id="{{eventObj.event.id}}" method="post" action="{{ path('compte_refuse_event',{ 'idEvent': eventObj.event.id }) }}">
+                                                <button type="submit" class="btn btn-default">J'y vais pas...</button>
+                                            </form>
+                                        {% endif %}
                                     {% endif %}
                                 </h3>
                             </div>
@@ -87,11 +92,11 @@
                                                                     {% if participeUser == proposeUser %}
                                                                         {% set participeLocalUser = true %}
                                                                     {% endif %}
-                                                                {% endfor %} 
-                                                                <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}">
-                                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                                    <span>{{proposeUser.username}}</span>
-                                                                </div>
+                                                                {% endfor %}
+                                                                <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}" style="{% if not participeLocalUser and pastEvent %}display: none;{%endif%}">
+                                                                        <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                                                        <span>{{proposeUser.username}}</span>
+                                                                    </div>
                                                             {% endfor %}
                                                         </div>
                                                     </a>

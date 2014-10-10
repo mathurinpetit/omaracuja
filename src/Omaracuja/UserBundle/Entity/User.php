@@ -62,6 +62,12 @@ class User extends BaseUser {
      */
     protected $participateEvents;
     
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Omaracuja\FrontBundle\Entity\Event", mappedBy="refusedUsers")
+     */
+    protected $refusedEvents;
+    
     /**
      * Get id
      *
@@ -255,6 +261,17 @@ class User extends BaseUser {
     {
         return $this->proposedEvents;
     }
+
+    /**
+     * Get refusedEvents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRefusedEvents()
+    {
+        return $this->refusedEvents;
+    }
+    
 
     /**
      * Add participateEvents
