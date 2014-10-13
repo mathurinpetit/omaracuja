@@ -11,18 +11,18 @@
             <div class="col-md-6">
                 <h1>{%if pastEvent %}Evénements passés{% else %}Mes prochains événements{% endif %}</h1> 
             </div>
-            {%if not pastEvent %}
+            {%if pastEvent %}
                 <div class="col-md-6 text-right event_passed_link"> 
                     <div class="btn-group btn-toggle">
-                        <a class="btn btn-lg btn-danger active">Présent</a>
-                        <a class="btn btn-lg btn-default" href="{{ path('compte_events_past') }}" >Passé</a>
+                        <a class="btn btn-lg btn-danger">Passé</a>
+                        <a class="btn btn-lg btn-default active" href="{{ path('compte_agenda') }}" >Présent</a>
                     </div>
                 </div>
             {% else %}
                 <div class="col-md-6 text-right event_passed_link"> 
                     <div class="btn-group btn-toggle">
-                        <a class="btn btn-lg btn-default"  href="{{ path('compte_agenda') }}" >Présent</a>
-                        <a class="btn btn-lg btn-danger active" >Passé</a>
+                        <a class="btn btn-lg btn-default active"  href="{{ path('compte_events_past') }}" >Passé</a>
+                        <a class="btn btn-lg btn-danger " >Présent</a>
                     </div>
                 </div>
             {% endif %}
@@ -94,9 +94,9 @@
                                                                     {% endif %}
                                                                 {% endfor %}
                                                                 <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}" style="{% if not participeLocalUser and pastEvent %}display: none;{%endif%}">
-                                                                        <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                                        <span>{{proposeUser.username}}</span>
-                                                                    </div>
+                                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
+                                                                    <span>{{proposeUser.username}}</span>
+                                                                </div>
                                                             {% endfor %}
                                                         </div>
                                                     </a>
@@ -144,10 +144,15 @@
                                                                 {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-7">
-                                                            {% autoescape false %}
-                                                                {{ eventObj.event.privateDescription }}
-                                                            {% endautoescape %}
+                                                        <div class="col-md-7">   
+                                                            <div class="agenda_description_panel panel panel-default">
+                                                                <div class="panel-body">
+                                                                    {% autoescape false %}
+                                                                        {{ eventObj.event.privateDescription }}
+                                                                    {% endautoescape %}
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>

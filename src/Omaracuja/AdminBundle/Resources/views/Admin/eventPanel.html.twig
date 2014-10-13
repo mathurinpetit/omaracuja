@@ -41,15 +41,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <h3>
-{#                                    
-A retirer lorsque les événements passé auront eu lieu
-{%if not pastEvent %}#}
-                                        <form id="{{eventObj.event.id}}" method="post" action="{{ path('admin_event_edit',{ 'eventId': eventObj.event.id }) }}">
-                                            <button type="submit" class="btn btn-default btn-danger">Modifier</button>
-                                        </form>
-{#                                  
-A retirer lorsque les événements passé auront eu lieu
-{% endif %}#}
+                                    {#                                    
+                                    A retirer lorsque les événements passé auront eu lieu
+                                    {%if not pastEvent %}#}
+                                    <form id="{{eventObj.event.id}}" method="post" action="{{ path('admin_event_edit',{ 'eventId': eventObj.event.id }) }}">
+                                        <button type="submit" class="btn btn-default btn-danger">Modifier</button>
+                                    </form>
+                                    {#                                  
+                                    A retirer lorsque les événements passé auront eu lieu
+                                    {% endif %}#}
                                 </h3>
                             </div>
                         </div>
@@ -141,15 +141,21 @@ A retirer lorsque les événements passé auront eu lieu
                                                     </div>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    {% autoescape false %}
-                                                        {{ eventObj.event.privateDescription }}
-                                                    {% endautoescape %}
-                                                </div>
-                                                <div class="col-md-7">
-                                                    {% autoescape false %}
-                                                        {{ eventObj.event.publicDescription }}
-                                                    {% endautoescape %}
-                                                </div>
+                                                    <div class="agenda_description_panel panel panel-default">
+                                                        <div class="panel-body">
+                                                            {% autoescape false %}
+                                                                {{ eventObj.event.publicDescription }}
+                                                            {% endautoescape %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="agenda_description_panel panel panel-default">
+                                                        <div class="panel-body">
+                                                            {% autoescape false %}
+                                                                {{ eventObj.event.privateDescription }}
+                                                            {% endautoescape %}
+                                                        </div>
+                                                    </div>                                                   
+                                                </div>                                                
                                             </div>
                                         </div>
                                     </div>

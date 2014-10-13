@@ -47,7 +47,7 @@ admin_event_edit:
 admin_event_picture_upload:
      path:  /evenementTelechargement/{eventId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventPictureUpload }
-     
+    
      
 #PHOTOS         
 admin_panel_pictures:

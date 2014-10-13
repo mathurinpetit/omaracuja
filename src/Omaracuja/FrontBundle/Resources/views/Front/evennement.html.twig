@@ -13,18 +13,18 @@
                 <h1>{%if pastEvent %}Evénements passés{% else %}Prochains événements{% endif %}</h1> 
             </div>
             <div class="col-md-6 text-right event_passed_link"> 
-                    {%if not pastEvent %}
-                        <div class="btn-group btn-toggle">
-                            <a class="btn btn-lg btn-danger active">Présent</a>
-                            <a class="btn btn-lg btn-default" href="{{ path('front_evennement_past') }}" >Passé</a>
-                        </div>
-                    {% else %}
-                        <div class="btn-group btn-toggle">
-                            <a class="btn btn-lg btn-default"  href="{{ path('front_evennement') }}" >Présent</a>
-                            <a class="btn btn-lg btn-danger active" >Passé</a>
-                        </div>
-                    {% endif %}
-                </div>            
+                {%if pastEvent %}
+                    <div class="btn-group btn-toggle">
+                        <a class="btn btn-lg btn-danger">Passé</a>
+                        <a class="btn btn-lg btn-default active" href="{{ path('front_evennement') }}" >Présent</a>
+                    </div>
+                {% else %}
+                    <div class="btn-group btn-toggle">
+                        <a class="btn btn-lg btn-default active"  href="{{ path('front_evennement_past') }}" >Passé</a>
+                        <a class="btn btn-lg btn-danger" >Présent</a>
+                    </div>
+                {% endif %}
+            </div>            
         </div>
         <br/>
         <br/>
@@ -87,9 +87,13 @@
                                             </div>
                                         </div>
                                         <div class="col-md-7">
-                                            {% autoescape false %}
-                                                {{ event.publicDescription }}
-                                            {% endautoescape %}
+                                            <div class="agenda_description_panel panel panel-default">
+                                                <div class="panel-body">
+                                                    {% autoescape false %}
+                                                        {{ event.publicDescription }}
+                                                    {% endautoescape %}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
