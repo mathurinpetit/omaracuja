@@ -63,9 +63,10 @@ class Picture {
      */
     private $album;
 
-    public function __construct() {
+    public function __construct(EventAlbum $album) {
         $this->createdAt = new DateTime();
         $this->desks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->album = $album;
     }
 
     /**

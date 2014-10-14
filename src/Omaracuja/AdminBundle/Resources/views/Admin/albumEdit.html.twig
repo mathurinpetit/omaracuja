@@ -1,0 +1,36 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Administation Evénements{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h1>Administration - Photos d'un événement</h1>
+        <br/>
+        <div class="col-md-12">
+            <div class="row" id="crop-picture">
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#" class="picture-link btn btn-default btn-danger text-right">Ajouter une photo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="picture-default-view">
+                    <img src="{{newPicture.getCurrentPicturePath}}" style="display: none;">
+                </div> 
+                {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': newPictureform } %}
+                <br/>
+
+                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures } %}
+
+            </div>
+        </div>
+        {% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'picturesCollection': album.pictures } %}
+    </div> 
+{% endblock %}

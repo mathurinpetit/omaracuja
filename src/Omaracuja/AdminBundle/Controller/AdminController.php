@@ -12,6 +12,7 @@ use Omaracuja\FrontBundle\Entity\Event as Event;
 use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Omaracuja\FrontBundle\Entity\Picture as Picture;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
+use Omaracuja\FrontBundle\Form\EventAlbumType as EventAlbumType;
 
 class AdminController extends Controller {
 
@@ -95,30 +96,9 @@ class AdminController extends Controller {
         $eventsAccepted = $user->getParticipateEvents();
         $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate();
 
-        $eventPictureForms = array();
-        foreach ($nextEventsByMonth as $month => $nextEvents) {
-            foreach ($nextEvents as $nextEvent) {
-                $eventPicture = new EventPicture();
-                $formFactory = $this->container->get('form.factory');
+        $eventPictureForms = $this->getEventsPicturesForms($nextEventsByMonth);
 
-                $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
-                $eventPictureForm = $eventPictureFormBuilder->add('file')
-                                ->add('src', 'hidden')
-                                ->add('data', 'hidden')->getForm();
-                $eventPictureForms['event_' . $nextEvent->getId()] = $eventPictureForm->createView();
-            }
-        }
-
-        $nextEventsForView = array();
-        foreach ($nextEventsByMonth as $month => $nextEvents) {
-            $nextEventsForView[$month] = array();
-            foreach ($nextEvents as $nextEventByDate) {
-                $localEvent = new \stdClass();
-                $localEvent->event = $nextEventByDate;
-                $localEvent->accepted = in_array($nextEventByDate, $eventsAccepted->toArray());
-                $nextEventsForView[$month][] = $localEvent;
-            }
-        }
+        $nextEventsForView = $this->getEventsForView($nextEventsByMonth, $eventsAccepted);
 
 
         return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('pastEvent' => false, 'nextEvents' => $nextEventsForView,
@@ -132,31 +112,9 @@ class AdminController extends Controller {
         $eventsAccepted = $user->getParticipateEvents();
         $pastEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate();
 
-        $eventPictureForms = array();
-        foreach ($pastEventsByMonth as $month => $pastEvents) {
-            foreach ($pastEvents as $pastEvent) {
-                $eventPicture = new EventPicture();
-                $formFactory = $this->container->get('form.factory');
+        $eventPictureForms = $this->getEventsPicturesForms($pastEventsByMonth);
 
-                $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
-                $eventPictureForm = $eventPictureFormBuilder->add('file')
-                                ->add('src', 'hidden')
-                                ->add('data', 'hidden')->getForm();
-                $eventPictureForms['event_' . $pastEvent->getId()] = $eventPictureForm->createView();
-            }
-        }
-
-        $pastEventsForView = array();
-        foreach ($pastEventsByMonth as $month => $pastEvents) {
-            $nextEventsForView[$month] = array();
-            foreach ($pastEvents as $pastEventByDate) {
-                $localEvent = new \stdClass();
-                $localEvent->event = $pastEventByDate;
-                $localEvent->accepted = in_array($pastEventByDate, $eventsAccepted->toArray());
-                $pastEventsForView[$month][] = $localEvent;
-            }
-        }
-
+        $pastEventsForView = $this->getEventsForView($pastEventsByMonth, $eventsAccepted);
 
         return $this->render('OmaracujaAdminBundle:Admin:eventPanel.html.twig', array('pastEvent' => true, 'nextEvents' => $pastEventsForView,
                     'eventPictureForms' => $eventPictureForms));
@@ -261,6 +219,50 @@ class AdminController extends Controller {
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
+    public function addAlbumEventAction(Request $request, $eventId) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($eventId);
+        $album = $em->getRepository('OmaracujaFrontBundle:Event')->findAlbumEventOrCreate($event);
+
+        $em->persist($album);
+        $em->flush();
+
+        $event->setAlbum($album);
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_edit_event_album', array('albumId' => $album->getId())));
+    }
+
+    public function editAlbumEventAction(Request $request, $albumId) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
+        
+        $newPicture = new Picture($album);
+        $newPictureform = $this->createPictureUploadForm($newPicture);
+
+        $albumForm = $this->createForm(new EventAlbumType(), $album, array(
+            'action' => $this->generateUrl('admin_edit_event_album', array('albumId' => $albumId)),
+            'method' => 'POST',
+            'csrf_protection' => false
+        ));
+        $albumForm->handleRequest($request);
+
+        if ($albumForm->isValid()) {
+
+            var_dump('here');
+
+            return $this->redirect($this->generateUrl('admin_edit_event_album', array('albumId' => $album->getId())));
+        }
+        return $this->render('OmaracujaAdminBundle:Admin:albumEdit.html.twig', array('album' => $album,
+                    'newPicture' => $newPicture,
+                    'albumForm' => $albumForm->createView(),
+                    'newPictureform' => $newPictureform->createView()));
+    }
+
     public function picturePanelAction($mois) {
         $newPicture = new Picture();
         $form = $this->createPictureUploadForm($newPicture);
@@ -359,6 +361,37 @@ class AdminController extends Controller {
                         ->add('title', 'text')
                         ->add('description', 'text')
                         ->getForm();
+    }
+
+    private function getEventsPicturesForms($eventsByMonth) {
+        $eventPictureForms = array();
+        foreach ($eventsByMonth as $month => $events) {
+            foreach ($events as $event) {
+                $eventPicture = new EventPicture();
+                $formFactory = $this->container->get('form.factory');
+
+                $eventPictureFormBuilder = $formFactory->createBuilder('form', $eventPicture);
+                $eventPictureForm = $eventPictureFormBuilder->add('file')
+                                ->add('src', 'hidden')
+                                ->add('data', 'hidden')->getForm();
+                $eventPictureForms['event_' . $event->getId()] = $eventPictureForm->createView();
+            }
+        }
+        return $eventPictureForms;
+    }
+
+    private function getEventsForView($eventsByMonth, $eventsAccepted) {
+        $eventsForView = array();
+        foreach ($eventsByMonth as $month => $events) {
+            $eventsForView[$month] = array();
+            foreach ($events as $eventByDate) {
+                $localEvent = new \stdClass();
+                $localEvent->event = $eventByDate;
+                $localEvent->accepted = in_array($eventByDate, $eventsAccepted->toArray());
+                $eventsForView[$month][] = $localEvent;
+            }
+        }
+        return $eventsForView;
     }
 
 }

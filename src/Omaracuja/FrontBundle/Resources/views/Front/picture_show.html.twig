@@ -1,6 +1,6 @@
 
 {% set indexCarousel = 0 %}
-{% for month,pictures in picturesByMonth %}
+{% for month,pictures in picturesCollection %}
     <div class="col-md-12 pictures-show" >
         <h2>{{ month }}</h2>
         {% if(loop.first) %}

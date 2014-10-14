@@ -15,16 +15,16 @@
 
                 <div class="picture-default-view">
                     <img src="{{newPicture.getCurrentPicturePath}}" style="display: none;">
-                </div>
+                </div> 
                 {% include 'OmaracujaAdminBundle:Admin:picture_buttons_navigation.html.twig' with {'next_month': next_month, 'next_month_label' : next_month_label, 'last_month': last_month , 'last_month_label' : last_month_label } %}
 
                 {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': form } %}
                 <br/>
-                
-                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesByMonth': picturesByMonth } %}
+
+                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': picturesByMonth } %}
 
             </div>
         </div>
-        {% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'picturesByMonth': picturesByMonth } %}
+        {% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'picturesCollection': picturesByMonth } %}
     </div>  
 {% endblock %}

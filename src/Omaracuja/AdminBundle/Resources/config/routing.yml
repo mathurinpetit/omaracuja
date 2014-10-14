@@ -49,6 +49,17 @@ admin_event_picture_upload:
      defaults: { _controller: OmaracujaAdminBundle:Admin:eventPictureUpload }
     
      
+#ALBUM
+admin_add_event_album:
+     path:  /ajouterEvenementAlbum/{eventId}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:addAlbumEvent }
+    
+
+admin_edit_event_album:
+     path:  /EditionAlbum/{albumId}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:editAlbumEvent }     
+     
+     
 #PHOTOS         
 admin_panel_pictures:
      path:  /photos/{mois}

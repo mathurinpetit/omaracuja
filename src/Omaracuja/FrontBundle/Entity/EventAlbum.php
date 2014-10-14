@@ -10,6 +10,7 @@ namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Omaracuja\FrontBundle\Entity\Picture as Picture;
+use Omaracuja\FrontBundle\Entity\Event as Event;
 
 /**
  * @ORM\Entity

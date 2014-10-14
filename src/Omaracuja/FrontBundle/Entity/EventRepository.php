@@ -3,6 +3,7 @@
 namespace Omaracuja\FrontBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Omaracuja\FrontBundle\Entity\EventAlbum as EventAlbum;
 
 class EventRepository extends EntityRepository {
 
@@ -52,6 +53,14 @@ class EventRepository extends EntityRepository {
             $monthEventsArray[$month_key][] = $events;
         }
         return $monthEventsArray;
+    }
+    
+        public function findAlbumEventOrCreate($event) {
+        $album = $event->getAlbum();
+        if(!$album){
+            return new EventAlbum($event->getId());
+        }
+        return $album;
     }
 
 }
