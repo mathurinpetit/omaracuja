@@ -67,5 +67,5 @@ admin_panel_pictures:
      
      
 admin_picture_upload:
-     path:  /photoTelechargement
+     path:  /photoTelechargement/{albumId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:pictureUpload }

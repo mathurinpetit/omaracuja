@@ -313,10 +313,11 @@ class AdminController extends Controller {
         ));
     }
 
-    public function pictureUploadAction(Request $request) {
-        $picture = new Picture();
-        $form = $this->createPictureUploadForm($picture);
+    public function pictureUploadAction(Request $request,$albumId) {
         $em = $this->getDoctrine()->getManager();
+        $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
+        $picture = new Picture($album);
+        $form = $this->createPictureUploadForm($picture);
         if ($request->isMethod('POST')) {
             $form->bind($request);
             $errors = $this->get('validator')->validate($form);
@@ -330,6 +331,8 @@ class AdminController extends Controller {
             if ($form->isValid()) {
 
                 $em->persist($picture);
+                $em->flush();
+                $album->addPicture($picture);
                 $em->flush();
 
                 $response = new Response(json_encode(array(
