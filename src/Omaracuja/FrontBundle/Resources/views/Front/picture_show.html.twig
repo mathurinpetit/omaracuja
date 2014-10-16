@@ -1,27 +1,22 @@
 
 {% set indexCarousel = 0 %}
-{% for month,pictures in picturesCollection %}
-    <div class="col-md-12 pictures-show" >
-        <h2>{{ month }}</h2>
-        {% if(loop.first) %}
-            <div id="new-picture-place"></div>
-        {% endif %}
-        {%for picture in pictures %}
-            <div class="picture-view col-lg-3 col-md-4 col-xs-6 thumb">
-                <div class="thumbnail">
-                    <div class="img-with-title">
-                        <div class="caption">
-                            <h2>{{picture.title}}</h2>
-                            <p>{{picture.description}}</p>
-                            <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{ indexCarousel }}" >Zoom</a>
-                                <a href="{{ path('front_picture_download',{ 'idPicture': picture.id }) }}" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a></p>
-                        </div>
-                        <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
+<div class="col-md-12 pictures-show" >
+    <div id="new-picture-place"></div>
+    {% for picture in picturesCollection %}
+        <div class="picture-view col-lg-3 col-md-4 col-xs-6 thumb">
+            <div class="thumbnail">
+                <div class="img-with-title">
+                    <div class="caption">
+                        <h2>{{picture.title}}</h2>
+                        <p>{{picture.description}}</p>
+                        <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{ indexCarousel }}" >Zoom</a>
+                            <a href="{{ path('front_picture_download',{ 'idPicture': picture.id }) }}" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a></p>
                     </div>
+                    <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
                 </div>
-            </div> 
-            {% set indexCarousel = indexCarousel + 1  %}       
-        {% endfor %}
-    </div>
-    <hr>
-{% endfor %}
+            </div>
+        </div> 
+        {% set indexCarousel = indexCarousel + 1  %}       
+    {% endfor %}
+</div>
+<hr>

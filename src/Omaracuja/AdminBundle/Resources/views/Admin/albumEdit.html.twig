@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="main">
-        <h1>Administration - Photos d'un événement</h1>
+        <h1>Administration - Photos <small class="text-danger">{{event.title}}</small></h1>
         <br/>
         <div class="col-md-12">
             <div class="row" id="crop-picture">
@@ -27,7 +27,7 @@
                 {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': newPictureform } %}
                 <br/>
 
-                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures } %}
+                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event } %}
 
             </div>
         </div>

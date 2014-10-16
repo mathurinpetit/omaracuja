@@ -22,10 +22,6 @@ class User extends BaseUser {
      */
     protected $id;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $actif = false;
 
     /**
      * @ORM\OneToMany(targetEntity="Avatar", mappedBy="user")
@@ -113,15 +109,15 @@ class User extends BaseUser {
     }
 
     public function isActif() {
-        return $this->actif;
+        return $this->enabled;
     }
 
     public function activate() {
-        $this->actif = true;
+        $this->enabled = true;
     }
 
     public function desactivate() {
-        $this->actif = false;
+        $this->enabled = false;
     }
 
     public function getCurrentAvatarPath() {
@@ -147,30 +143,8 @@ class User extends BaseUser {
         $this->blogPosts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->proposedEvents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participateEvents = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->enabled = false;
         parent::__construct();
-    }
-
-    /**
-     * Set actif
-     *
-     * @param boolean $actif
-     * @return User
-     */
-    public function setActif($actif)
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
-
-    /**
-     * Get actif
-     *
-     * @return boolean 
-     */
-    public function getActif()
-    {
-        return $this->actif;
     }
 
     /**

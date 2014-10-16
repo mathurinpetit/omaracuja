@@ -55,7 +55,7 @@ class EventRepository extends EntityRepository {
         return $monthEventsArray;
     }
     
-        public function findAlbumEventOrCreate($event) {
+    public function findAlbumEventOrCreate($event) {
         $album = $event->getAlbum();
         if(!$album){
             return new EventAlbum($event->getId());

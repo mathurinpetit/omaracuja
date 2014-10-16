@@ -237,10 +237,10 @@ class AdminController extends Controller {
     }
 
     public function editAlbumEventAction(Request $request, $albumId) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
-        
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->findOneByAlbum($album);
         $newPicture = new Picture($album);
         $newPictureform = $this->createPictureUploadForm($newPicture);
 
@@ -259,6 +259,7 @@ class AdminController extends Controller {
         }
         return $this->render('OmaracujaAdminBundle:Admin:albumEdit.html.twig', array('album' => $album,
                     'newPicture' => $newPicture,
+                    'event' => $event,
                     'albumForm' => $albumForm->createView(),
                     'newPictureform' => $newPictureform->createView()));
     }
@@ -313,7 +314,7 @@ class AdminController extends Controller {
         ));
     }
 
-    public function pictureUploadAction(Request $request,$albumId) {
+    public function pictureUploadAction(Request $request, $albumId) {
         $em = $this->getDoctrine()->getManager();
         $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
         $picture = new Picture($album);
