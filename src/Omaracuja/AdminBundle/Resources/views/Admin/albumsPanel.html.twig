@@ -1,0 +1,33 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Albums photos{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h1>Administration - Albums photos </h1>
+        <br/>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 text-right">
+            <div class="btn-group">
+                
+                {% if not next_month is null %}
+                    <a href="{{ path('admin_panel_albums', { 'mois': next_month } ) }}" class="btn btn-default text-right"><span class="glyphicon glyphicon-circle-arrow-left">&nbsp;</span>&nbsp;{{next_month_label}}</a>    
+                {% endif %}
+                {% if not last_month is null %}
+                    <a href="{{ path('admin_panel_albums', { 'mois': last_month } ) }}" class="btn btn-default text-right">{{last_month_label}}&nbsp;<span class="glyphicon glyphicon-circle-arrow-right">&nbsp;</span></a>    
+                {% endif %}
+            </div>
+        </div>
+                <br/>
+
+                {% include 'OmaracujaFrontBundle:Front:album_show.html.twig' with {'eventsByMonthWithAlbum': eventsByMonthWithAlbum } %}
+
+            </div>
+        </div>
+    </div>  
+{% endblock %}

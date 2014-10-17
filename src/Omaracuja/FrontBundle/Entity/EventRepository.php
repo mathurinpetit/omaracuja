@@ -6,7 +6,14 @@ use Doctrine\ORM\EntityRepository;
 use Omaracuja\FrontBundle\Entity\EventAlbum as EventAlbum;
 
 class EventRepository extends EntityRepository {
-
+    
+     public function findAllWithAlbumOrderedByDate() {
+        $qb = $this->createQueryBuilder('e');        
+        $qb->where('e.album IS NOT NULL');
+        $qb->orderBy('e.startAt', 'DESC');
+        return $this->sortEventsByMonth($qb->getQuery()->getResult());
+    } 
+    
    public function findNextOrderedByDate($restrictPublic = false) {
         $qb = $this->createQueryBuilder('e');
         $qb->where('e.endAt >= CURRENT_DATE()');

@@ -61,9 +61,9 @@ admin_edit_event_album:
      
      
 #PHOTOS         
-admin_panel_pictures:
-     path:  /photos/{mois}
-     defaults: { _controller: OmaracujaAdminBundle:Admin:picturePanel, mois: now }   
+admin_panel_albums:
+     path:  /albums/{mois}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:albumsPanel, mois: now }   
      
      
 admin_picture_upload:

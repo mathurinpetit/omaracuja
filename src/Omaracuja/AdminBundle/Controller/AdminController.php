@@ -253,8 +253,6 @@ class AdminController extends Controller {
 
         if ($albumForm->isValid()) {
 
-            var_dump('here');
-
             return $this->redirect($this->generateUrl('admin_edit_event_album', array('albumId' => $album->getId())));
         }
         return $this->render('OmaracujaAdminBundle:Admin:albumEdit.html.twig', array('album' => $album,
@@ -264,14 +262,13 @@ class AdminController extends Controller {
                     'newPictureform' => $newPictureform->createView()));
     }
 
-    public function picturePanelAction($mois) {
-        $newPicture = new Picture();
-        $form = $this->createPictureUploadForm($newPicture);
+    public function albumsPanelAction($mois) {
+
         $em = $this->getDoctrine()->getManager();
-        $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
+        $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
 
 
-        $pictureForView = array();
+        $albumForView = array();
 
         $last_month = null;
         $last_month_label = null;
@@ -282,31 +279,33 @@ class AdminController extends Controller {
             $mois = date('Y-m');
         }
 
-        foreach ($picturesByMonth as $month => $pictures) {
-            foreach ($pictures as $picture) {
-                if ($picture->getCreatedAt()->format("Ym") != str_replace('-', '', $mois)) {
-                    if (!$last_month && ($picture->getCreatedAt()->format("Ym") < str_replace('-', '', $mois))) {
-                        $last_month = $picture->getCreatedAt()->format("Y-m");
+        $eventsByMonthWithAlbum = array();
+        foreach ($eventsByMonth as $month => $events) {
+            foreach ($events as $event) {
+                if ($event->getStartAt()->format("Ym") != str_replace('-', '', $mois)) {
+                    if (!$last_month && ($event->getStartAt()->format("Ym") < str_replace('-', '', $mois))) {
+                        $last_month = $event->getStartAt()->format("Y-m");
                         $last_month_label = $month;
                         continue;
                     }
-                    if ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
-                        $next_month = $picture->getCreatedAt()->format("Y-m");
+                    if ($event->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
+                        $next_month = $event->getStartAt()->format("Y-m");
                         $next_month_label = $month;
                         continue;
                     }
                     continue;
                 }
-                if (!array_key_exists($month, $pictureForView)) {
-                    $pictureForView[$month] = array();
+                if (!array_key_exists($month, $eventsByMonthWithAlbum)) {
+                    $eventsByMonthWithAlbum[$month] = array();
                 }
-                $pictureForView[$month][] = $picture;
+                $eventWithAlbum = new \stdClass();
+                $eventWithAlbum->event = $event;
+                $eventWithAlbum->pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findByAlbum($event->getAlbum());
+                $eventsByMonthWithAlbum[$month][] = $eventWithAlbum;
             }
         }
-        return $this->render('OmaracujaAdminBundle:Admin:picturePanel.html.twig', array(
-                    'picturesByMonth' => $pictureForView,
-                    'newPicture' => $newPicture,
-                    'form' => $form->createView(),
+        return $this->render('OmaracujaAdminBundle:Admin:albumsPanel.html.twig', array(
+                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
                     'last_month' => $last_month,
                     'last_month_label' => $last_month_label,
                     'next_month' => $next_month,

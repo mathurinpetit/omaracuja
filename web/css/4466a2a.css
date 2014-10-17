@@ -216,3 +216,9 @@ form .form-group .error_list li{
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
+
+
+.agenda_description_panel{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
