@@ -60,7 +60,7 @@
                 <ul class="nav navbar-nav navbar-left navbar-form">
                     <li><a href="{{ path('front_presentation') }}" class="navbar-brand" style="padding: 0; margin: 0; top: -5px;"><img style="width: 130px; height: 70px; padding-bottom: 10px; padding-top: 0px;" src="{{ asset('/bundles/omaracujafront/images/omaracuja_logo.png') }}"></a></li>                       
                     <li><a href="{{ path('front_evennement') }}">Evènements</a></li>
-                    <li><a href="{{ path('front_pictures') }}">Photos</a></li>
+                    <li><a href="{{ path('front_albums') }}">Photos</a></li>
                     <li><a href="#">Vidéos</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
                         <li class="dropdown">
@@ -72,7 +72,7 @@
                                 <li class="divider"></li>
                                 <li><a href="{{ path('admin_panel_albums') }}">Albums photos</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{ path('admin_panel_presentation') }}">Page de présentation</a></li>
+                                <li><a href="{{ path('admin_panel_presentation') }}">Vidéos</a></li>
                             </ul>
                         </li>                        
                     {% endif %}

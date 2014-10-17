@@ -114,13 +114,9 @@ class FrontController extends Controller {
         ));
     }
 
-    public function picturesAction($mois) {
-$em = $this->getDoctrine()->getManager();
-        $picturesByMonth = $em->getRepository('OmaracujaFrontBundle:Picture')->findAllOrderedByDate();
-
-
-        $pictureForView = array();
-
+    public function albumsAction($mois) {        
+        $em = $this->getDoctrine()->getManager();
+        $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
         $last_month = null;
         $last_month_label = null;
         $next_month = null;
@@ -130,49 +126,60 @@ $em = $this->getDoctrine()->getManager();
             $mois = date('Y-m');
         }
 
-        foreach ($picturesByMonth as $month => $pictures) {
-            foreach ($pictures as $picture) {
-                if ($picture->getCreatedAt()->format("Ym") != str_replace('-', '', $mois)) {
-                    if (!$last_month && ($picture->getCreatedAt()->format("Ym") < str_replace('-', '', $mois))) {
-                        $last_month = $picture->getCreatedAt()->format("Y-m");
+        $eventsByMonthWithAlbum = array();
+        foreach ($eventsByMonth as $month => $events) {
+            foreach ($events as $event) {
+                if ($event->getStartAt()->format("Ym") != str_replace('-', '', $mois)) {
+                    if (!$last_month && ($event->getStartAt()->format("Ym") < str_replace('-', '', $mois))) {
+                        $last_month = $event->getStartAt()->format("Y-m");
                         $last_month_label = $month;
                         continue;
                     }
-                    if ($picture->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
-                        $next_month = $picture->getCreatedAt()->format("Y-m");
+                    if ($event->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
+                        $next_month = $event->getStartAt()->format("Y-m");
                         $next_month_label = $month;
                         continue;
                     }
                     continue;
                 }
-                if (!array_key_exists($month, $pictureForView)) {
-                    $pictureForView[$month] = array();
+                if (!array_key_exists($month, $eventsByMonthWithAlbum)) {
+                    $eventsByMonthWithAlbum[$month] = array();
                 }
-                $pictureForView[$month][] = $picture;
+                $eventWithAlbum = new \stdClass();
+                $eventWithAlbum->event = $event;
+                $eventWithAlbum->pictures = $em->getRepository('OmaracujaFrontBundle:Picture')->findByAlbum($event->getAlbum());
+                $eventsByMonthWithAlbum[$month][] = $eventWithAlbum;
             }
         }
-        return $this->render('OmaracujaFrontBundle:Front:picture.html.twig', array(
-                    'picturesByMonth' => $pictureForView,
+        return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
+                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
                     'last_month' => $last_month,
                     'last_month_label' => $last_month_label,
                     'next_month' => $next_month,
                     'next_month_label' => $next_month_label
         ));
     }
-    
-    
-    
+
+    public function albumAction($albumId) {
+        $em = $this->getDoctrine()->getManager();
+        $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->findOneByAlbum($album);
+
+        return $this->render('OmaracujaFrontBundle:Front:album.html.twig', array('album' => $album,
+                    'event' => $event));
+    }
+
     public function downloadPictureAction($idPicture) {
         $em = $this->getDoctrine()->getManager();
         $picture = $em->getRepository('OmaracujaFrontBundle:Picture')->find($idPicture);
-        $path = $this->get('kernel')->getRootDir(). "/../web";
-        $content = file_get_contents($path.$picture->getCurrentPicturePath());
+        $path = $this->get('kernel')->getRootDir() . "/../web";
+        $content = file_get_contents($path . $picture->getCurrentPicturePath());
 
         $response = new Response();
         $ext = strstr($picture->getCurrentPicturePath(), '.');
-        
-        $response->headers->set('Content-Type', mime_content_type($path.$picture->getCurrentPicturePath()));
-        $response->headers->set('Content-Disposition', 'attachment;filename="' . $picture->getTitle().$ext);
+
+        $response->headers->set('Content-Type', mime_content_type($path . $picture->getCurrentPicturePath()));
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . $picture->getTitle() . $ext);
 
         $response->setContent($content);
         return $response;

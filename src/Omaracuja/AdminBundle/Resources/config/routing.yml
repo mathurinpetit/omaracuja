@@ -56,7 +56,7 @@ admin_add_event_album:
     
 
 admin_edit_event_album:
-     path:  /EditionAlbum/{albumId}
+     path:  /editionAlbum/{albumId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:editAlbumEvent }     
      
      

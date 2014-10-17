@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+{% block title %}Omaracuja - Album{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h1>Photos <small class="text-danger">{{event.title}}</small></h1>
+        <br/>
+        <div class="col-md-12">
+            <div class="row">
+ 
+                <br/>
+
+                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event } %}
+
+            </div>
+        </div>
+        {% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'picturesCollection': album.pictures } %}
+    </div> 
+{% endblock %}
