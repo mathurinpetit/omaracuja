@@ -10,7 +10,9 @@ namespace Omaracuja\FrontBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Omaracuja\FrontBundle\Entity\EventAlbum;
 use Omaracuja\FrontBundle\Entity\Event;
+use Omaracuja\FrontBundle\Entity\Picture;
 use Omaracuja\UserBundle\Entity\User;
 
 class LoadEventData implements FixtureInterface {
@@ -19,7 +21,11 @@ class LoadEventData implements FixtureInterface {
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager) {
+        $this->loadEvents($manager);
+        $this->loadEventAlbums($manager);
+    }
 
+    public function loadEvents($manager) {
         $admin = $manager->getRepository('OmaracujaUserBundle:User')->findOneByUsername("mathurin");
         $users = $manager->getRepository('OmaracujaUserBundle:User')->findAll();
 
@@ -64,10 +70,44 @@ class LoadEventData implements FixtureInterface {
                     $event->setStartAt($date_debut);
                     $event->setEndAt($date_fin);
 
+                    if (rand(0, 4) !== 0) {
+
+                        $album = new EventAlbum();
+                        $manager->persist($album);
+                        $manager->flush();
+
+                        $event->setAlbum($album);
+
+                        $title = $event->getTitle();
+                        $maxPicture = rand(0, 58);
+
+                        for ($i = 0; $i < $maxPicture; $i++) {
+
+                            $picture = new Picture($album);
+                            $picture->setTitle($title . ' ' . $i);
+                            $picture->setDescription('DESCRIPTION ' . $i);
+                            $picture->setPath($picture->getCurrentPicturePath());
+
+                            $manager->persist($picture);
+                            $manager->flush();
+                            $album->addPicture($picture);
+                            $manager->persist($album);
+                            $manager->flush();
+                        }
+                    }
                     $manager->persist($event);
                     $manager->flush();
                 }
             }
+        }
+    }
+
+    public
+            function loadEventAlbums($manager) {
+        $events = $manager->getRepository('OmaracujaFrontBundle:Event')->findAll();
+
+        foreach ($events as $event) {
+            
         }
     }
 
