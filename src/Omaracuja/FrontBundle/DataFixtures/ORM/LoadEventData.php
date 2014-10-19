@@ -86,7 +86,7 @@ class LoadEventData implements FixtureInterface {
                             $picture = new Picture($album);
                             $picture->setTitle($title . ' ' . $i);
                             $picture->setDescription('DESCRIPTION ' . $i);
-                            $picture->setPath($picture->getCurrentPicturePath());
+                      //      $picture->setPath($picture->getCurrentPicturePath());
 
                             $manager->persist($picture);
                             $manager->flush();
