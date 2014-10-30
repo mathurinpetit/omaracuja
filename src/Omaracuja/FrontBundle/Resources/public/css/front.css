@@ -228,3 +228,7 @@ hr {
     height:82px; 
     background: url(../images/diagonals.gif) fixed; 
 }
+
+.button_go_not_go{
+    padding-bottom: 15px;
+}

@@ -36,7 +36,7 @@
                 <h2>{{ stringMonth|slice(0, 1)|upper~stringMonth|slice(1,stringMonth|length)  }}</h2>
                 <div class="panel-group" id="accordion">
                     {% for eventObj in eventsByMonth %}
-                        <div class="row">
+                        <div class="row button_go_not_go">
                             {%if not pastEvent %}
                                 <div class="col-md-4 event_passed_link text-left agenda_buttons_go">
                                     <div class="row">
@@ -85,48 +85,37 @@
                                                         <div class="col-md-4 text-right">
                                                             <strong>{{ eventObj.event.place }}</strong>
                                                         </div>
-                                                        <div class="col-md-12 agenda-event_show">  
+                                                        <div class="col-md-12 agenda-event_show"> 
+                                                            {% set nbavatars = 0 %}
                                                             {% for participeUser in eventObj.event.actualTeam %}
-                                                                <div class="agenda-avatar-view " style="{% if pastEvent %}display: none;{%endif%}">
-                                                                    <img src="{{participeUser.getCurrentAvatarPath}}" alt="{{participeUser.username}}" class="img-rounded">
+                                                                 {% set nbavatars = nbavatars+1 %}
+                                                                <div class="agenda-avatar-view">
+                                                                     <img src="{{participeUser.getCurrentAvatarPath}}" alt="{{participeUser.username}}" class="img-rounded">
                                                                     <span>{{participeUser.username}}</span>
                                                                 </div>
                                                             {% endfor %}
-                                                            {% for refusedUser in eventObj.event.getRefusedUsers %}
-                                                                <div class="agenda-avatar-view agenda-avatar-not-go-to-event" style="{% if pastEvent %}display: none;{%endif%}">
-                                                                    <img src="{{refusedUser.getCurrentAvatarPath}}" alt="{{refusedUser.username}}" class="img-rounded">
-                                                                    <span>{{refusedUser.username}}</span>
-                                                                    <div class="agenda-avatar-not-go-to-event-overlay"> </div>
-                                                                </div>
-                                                            {% endfor %}
-                                                            
-                                                            {% for nonAnswerUser in eventObj.event.getNonAnswerUsers %}
-                                                                <div class="agenda-avatar-view agenda-avatar-not-in-event" style="{% if pastEvent %}display: none;{%endif%}">
-                                                                    <img src="{{nonAnswerUser.getCurrentAvatarPath}}" alt="{{nonAnswerUser.username}}" class="img-rounded">
-                                                                    <span>{{nonAnswerUser.username}}</span>
-                                                                </div>
-                                                            {% endfor %}
+                                                            {% if not pastEvent %}
+                                                                {% for refusedUser in eventObj.event.getRefusedUsers %}
+                                                                    {% set nbavatars = nbavatars+1 %}
+                                                                    <div class="agenda-avatar-view agenda-avatar-not-go-to-event" >
+                                                                        <img src="{{refusedUser.getCurrentAvatarPath}}" alt="{{refusedUser.username}}" class="img-rounded">
+                                                                        <span>{{refusedUser.username}}</span>
+                                                                        <div class="agenda-avatar-not-go-to-event-overlay"> </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                                {% for nonAnswerUser in eventObj.event.getNonAnswerUsers %}
+                                                                    {% set nbavatars = nbavatars+1 %}
+                                                                    <div class="agenda-avatar-view agenda-avatar-not-in-event" >
+                                                                        <img src="{{nonAnswerUser.getCurrentAvatarPath}}" alt="{{nonAnswerUser.username}}" class="img-rounded">
+                                                                        <span>{{nonAnswerUser.username}}</span>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {%endif%}
                                                         </div>
                                                     </a>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    {% if eventObj.event.proposedTeam | length > 10 %}
-                                                        {% for i in range(0, (eventObj.event.proposedTeam|length / 10)*5) %}
-                                                            <br/>
-                                                        {% endfor %}
+                                                    {% for i in range(0, 15) %}<br/>{% endfor %}
+                                                    {% if nbavatars > 10 %}
+                                                        {% for i in range(0, (nbavatars // 10)*5) %}<br/>{% endfor %}
                                                     {% endif %}
                                                 </h4>
                                             </div>
