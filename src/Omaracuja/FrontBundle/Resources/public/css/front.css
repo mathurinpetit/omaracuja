@@ -18,6 +18,23 @@
     color: #FFFFFF;
 }
 
+.nav-logo{
+    padding: 0 30px;
+    margin: 0; 
+    top: -5px;
+}
+
+.nav-logo img{
+    width: 130px;
+    height: 70px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+}
+
+.connexion-form{
+    padding: 0 30px;
+}
+
 .left-inner-addon {
     position: relative;
 }
