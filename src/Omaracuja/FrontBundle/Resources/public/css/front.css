@@ -167,6 +167,15 @@ hr {
 
 }
 
+.rotate7  {  
+    -webkit-transform:rotate(40deg);
+    -moz-transform:rotate(40deg);
+    -o-transform:rotate(40deg);
+    /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
+    -ms-transform:rotate(40deg);
+
+}
+
 .rotate2    {  
     -webkit-transform:rotate(-10deg);
     -moz-transform:rotate(-10deg);
@@ -194,6 +203,14 @@ hr {
 
 }
 
+.rotate8  {  
+    -webkit-transform:rotate(-46deg);
+    -moz-transform:rotate(-47deg);
+    -o-transform:rotate(-42deg);
+    /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
+    -ms-transform:rotate(-40deg);
+
+}
 
 .agenda-avatar-not-in-event img {
     opacity: 0.4;

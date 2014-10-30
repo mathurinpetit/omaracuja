@@ -16,12 +16,12 @@
                 {%if pastEvent %}
                     <div class="btn-group btn-toggle">
                         <a class="btn btn-lg btn-danger">Passé</a>
-                        <a class="btn btn-lg btn-default active" href="{{ path('front_evennement') }}" >Présent</a>
+                        <a class="btn btn-lg btn-default active" href="{{ path('front_evennement') }}" >A venir ...</a>
                     </div>
                 {% else %}
                     <div class="btn-group btn-toggle">
                         <a class="btn btn-lg btn-default active"  href="{{ path('front_evennement_past') }}" >Passé</a>
-                        <a class="btn btn-lg btn-danger" >Présent</a>
+                        <a class="btn btn-lg btn-danger" >A venir ...</a>
                     </div>
                 {% endif %}
             </div>            

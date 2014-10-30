@@ -305,6 +305,7 @@ class AdminController extends Controller {
             }
         }
         return $this->render('OmaracujaAdminBundle:Admin:albumsPanel.html.twig', array(
+                    'admin' => true,
                     'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
                     'last_month' => $last_month,
                     'last_month_label' => $last_month_label,

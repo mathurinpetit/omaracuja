@@ -19,12 +19,12 @@
                 <div class="col-md-6 text-right"> 
                     {%if not pastEvent %}
                         <div class="btn-group btn-toggle">
-                            <a class="btn btn-lg btn-danger active">Présent</a>
+                            <a class="btn btn-lg btn-danger active">A venir ...</a>
                             <a class="btn btn-lg btn-default" href="{{ path('admin_events_passed') }}" >Passé</a>
                         </div>
                     {% else %}
                         <div class="btn-group btn-toggle">
-                            <a class="btn btn-lg btn-default"  href="{{ path('admin_panel_event') }}" >Présent</a>
+                            <a class="btn btn-lg btn-default"  href="{{ path('admin_panel_event') }}" >A venir ...</a>
                             <a class="btn btn-lg btn-danger active" >Passé</a>
                         </div>
                     {% endif %}

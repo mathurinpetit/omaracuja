@@ -248,11 +248,15 @@ body {
     width: 800px;
 }
 
-.thumbnail {
+.thumbnail, .thumbnail-pictures {
     height: 240px;
     margin: 0px;
     overflow:hidden;
     position:relative;
+}
+
+.album_title{
+     height: 80px;
 }
 
 .post-content {
@@ -267,6 +271,18 @@ body {
     position: absolute;
     max-width: 242px;
     max-height: 230px;
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;
+}
+
+.thumbnail-pictures .img-with-title img
+{   
+    position: absolute;
+    max-width: 200px;
+    max-height: 200px;
     top: 0;  
     bottom: 0;  
     left: 0;  
