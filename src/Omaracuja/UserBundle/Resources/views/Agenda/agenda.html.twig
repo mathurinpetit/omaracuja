@@ -22,7 +22,7 @@
                 <div class="col-md-6 text-right event_passed_link"> 
                     <div class="btn-group btn-toggle">
                         <a class="btn btn-lg btn-default active"  href="{{ path('compte_events_past') }}" >Passé</a>
-                        <a class="btn btn-lg btn-danger " >Présent</a>
+                        <a class="btn btn-lg btn-danger " >A venir...</a>
                     </div>
                 </div>
             {% endif %}
@@ -37,22 +37,22 @@
                 <div class="panel-group" id="accordion">
                     {% for eventObj in eventsByMonth %}
                         <div class="row">
-                            <div class="col-md-4">    
-                                <h3>
-                                    {%if not pastEvent %}
+                            {%if not pastEvent %}
+                                <div class="col-md-4 event_passed_link text-left agenda_buttons_go">
+                                    <div class="row">
                                         {% if not eventObj.accepted %}
-                                            <form id="{{eventObj.event.id}}" method="post" action="{{ path('compte_accept_event',{ 'idEvent': eventObj.event.id }) }}">
-                                                <button type="submit" class="btn btn-default btn-danger">J'y vais!</button>
+                                            <form id="{{eventObj.event.id}}" class="col-md-3" method="post" action="{{ path('compte_accept_event',{ 'idEvent': eventObj.event.id }) }}">
+                                                <button type="submit" class="btn btn-default btn-danger active">J'y vais!</button>
                                             </form>
                                         {% endif %}
                                         {% if not eventObj.refused %}
-                                            <form id="{{eventObj.event.id}}" method="post" action="{{ path('compte_refuse_event',{ 'idEvent': eventObj.event.id }) }}">
+                                            <form id="{{eventObj.event.id}}" class="col-md-3" method="post" action="{{ path('compte_refuse_event',{ 'idEvent': eventObj.event.id }) }}">
                                                 <button type="submit" class="btn btn-default">J'y vais pas...</button>
                                             </form>
-                                        {% endif %}
-                                    {% endif %}
-                                </h3>
-                            </div>
+                                        {% endif %}  
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -85,17 +85,25 @@
                                                         <div class="col-md-4 text-right">
                                                             <strong>{{ eventObj.event.place }}</strong>
                                                         </div>
-                                                        <div class="col-md-12 agenda-event_show">                                              
-                                                            {% for proposeUser in eventObj.event.proposedTeam %}
-                                                                {% set participeLocalUser = null %}
-                                                                {% for participeUser in eventObj.event.actualTeam %}
-                                                                    {% if participeUser == proposeUser %}
-                                                                        {% set participeLocalUser = true %}
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                                <div class="agenda-avatar-view {% if not participeLocalUser %}agenda-avatar-not-in-event{%endif%}" style="{% if not participeLocalUser and pastEvent %}display: none;{%endif%}">
-                                                                    <img src="{{proposeUser.getCurrentAvatarPath}}" alt="{{proposeUser.username}}" class="img-rounded">
-                                                                    <span>{{proposeUser.username}}</span>
+                                                        <div class="col-md-12 agenda-event_show">  
+                                                            {% for participeUser in eventObj.event.actualTeam %}
+                                                                <div class="agenda-avatar-view " style="{% if pastEvent %}display: none;{%endif%}">
+                                                                    <img src="{{participeUser.getCurrentAvatarPath}}" alt="{{participeUser.username}}" class="img-rounded">
+                                                                    <span>{{participeUser.username}}</span>
+                                                                </div>
+                                                            {% endfor %}
+                                                            {% for refusedUser in eventObj.event.getRefusedUsers %}
+                                                                <div class="agenda-avatar-view agenda-avatar-not-go-to-event" style="{% if pastEvent %}display: none;{%endif%}">
+                                                                    <img src="{{refusedUser.getCurrentAvatarPath}}" alt="{{refusedUser.username}}" class="img-rounded">
+                                                                    <span>{{refusedUser.username}}</span>
+                                                                    <div class="agenda-avatar-not-go-to-event-overlay"> </div>
+                                                                </div>
+                                                            {% endfor %}
+                                                            
+                                                            {% for nonAnswerUser in eventObj.event.getNonAnswerUsers %}
+                                                                <div class="agenda-avatar-view agenda-avatar-not-in-event" style="{% if pastEvent %}display: none;{%endif%}">
+                                                                    <img src="{{nonAnswerUser.getCurrentAvatarPath}}" alt="{{nonAnswerUser.username}}" class="img-rounded">
+                                                                    <span>{{nonAnswerUser.username}}</span>
                                                                 </div>
                                                             {% endfor %}
                                                         </div>

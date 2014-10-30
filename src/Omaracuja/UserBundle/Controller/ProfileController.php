@@ -80,7 +80,7 @@ class ProfileController extends FOSProfileController {
         }
 
         return $this->container->get('templating')->renderResponse(
-                    'FOSUserBundle:Profile:edit.html.' . $this->container->getParameter('fos_user.template.engine'), array('form' => $form->createView(),
+                    'FOSUserBundle:Profile:edit.html.twig', array('form' => $form->createView(),
                     'avatarForm' => $this->avatarForm->createView(),
                     'avatar' => $this->avatar,
                     'avatarChooseForm' => $this->avatarChooseForm->createView(),
@@ -98,7 +98,7 @@ class ProfileController extends FOSProfileController {
 
         $this->initAvatarForms($user);
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.' . $this->container->getParameter('fos_user.template.engine'), array('avatarForm' => $this->avatarForm->createView(),
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.twig', array('avatarForm' => $this->avatarForm->createView(),
                     'avatar' => $this->avatar,
                     'avatarChooseForm' => $this->avatarChooseForm->createView(),
                     'user' => $user,

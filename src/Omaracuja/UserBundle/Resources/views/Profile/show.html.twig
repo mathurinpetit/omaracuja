@@ -17,11 +17,11 @@
                         {% endif %}
 
                         <div class="col-md-4">
-                            <div class="avatar-view" title="Choisir une image dans ses avatars">
+                            <div class="avatar-link" title="Charger un nouvel avatar">
                                 <img src="{{app.user.getCurrentAvatarPath}}" alt="{{app.user.username}}" class="img-rounded">
                             </div>
                             <br/>
-                            <a href="#" class="avatar-link" >Ajouter un Avatar</a>
+                            <a href="#" class="avatar-view" >Changer d'avatar</a>
                             {% include 'OmaracujaUserBundle:Profile:avatar_cropping_modal.html.twig' with {'avatarForm': avatarForm} %}
                             {% include 'OmaracujaUserBundle:Profile:avatars_view_modal.html.twig' with {'avatarChooseForm': avatarChooseForm} %}
                         </div>

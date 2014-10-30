@@ -8,9 +8,9 @@ fi
 
 echo "INSTALL OMARACUJA"
 
-#php composer self-update
+php composer.phar self-update
 
-#php composer install
+php composer.phar install
 
 sudo chmod -R 777 app/cache app/logs
 

@@ -37,11 +37,11 @@
 
 
 .post{
-     padding: 10px;
+    padding: 10px;
 }
 
 .post_text{
-     padding-top: 25px;
+    padding-top: 25px;
 }
 
 .post_user_avatar{
@@ -129,15 +129,15 @@
 
 
 hr {
-  -moz-border-bottom-colors: none;
-  -moz-border-image: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  border-color: darkred -moz-use-text-color #FFFFFF;
-  border-style: solid none;
-  border-width: 1px 0;
-  margin: 18px 0;
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: darkred -moz-use-text-color #FFFFFF;
+    border-style: solid none;
+    border-width: 1px 0;
+    margin: 18px 0;
 }
 
 .rotate1    {  
@@ -146,7 +146,7 @@ hr {
     -o-transform:rotate(10deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(10deg);
-    
+
 }
 
 .rotate3   {  
@@ -155,7 +155,7 @@ hr {
     -o-transform:rotate(20deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(20deg);
-    
+
 }
 
 .rotate5  {  
@@ -164,7 +164,7 @@ hr {
     -o-transform:rotate(30deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(30deg);
-    
+
 }
 
 .rotate2    {  
@@ -173,7 +173,7 @@ hr {
     -o-transform:rotate(-10deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(-10deg);
-    
+
 }
 
 .rotate4    {  
@@ -182,7 +182,7 @@ hr {
     -o-transform:rotate(-20deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(-20deg);
-    
+
 }
 
 .rotate6    {  
@@ -191,5 +191,23 @@ hr {
     -o-transform:rotate(-30deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(-30deg);
-    
+
+}
+
+
+.agenda-avatar-not-in-event img {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+.agenda-avatar-not-go-to-event img {
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+.agenda-avatar-not-go-to-event-overlay{
+    position:relative; 
+    top:-100px; 
+    height:82px; 
+    background: url(../images/diagonals.gif) fixed; 
 }

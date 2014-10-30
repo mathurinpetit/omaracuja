@@ -570,4 +570,20 @@ class Event {
     {
         return $this->album;
     }
+    
+    
+    public function getNonAnswerUsers() {
+        $proposedTeam = $this->getProposedTeam();
+        $actualTeam = $this->getActualTeam()->toArray();
+        $refusedUser = $this->getRefusedUsers()->toArray();
+        
+        $nonAnswerUsers = array();
+        foreach ($proposedTeam as $key => $proposedUser) {
+            if(!in_array($proposedUser, $actualTeam) && !in_array($proposedUser, $refusedUser)){
+                $nonAnswerUsers[] = $proposedUser;
+            }
+        }
+        
+        return $nonAnswerUsers;
+    }
 }

@@ -212,13 +212,12 @@ form .form-group .error_list li{
   font-weight: bold;  
 }
 
-.agenda-avatar-not-in-event img {
-    opacity: 0.4;
-    filter: alpha(opacity=40); /* For IE8 and earlier */
-}
-
 
 .agenda_description_panel{
     margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.agenda_buttons_go{
     margin-bottom: 20px;
 }

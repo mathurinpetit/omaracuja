@@ -96,7 +96,19 @@ class AgendaController extends Controller {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($idEvent);
+        $event->removeRefusedUsers($user);
         $event->addActualTeam($user);
+        $em->persist($event);
+        $em->flush();
+        return $this->redirect($this->generateUrl('compte_agenda'));
+    }
+
+    public function eventRefuseAction(Request $request, $idEvent) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->find($idEvent);
+        $event->removeActualTeam($user);
+        $event->addRefusedUsers($user);
         $em->persist($event);
         $em->flush();
         return $this->redirect($this->generateUrl('compte_agenda'));

@@ -35,7 +35,7 @@ class LoadEventData implements FixtureInterface {
             for ($mois = 1; $mois <= 12; $mois++) {
                 $nb_event = rand(0, 10);
                 for ($i = 0; $i <= $nb_event; $i++) {
-                    $jour = rand(1, 25);
+                    $jour = rand(1, 26);
                     $date_debut = new \DateTime('' . $annee . '-' . $mois . '-' . $jour);
                     $date_fin = new \DateTime('' . $annee . '-' . $mois . '-' . ($jour + 1));
 
@@ -79,14 +79,13 @@ class LoadEventData implements FixtureInterface {
                         $event->setAlbum($album);
 
                         $title = $event->getTitle();
-                        $maxPicture = rand(0, 58);
+                        $maxPicture = rand(0, 5);
 
-                        for ($i = 0; $i < $maxPicture; $i++) {
+                        for ($j = 0; $j < $maxPicture; $j++) {
 
                             $picture = new Picture($album);
-                            $picture->setTitle($title . ' ' . $i);
-                            $picture->setDescription('DESCRIPTION ' . $i);
-                      //      $picture->setPath($picture->getCurrentPicturePath());
+                            $picture->setTitle($title . ' ' . $j);
+                            $picture->setDescription('DESCRIPTION ' . $j);
 
                             $manager->persist($picture);
                             $manager->flush();

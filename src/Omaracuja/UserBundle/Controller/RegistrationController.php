@@ -66,7 +66,7 @@ class RegistrationController extends FOSRegistrationController {
             }
         }
 
-        return $this->container->get('templating')->renderResponse('OmaracujaUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('OmaracujaUserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),
         ));
     }

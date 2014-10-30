@@ -2,7 +2,7 @@ body {
   background-color: #fcfcfc;
 }
 
-.avatar-view {
+.avatar-link {
   display: block;
   height: 220px;
   width: 220px;
@@ -13,7 +13,7 @@ body {
   overflow: hidden;
 }
 
-.avatar-view img {
+.avatar-link img {
   width: 100%;
 }
 
