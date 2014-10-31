@@ -1,0 +1,32 @@
+<div class="col-md-12 agenda-event_show">
+    {% set nbavatars = 0 %}
+    {% for participeUser in event.actualTeam %}
+        {% set nbavatars = nbavatars+1 %}
+        <div class="agenda-avatar-view">
+            <img src="{{participeUser.getCurrentAvatarPath}}" alt="{{participeUser.username}}" class="img-rounded">
+            <span>{{participeUser.username}}</span>
+        </div>
+    {% endfor %}
+    {% if not pastEvent %}
+        {% for refusedUser in event.getRefusedUsers %}
+            {% set nbavatars = nbavatars+1 %}
+            <div class="agenda-avatar-view agenda-avatar-not-go-to-event" >
+                <img src="{{refusedUser.getCurrentAvatarPath}}" alt="{{refusedUser.username}}" class="img-rounded">
+                <span>{{refusedUser.username}}</span>
+                <div class="agenda-avatar-not-go-to-event-overlay"> </div>
+            </div>
+        {% endfor %}
+        {% for nonAnswerUser in event.getNonAnswerUsers %}
+            {% set nbavatars = nbavatars+1 %}
+            <div class="agenda-avatar-view agenda-avatar-not-in-event" >
+                <img src="{{nonAnswerUser.getCurrentAvatarPath}}" alt="{{nonAnswerUser.username}}" class="img-rounded">
+                <span>{{nonAnswerUser.username}}</span>
+            </div>
+        {% endfor %}
+    {%endif%}
+</div>
+
+{#{% for i in range(0, 15) %}<br/>{% endfor %}
+{% if nbavatars > 10 %}
+    {% for i in range(0, (nbavatars // 10)*5) %}<br/>{% endfor %}
+{% endif %}#}

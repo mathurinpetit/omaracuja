@@ -1,0 +1,22 @@
+<div class="col-md-4">
+                                <h3>
+                                    <ul class="list-inline">
+                                        {#                                    
+                                        A retirer lorsque les événements passé auront eu lieu
+                                        {%if not pastEvent %}#}
+                                        <li>
+                                            <form id="{{event.id}}" method="post" action="{{ path('admin_event_edit',{ 'eventId': event.id }) }}">
+                                                <button type="submit" class="btn btn-default btn-danger">Modifier</button>
+                                            </form>
+                                        </li>
+                                        <li>                                        
+                                            <form id="add_event_album_{{event.id}}" method="post" action="{{ path('admin_add_event_album',{ 'eventId': event.id }) }}">
+                                                <button type="submit" class="btn btn-default">Ajouter un album photo</button>
+                                            </form>
+                                        </li>
+                                        {#                                  
+                                        A retirer lorsque les événements passé auront eu lieu
+                                        {% endif %}#}
+                                    </ul>
+                                </h3>
+                            </div>

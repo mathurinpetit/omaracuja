@@ -1,0 +1,16 @@
+<div class="col-md-6">
+    <h1>{%if pastEvent %}Evénements passés{% else %}Prochains événements{% endif %}</h1> 
+</div>
+<div class="col-md-6 text-right event_passed_link"> 
+    {%if pastEvent %}
+        <div class="btn-group btn-toggle">
+            <a class="btn btn-lg btn-danger">Passé</a>
+            <a class="btn btn-lg btn-default active" href="{{ path('front_evennement') }}" >A venir ...</a>
+        </div>
+    {% else %}
+        <div class="btn-group btn-toggle">
+            <a class="btn btn-lg btn-default active"  href="{{ path('front_evennement_past') }}" >Passé</a>
+            <a class="btn btn-lg btn-danger" >A venir ...</a>
+        </div>
+    {% endif %}
+</div>     

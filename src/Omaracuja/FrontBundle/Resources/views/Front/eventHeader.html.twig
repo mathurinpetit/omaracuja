@@ -1,0 +1,45 @@
+<a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{event.id}}">
+    <div class="col-md-8 text-danger">  
+        <h3>
+            {%if privilegeMode is defined and privilegeMode %}
+                {% if event.public %}
+                    <span class="glyphicon glyphicon-star">&nbsp;</span>
+                {% else %}
+                    <span class=" glyphicon glyphicon-lock">&nbsp;</span>
+                {% endif %}
+            {% endif %}
+            {{ event.title }}
+        </h3>
+    </div>
+    {% if eventAccepted is defined and not eventAccepted is null %}    
+        <div class="col-md-4 text-right text-danger">  
+            <h3>
+                {% if not pastEvent %} 
+                    {% if eventAccepted %}<span >J'y vais</span>{% endif %}
+                {% else %}
+                    {% if eventAccepted %}<span >J'y étais!</span>{% else %}<span class="text-info">Snif...</span>{% endif %}
+                {% endif %}
+                {% if admin is defined and not admin is null %}
+                    <span>
+                        &nbsp;({{ event.actualTeam|length }}/{{ event.proposedTeam|length }}&nbsp;participent)            
+                    </span>
+                {% endif %}
+            </h3>
+        </div>
+    {% endif %}
+
+    <div class="col-md-4">
+        <strong>Du {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+    </div>
+    <div class="col-md-4">
+        <strong>Au {{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+    </div>
+    <div class="col-md-4 text-right">
+        <strong>{{ event.place }}</strong>
+    </div>
+
+    {%if privilegeMode is defined and privilegeMode %}
+        {% include "OmaracujaFrontBundle:Front:eventUsersAvatars.html.twig" with {'event': event, 'pastEvent' : pastEvent} %}  
+    {% endif %}   
+</a>   
+<div class="clearfix"></div>

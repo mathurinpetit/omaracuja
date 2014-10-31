@@ -1,0 +1,17 @@
+<div class="col-md-6">
+    <a href="{{ path('front_presentation') }}" class="btn btn-default">Retour à l'accueil</a>
+    <a href="{{ path('admin_create_event') }}" class="btn btn-default btn-warning">Ajouter un événement</a>
+</div>
+<div class="col-md-6 text-right"> 
+    {%if not pastEvent %}
+        <div class="btn-group btn-toggle">
+            <a class="btn btn-lg btn-danger active">A venir ...</a>
+            <a class="btn btn-lg btn-default" href="{{ path('admin_events_passed') }}" >Passé</a>
+        </div>
+    {% else %}
+        <div class="btn-group btn-toggle">
+            <a class="btn btn-lg btn-default"  href="{{ path('admin_panel_event') }}" >A venir ...</a>
+            <a class="btn btn-lg btn-danger active" >Passé</a>
+        </div>
+    {% endif %}
+</div>

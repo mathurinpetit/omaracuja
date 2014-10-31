@@ -229,6 +229,14 @@ hr {
 
 }
 
+.event-panel{
+    margin-bottom: 40px !important;
+}
+
+.event-panel a {
+    color: black;
+}
+
 .agenda-avatar-not-in-event img {
     opacity: 0.4;
     filter: alpha(opacity=40); /* For IE8 and earlier */

@@ -9,22 +9,7 @@
 {% block content %}
     <div class="main">
         <div class="row">
-            <div class="col-md-6">
-                <h1>{%if pastEvent %}Evénements passés{% else %}Prochains événements{% endif %}</h1> 
-            </div>
-            <div class="col-md-6 text-right event_passed_link"> 
-                {%if pastEvent %}
-                    <div class="btn-group btn-toggle">
-                        <a class="btn btn-lg btn-danger">Passé</a>
-                        <a class="btn btn-lg btn-default active" href="{{ path('front_evennement') }}" >A venir ...</a>
-                    </div>
-                {% else %}
-                    <div class="btn-group btn-toggle">
-                        <a class="btn btn-lg btn-default active"  href="{{ path('front_evennement_past') }}" >Passé</a>
-                        <a class="btn btn-lg btn-danger" >A venir ...</a>
-                    </div>
-                {% endif %}
-            </div>            
+            {% include "OmaracujaFrontBundle:Front:evennement_past_and_present_buttons.html.twig" with {'pastEvent' : pastEvent} %}       
         </div>
         <br/>
         <br/>
@@ -37,67 +22,11 @@
                         <div class="row">
                             <div class="col-md-4"><h3></h3></div>
                         </div>
-                        <div class="panel panel-default">
+                        <div class="panel panel-default event-panel">
                             <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{event.id}}">
-
-                                        <div class="col-md-12 text-danger">  
-                                            <h3>{{ event.title }}</h3>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Du {{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <strong>Au {{ event.endAt | localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-                                        </div>
-                                        <div class="col-md-4 text-right">
-                                            <strong>{{ event.place }}</strong>
-                                        </div>
-                                        <div class="col-md-12">&nbsp;</div>
-                                    </a>                                    
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                </h4>
+                                {% include "OmaracujaFrontBundle:Front:eventHeader.html.twig" with {'event': event, 'pastEvent' : pastEvent} %}                            
                             </div>
-                            <div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="row event_left">
-                                                <br/>
-                                                <div id="{{event.id}}" >
-                                                    <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
-                                                </div>
-                                                <br/>
-                                                <input type="hidden" value="{{ event.mapY }}" id="google_map_y_{{ event.id }}" />                            
-                                                <input type="hidden" value="{{ event.mapX }}" id="google_map_x_{{ event.id }}" />
-                                            </div>
-                                            <br/>
-                                            <div class="row event_left">
-                                                <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
-                                                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
-                                                </a>
-                                                {#                                            <div id="map-canvas-{{ eventObj.event.id }}" class="col-md-11 event_map_show_multiple " ></div>#}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="agenda_description_panel panel panel-default">
-                                                <div class="panel-body">
-                                                    {% autoescape false %}
-                                                        {{ event.publicDescription }}
-                                                    {% endautoescape %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include "OmaracujaFrontBundle:Front:eventBody.html.twig" with {'event': event, 'privilege': 0} %}                            
                         </div>
                     {% endfor %}
                 </div>

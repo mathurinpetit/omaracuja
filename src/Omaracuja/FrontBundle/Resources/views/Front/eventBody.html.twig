@@ -1,0 +1,52 @@
+<div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row event_left">
+                    <br/>
+                    {% if admin is defined and admin %}
+                        <div id="{{event.id}}" class='crop-eventPicture'>
+                            <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
+                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                            </div>   
+                            {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~event.id], 'event':event } %}
+                        </div>
+                    {% else %}
+
+                        <div id="{{event.id}}">
+                            <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+
+                        </div>
+                    {% endif %}
+                    <br/>
+                    <input type="hidden" value="{{ event.mapY }}" id="google_map_y_{{ event.id }}" />                            
+                    <input type="hidden" value="{{ event.mapX }}" id="google_map_x_{{ event.id }}" />
+                </div>
+                <br/>
+                <div class="row event_left">
+                    <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
+                        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8">   
+                {% if privilege is defined and privilege %}
+                    <div class="agenda_description_panel panel panel-default">
+                        <div class="panel-body">
+                            {% autoescape false %}
+                                {{ event.privateDescription }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                {% endif %}   
+                <div class="agenda_description_panel panel panel-default">
+                    <div class="panel-body">
+                        {% autoescape false %}
+                            {{ event.publicDescription }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
