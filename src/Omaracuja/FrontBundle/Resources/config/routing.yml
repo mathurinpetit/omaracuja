@@ -1,7 +1,4 @@
-#front_accueil:
-#     path:  /accueil
-#     defaults: { _controller: OmaracujaFrontBundle:Front:accueil }
-     
+   
 front_presentation:
      path:  /presentation
      defaults: { _controller: OmaracujaFrontBundle:Front:presentation }
@@ -29,4 +26,12 @@ front_albums:
 front_album:
      path:  /album/{albumId}
      defaults: { _controller: OmaracujaFrontBundle:Front:album }
+
+front_video:
+     path:  /videos
+     defaults: { _controller: OmaracujaFrontBundle:Front:videos }
+     
+front_contact:
+     path:  /contact
+     defaults: { _controller: OmaracujaFrontBundle:Front:contact }
      

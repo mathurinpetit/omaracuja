@@ -12,21 +12,19 @@ admin_user_desactivate:
      pattern: /desactivate/{userId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:userDesactivate }
 
+#VIDEO
+admin_panel_video:
+     pattern: /videos
+     defaults: { _controller: OmaracujaAdminBundle:Admin:videos }
      
-#PRESENTATION  
-admin_panel_presentation:
-     path:  /presentation
-     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationPanel }     
+admin_panel_videos_add:
+    pattern: /ajouter-video
+    defaults: { _controller: OmaracujaAdminBundle:Admin:videoCreate }    
      
-admin_new_presentation:
-     path:  /presentation/nouvelle-page
-     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationNew }
-     
-admin_create_presentation:
-     path:  /presentation/creation-page
-     defaults: { _controller: OmaracujaAdminBundle:Admin:presentationCreate }
-
-
+admin_panel_videos_remove:
+    pattern: /supprimer-video/{idVideo}
+    defaults: { _controller: OmaracujaAdminBundle:Admin:videoDelete }  
+    
 #EVENTS  
 admin_panel_event:
      path:  /evenements

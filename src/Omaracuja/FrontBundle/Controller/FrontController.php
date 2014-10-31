@@ -16,8 +16,12 @@ class FrontController extends Controller {
     /**
      * @Template()
      */
-    public function accueilAction(Request $request) {
-        return $this->getAccueil();
+    public function videosAction(Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
+        return array('videos' => $videos);
     }
 
     /**
@@ -59,60 +63,6 @@ class FrontController extends Controller {
         return array('actual_presentation' => $actual_presentation);
     }
 
-    private function getAccueil() {
-        //User        
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $connected = !($user == "anon.") && $user->isActif();
-        $blogPosts = $this->getBlogPostsStrategy($connected, $user);
-
-        //PostCreation
-        $newBlogPost = null;
-        $newBlogPostForm = null;
-        if ($connected) {
-            $newBlogPost = new BlogPost($user);
-            $newBlogPostForm = $this->createForm(new BlogPostType(), $newBlogPost, array(
-                'action' => $this->generateUrl('front_blog_post_create'),
-                'method' => 'POST',
-            ));
-
-            return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected, 'newBlogPostForm' => $newBlogPostForm->createView()));
-        }
-        return $this->render('OmaracujaFrontBundle:Front:accueil.html.twig', array('blogPosts' => $blogPosts, 'user' => $user, 'connected' => $connected));
-    }
-
-    private function getBlogPostsStrategy($connected = false, $user = false) {
-        $em = $this->getDoctrine()->getManager();
-        $blogPostRepository = $em->getRepository('OmaracujaFrontBundle:BlogPost');
-        if ($connected && $user->isActif()) {
-            return $blogPostRepository->findAllOrderedByDateWithLimit();
-        } else {
-            return $blogPostRepository->findPublicOrderedByDateWithLimit();
-        }
-    }
-
-    public function blogPostCreateAction(Request $request) {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $newBlogPost = new BlogPost($user);
-        $newBlogPostForm = $this->createForm(new BlogPostType(), $newBlogPost, array(
-            'action' => $this->generateUrl('front_blog_post_create'),
-            'method' => 'POST',
-        ));
-
-        $newBlogPostForm->handleRequest($request);
-
-        if ($newBlogPostForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($newBlogPost);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('front_presentation'));
-        }
-
-        return $this->render('OmaracujaFrontBundle:BlogPost:new.html.twig', array(
-                    'entity' => $newBlogPost,
-                    'form' => $newBlogPostForm->createView(),
-        ));
-    }
 
     public function albumsAction($mois) {        
         $em = $this->getDoctrine()->getManager();

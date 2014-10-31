@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Vidéos{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="main">   
+
+        <h1>Liste des Vidéos</h1>
+        {% include "OmaracujaFrontBundle:Front:videos_list.html.twig" with {'videos' : videos} %}       
+
+    </div>
+
+
+{% endblock %}

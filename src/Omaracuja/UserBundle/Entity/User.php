@@ -5,7 +5,6 @@ namespace Omaracuja\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
-use Omaracuja\FrontBundle\Entity\BlogPost as BlogPost;
 use Omaracuja\FrontBundle\Entity\Event as Event;
 
 /**
@@ -28,10 +27,6 @@ class User extends BaseUser {
      */
     protected $avatars;
     
-     /**
-     * @ORM\OneToMany(targetEntity="Omaracuja\FrontBundle\Entity\BlogPost", mappedBy="author")
-     */
-    protected $blogPosts;
 
     /**
      * @ORM\OneToOne(targetEntity="Avatar")
@@ -140,7 +135,6 @@ class User extends BaseUser {
     public function __construct()
     {
         $this->avatars = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->blogPosts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->proposedEvents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->participateEvents = new \Doctrine\Common\Collections\ArrayCollection();
         $this->enabled = false;
@@ -170,38 +164,7 @@ class User extends BaseUser {
         $this->avatars->removeElement($avatars);
     }
 
-    /**
-     * Add blogPosts
-     *
-     * @param \Omaracuja\FrontBundle\Entity\BlogPost $blogPosts
-     * @return User
-     */
-    public function addBlogPost(\Omaracuja\FrontBundle\Entity\BlogPost $blogPosts)
-    {
-        $this->blogPosts[] = $blogPosts;
-
-        return $this;
-    }
-
-    /**
-     * Remove blogPosts
-     *
-     * @param \Omaracuja\FrontBundle\Entity\BlogPost $blogPosts
-     */
-    public function removeBlogPost(\Omaracuja\FrontBundle\Entity\BlogPost $blogPosts)
-    {
-        $this->blogPosts->removeElement($blogPosts);
-    }
-
-    /**
-     * Get blogPosts
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBlogPosts()
-    {
-        return $this->blogPosts;
-    }
+    
 
     /**
      * Add proposedEvents

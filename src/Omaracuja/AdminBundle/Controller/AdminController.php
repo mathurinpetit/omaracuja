@@ -6,11 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
-use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
-use Omaracuja\AdminBundle\Form\PresentationType as PresentationType;
+use Omaracuja\FrontBundle\Entity\Video as Video;
 use Omaracuja\FrontBundle\Entity\Event as Event;
 use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Omaracuja\FrontBundle\Entity\Picture as Picture;
+use Omaracuja\FrontBundle\Form\VideoType as VideoType;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
 use Omaracuja\FrontBundle\Form\EventAlbumType as EventAlbumType;
 
@@ -29,60 +29,51 @@ class AdminController extends Controller {
     /**
      * @Template()
      */
-    public function presentationPanelAction() {
+    public function videosAction() {
         $em = $this->getDoctrine()->getManager();
-        $presentations = $em->getRepository('OmaracujaAdminBundle:Presentation')->findAll();
-        $actual_presentation = null;
-        foreach ($presentations as $presentation) {
-            if ($presentation->isSelected()) {
-                $actual_presentation = $presentation;
-            }
-        }
 
-        return array('presentations' => $presentations, 'actual_presentation' => $actual_presentation);
+        $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
+        return $this->render('OmaracujaAdminBundle:Admin:videosPanel.html.twig', array('videos' => $videos));
     }
 
     /**
      * @Template()
      */
-    public function presentationNewAction() {
-        $presentation = new Presentation();
+    public function videoCreateAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new PresentationType(), $presentation, array(
-            'action' => $this->generateUrl('admin_create_presentation'),
-            'method' => 'POST',
-        ));
-
-        return array(
-            'presentation' => $presentation,
-            'form' => $form->createView(),
-        );
-    }
-
-    /**
-     * @Template()
-     */
-    public function presentationCreateAction(Request $request) {
-        $presentation = new Presentation();
-        $form = $this->createForm(new PresentationType(), $presentation, array(
-            'action' => $this->generateUrl('admin_create_presentation'),
+        $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
+        $form = $this->createForm(new VideoType(), $video, array(
+            'action' => $this->generateUrl('admin_panel_videos_add'),
             'method' => 'POST',
         ));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $presentation->select();
-            $em->persist($presentation);
+            $em->persist($video);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_panel_presentation'));
+            return $this->redirect($this->generateUrl('admin_panel_video'));
+        }
+        return array(
+            'video' => $video,
+            'videoForm' => $form->createView(),
+        );
+    }
+
+    public function videoDeleteAction($idVideo, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $video = $em->getRepository('OmaracujaFrontBundle:Video')->find($idVideo);
+
+        if (!$video) {
+            throw $this->createNotFoundException("La vidéo n'existe pas en base de donnée!");
         }
 
-        return array(
-            'entity' => $presentation,
-            'form' => $form->createView(),
-        );
+        $em->remove($video);
+        $em->flush();
+        return $this->redirect($this->generateUrl('admin_panel_video'));
     }
 
     /**
