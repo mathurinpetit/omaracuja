@@ -19,7 +19,7 @@
 
     this.$avatarLink = this.$container.find(".avatar-link");
     this.$avatarView = this.$container.find(".avatar-view");    
-    this.$avatar = this.$avatarView.find("img");
+    this.$avatar = this.$avatarLink.find("img");
     this.$avatarModal = this.$container.find("#avatar-modal");
     this.$avatarsViewModal = this.$container.find("#avatars-view-modal");
     this.$loading = this.$container.find(".loading");
@@ -66,7 +66,7 @@
     },
 
     initTooltip: function () {
-      this.$avatarView.tooltip({
+      this.$avatarLink.tooltip({
         placement: "bottom"
       });
     },

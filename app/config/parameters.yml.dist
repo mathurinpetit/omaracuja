@@ -13,3 +13,10 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+    responsable:
+        nom: "Prénom Nom"
+        telephoneFixe: "01 01 01 01 01"
+        telephonePortable: "06 06 06 06 06"
+        adresse: "1, rue de la rue CP VILLE"
+        email: "contact@mail.com"    
+    senderEmail: contact@omaracuja.com

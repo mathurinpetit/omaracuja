@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
+        <meta name="robots" content="noindex,nofollow" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Omaracuja - Erreur 404</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">  
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/jquery-ui-1.10.4.custom.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/datetimepicker/jquery.datetimepicker.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2-bootstrap.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/select2/select2.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/cropper.css') }}" />     
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/summernote.css') }}" /> 
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/font-awesome.min.css') }}" /> 
+
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr"></script>
+        <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/plugins/carousel.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/jquery-ui-1.10.0.custom.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/datetimepicker/jquery.datetimepicker.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/select2/select2.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/select2/select2_locale_fr.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/cropper.js') }}"></script>  
+        <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/initialisationGMaps.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/summernote/summernote.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/summernote/summernote-fr-FR.js') }}"></script>
+    </head>   
+
+    <body>
+        <nav role="navigation" class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{ path('front_presentation') }}" class="nav-logo" ><img src="{{ asset('/bundles/omaracujafront/images/omaracuja_logo.png') }}"></a>
+                </div>
+
+                <div id="nav-bar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left navbar-form">
+                        <li><a href="{{ path('front_evennement') }}">Evènements</a></li>
+                        <li><a href="{{ path('front_albums') }}">Photos</a></li>
+                        <li><a href="{{ path('front_video') }}">Vidéos</a></li>
+                        <li><a href="{{ path('front_contact') }}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="mainContainer" class="container">
+            <div class="main">
+                <br/>
+                <div class="col-md-12 text-center">
+                    <img src="{{ asset('bundles/omaracujafront/images/omaracuja_404.png') }}">
+                </div>
+            </div> 
+        </div>
+    </body>       
+</html>
+
+
+
+
+
+

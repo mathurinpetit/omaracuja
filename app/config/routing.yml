@@ -1,8 +1,8 @@
 # app/config/routing.yml
 
-omaracuja_construction:
+omaracuja:
     pattern:  /
-    defaults: { _controller: OmaracujaFrontBundle:Construction:construction }
+    defaults: { _controller: OmaracujaFrontBundle:Front:presentation }
     requirements:
         _method:  GET
 

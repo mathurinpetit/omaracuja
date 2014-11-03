@@ -3,7 +3,7 @@
 
 {% block fos_user_content %}
 {% if error %}
-<div>{{ error|trans }}</div>
+    <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
 {% endif %}
 
 <form action="{{ path("fos_user_security_check") }}" method="post" class="form-inline" role="form">

@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Omaracuja - Albums{% endblock %}
+
+{% block connexion %}
+    {% render url('fos_user_security_login') %}
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+        <h1>Omaracuja - Contact</h1>
+        <br/>
+        <div class="col-md-12 text-center">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    Responsable : 
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ responsable['nom'] }}
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-6 text-left">
+                    Téléphone fixe : 
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ responsable['telephoneFixe'] }}
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-6 text-left">
+                    Téléphone portable : 
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ responsable['telephonePortable'] }}
+                </div>
+            </div>
+                <div class="row">
+                <div class="col-md-6 text-left">
+                    Email : 
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ responsable['email'] }}
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-6 text-left">
+                    Adresse : 
+                </div>
+                <div class="col-md-6 text-left">
+                    {{ responsable['adresse'] }}
+                </div>
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

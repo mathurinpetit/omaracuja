@@ -38,7 +38,7 @@
         "knplabs/knp-menu": "2.0.*@dev",
         "craue/formflow-bundle": "dev-master",
         
-        "friendsofsymfony/user-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "2.0.x-dev",
         
         "doctrine/doctrine-fixtures-bundle": "dev-master"
     },

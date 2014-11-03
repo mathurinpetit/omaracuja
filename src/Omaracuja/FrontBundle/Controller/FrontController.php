@@ -16,8 +16,15 @@ class FrontController extends Controller {
     /**
      * @Template()
      */
+    public function contactAction() {
+        return array('responsable' => $this->container->getParameter('responsable'));
+    }
+
+    /**
+     * @Template()
+     */
     public function videosAction(Request $request) {
-        
+
         $em = $this->getDoctrine()->getManager();
 
         $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
@@ -63,8 +70,7 @@ class FrontController extends Controller {
         return array('actual_presentation' => $actual_presentation);
     }
 
-
-    public function albumsAction($mois) {        
+    public function albumsAction($mois) {
         $em = $this->getDoctrine()->getManager();
         $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
         $last_month = null;
