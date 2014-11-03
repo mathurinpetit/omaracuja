@@ -1,11 +1,10 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 
 namespace Omaracuja\UserBundle\Controller;
 
@@ -21,9 +20,8 @@ use FOS\UserBundle\Controller\RegistrationController as FOSRegistrationControlle
 use Omaracuja\UserBundle\Entity\Avatar as Avatar;
 
 class RegistrationController extends FOSRegistrationController {
-    
-        public function registerAction(Request $request)
-    {
+
+    public function registerAction(Request $request) {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
@@ -43,8 +41,8 @@ class RegistrationController extends FOSRegistrationController {
 
         $form = $formFactory->createForm();
         $form->setData($user);
-        $form->add('name','text', array('label'  => 'Nom :'));
-        $form->add('firstname','text', array('label'  => 'Prénom :'));
+        $form->add('name', 'text', array('label' => 'Nom :'));
+        $form->add('firstname', 'text', array('label' => 'Prénom :'));
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
@@ -55,6 +53,7 @@ class RegistrationController extends FOSRegistrationController {
 
                 $userManager->updateUser($user);
 
+                $this->sendRegistrationMail($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);
@@ -67,7 +66,21 @@ class RegistrationController extends FOSRegistrationController {
         }
 
         return $this->container->get('templating')->renderResponse('OmaracujaUserBundle:Registration:register.html.twig', array(
-            'form' => $form->createView(),
+                    'form' => $form->createView(),
         ));
     }
+
+    private function sendRegistrationMail($user) {
+        $message = \Swift_Message::newInstance();
+        $message->setSubject("Objet");
+        $message->setFrom('mathurin.petit@gmail.com');
+        $message->setTo('mathurin.petit@gmail.com');
+        // pour envoyer le message en HTML
+        $message->setBody('Hello world');
+        // pour envoyer le message en HTML
+        $message->setBody('<p>Hello world</p>', 'text/html');
+        //envoi du message
+        $this->get('mailer')->send($message);
+    }
+
 }
