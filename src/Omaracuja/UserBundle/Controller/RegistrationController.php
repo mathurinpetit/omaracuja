@@ -74,12 +74,8 @@ class RegistrationController extends FOSRegistrationController {
         $message = \Swift_Message::newInstance();
         $message->setSubject("Objet");
         $message->setFrom('mathurin.petit@gmail.com');
-        $message->setTo('mathurin.petit@gmail.com');
-        // pour envoyer le message en HTML
-        $message->setBody('Hello world');
-        // pour envoyer le message en HTML
+        $message->setTo($user->email);
         $message->setBody('<p>Hello world</p>', 'text/html');
-        //envoi du message
         $this->get('mailer')->send($message);
     }
 
