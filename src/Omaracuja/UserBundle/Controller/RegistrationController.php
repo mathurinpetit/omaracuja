@@ -71,10 +71,16 @@ class RegistrationController extends FOSRegistrationController {
     }
 
     private function sendRegistrationMail($user) {
+        
+        $senderEmail = $this->container->getParameter('senderEmail');
         $message = \Swift_Message::newInstance();
-        $message->setSubject("Objet");
-        $message->setFrom('mathurin.petit@gmail.com');
+        $message->setReturnPath($senderEmail);
+        $message->setReplyTo($senderEmail);
+        $message->setFrom($senderEmail);
+        
+        
         $message->setTo($user->email);
+        $message->setSubject("Objet");
         $message->setBody('<p>Hello world</p>', 'text/html');
         $this->get('mailer')->send($message);
     }
