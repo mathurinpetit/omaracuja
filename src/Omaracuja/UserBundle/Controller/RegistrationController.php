@@ -85,7 +85,7 @@ class RegistrationController extends FOSRegistrationController {
         
         $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
                 
-        $mailBody = $this->container->get('templating')->renderView('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
+        $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
        
         $message->setSubject($subject);
         $message->setTo($user->getEmail());

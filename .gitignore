@@ -14,5 +14,6 @@ app/config/parameters.yml
 web/.htaccess
 web/.htpasswd
 web/data
+web/app_dev.php
 
 /nbproject
