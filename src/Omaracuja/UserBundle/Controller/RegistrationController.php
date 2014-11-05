@@ -53,7 +53,8 @@ class RegistrationController extends FOSRegistrationController {
 
                 $userManager->updateUser($user);
 
-                $this->sendRegistrationMail($user);
+               return $this->sendRegistrationMailToUser($user);
+                $this->sendRegistrationMailToAdmins($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);
@@ -70,7 +71,11 @@ class RegistrationController extends FOSRegistrationController {
         ));
     }
 
-    private function sendRegistrationMail($user) {
+    private function sendRegistrationMailToAdmins($user) {
+        
+    }
+    
+    private function sendRegistrationMailToUser($user) {
         
         $senderEmail = $this->container->getParameter('senderEmail');
         $message = \Swift_Message::newInstance();
@@ -78,10 +83,13 @@ class RegistrationController extends FOSRegistrationController {
         $message->setReplyTo($senderEmail);
         $message->setFrom($senderEmail);
         
-        
-        $message->setTo($user->email);
-        $message->setSubject("Objet");
-        $message->setBody('<p>Hello world</p>', 'text/html');
+        $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
+                
+        $mailBody = $this->container->get('templating')->renderResponse('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
+        return $mailBody;
+        $message->setSubject("Bienvenue sur le site Omaracuja.com");
+        $message->setTo($user->getEmail());
+        $message->setBody($mailBody, 'text/html');
         $this->get('mailer')->send($message);
     }
 
