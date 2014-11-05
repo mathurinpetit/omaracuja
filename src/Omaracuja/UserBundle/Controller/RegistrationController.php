@@ -53,7 +53,7 @@ class RegistrationController extends FOSRegistrationController {
 
                 $userManager->updateUser($user);
 
-               return $this->sendRegistrationMailToUser($user);
+                $this->sendRegistrationMailToUser($user);
                 $this->sendRegistrationMailToAdmins($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
@@ -86,8 +86,8 @@ class RegistrationController extends FOSRegistrationController {
         $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
                 
         $mailBody = $this->container->get('templating')->renderResponse('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
-        return $mailBody;
-        $message->setSubject("Bienvenue sur le site Omaracuja.com");
+       
+        $message->setSubject($subject);
         $message->setTo($user->getEmail());
         $message->setBody($mailBody, 'text/html');
         $this->get('mailer')->send($message);
