@@ -235,7 +235,7 @@
                                             <tr>
                                                 <td valign="top" align="center" style="border-collapse: collapse;">
                                                     <a href="{{ url('front_presentation') }}" target="_blank">
-                                                        <img id="logo_img" src="{{  app.request.scheme ~'://' ~ app.request.httpHost ~ asset('/bundles/omaracujafront/images/omaracuja_logo.png') }}" />
+                                                        <img id="logo_img" src="{{  'http://' ~ app.request.httpHost ~ asset('/bundles/omaracujafront/images/omaracuja_logo.png')  }}" />
                                                     </a>
                                                 </td>
                                             </tr>
