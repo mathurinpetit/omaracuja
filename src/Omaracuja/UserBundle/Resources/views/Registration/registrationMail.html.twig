@@ -208,6 +208,17 @@
                 #monkeyRewards img{
                     max-width:190px;
                 }
+
+                #logo_img{
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    height: 100px;
+                    line-height: 100%;
+                    outline: none; 
+                    text-decoration: none;
+                }
+
             </style>
     </head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #ffffff;width: 100% !important;">
@@ -224,7 +235,7 @@
                                             <tr>
                                                 <td valign="top" align="center" style="border-collapse: collapse;">
                                                     <a href="{{ url('front_presentation') }}" target="_blank">
-                                                        <img src="{{ app.request.basepath ~ '/bundles/omaracujafront/images/omaracuja_logo.png' }}" alt="" border="0" style="margin: 0;padding: 0;border: 0;height: 100px;line-height: 100%;outline: none;text-decoration: none;"/>
+                                                        <img id="logo_img" src="{{  app.request.scheme ~'://' ~ app.request.httpHost ~ asset('/bundles/omaracujafront/images/omaracuja_logo.png') }}" />
                                                     </a>
                                                 </td>
                                             </tr>
