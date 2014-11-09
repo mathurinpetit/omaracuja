@@ -43,6 +43,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
+        $video = new Video();
         $form = $this->createForm(new VideoType(), $video, array(
             'action' => $this->generateUrl('admin_panel_videos_add'),
             'method' => 'POST',
