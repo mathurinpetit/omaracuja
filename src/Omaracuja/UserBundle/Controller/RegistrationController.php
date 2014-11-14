@@ -86,8 +86,8 @@ class RegistrationController extends FOSRegistrationController {
         
         $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
         
-        $logoFilePath = $this->get('kernel')->getRootDir().'/../web/omaracuja_logo.png';
-        $path_logo = $message->embed(\Swift_Image::fromPath($logoFilePath));
+        $webPath = $this->get('kernel')->getRootDir().'/../web';
+        $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
 
         //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
         //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
@@ -96,18 +96,7 @@ class RegistrationController extends FOSRegistrationController {
         
         $message->setSubject($subject);
         $message->setTo($user->getEmail());
-        $message->setBody('<html>' .
-' <head></head>' .
-' <body>' .
-'  Here is an image <img src="' . 
-     $message->embed(\Swift_Image::fromPath($logoFilePath)) .
-   '" alt="Image" />' .
-'  Rest of message' .
-' </body>' .
-'</html>'
-                ,
-                
-                'text/html');
+        $message->setBody($mailBody,'text/html');
         $this->get('mailer')->send($message);
     }
 
