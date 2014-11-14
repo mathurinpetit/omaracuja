@@ -87,12 +87,12 @@ class RegistrationController extends FOSRegistrationController {
         //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
         
         $userManager = $this->container->get('fos_user.user_manager');
-        $users = $userManager->findUsers();
+        $all_users = $userManager->findUsers();
         
         $admins = array();
-        foreach ($users as $user) {
-            if($user->isAdmin()){
-                $admins[] = $user;
+        foreach ($all_users as $user_local) {
+            if($user_local->isAdmin()){
+                $admins[] = $user_local;
             }
         }
         
