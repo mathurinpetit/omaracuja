@@ -51,14 +51,15 @@ class RegistrationController extends FOSRegistrationController {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-                $userManager->updateUser($user);
+               // $userManager->updateUser($user);
 
                 $this->sendRegistrationMailToUser($user,$request);
                 $this->sendRegistrationMailToAdmins($user);
-                if (null === $response = $event->getResponse()) {
+                
+//                if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);
-                }
+//                }
 
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
