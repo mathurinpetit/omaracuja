@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-            <title>{{user.username}}, bienvenue sur le portail d'Omaracuja.com!</title>
+            <title>{{user.username}}, votre compte a été validé sur le portail d'Omaracuja.com!</title>
             {% include "OmaracujaFrontBundle:Email:email_styles.html.twig" %}            
     </head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #ffffff;width: 100% !important;">
@@ -20,13 +20,13 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="600" height="400" id="templateHeader" style="background-color: #FFFFFF;border-bottom: 0;">
                                         <tr>
                                             <td class="headerContent" style="border-collapse: collapse;color: #202020;font-family: Arial;font-size: 18px;font-weight: bold;line-height: 100%;padding: 0;text-align: left;vertical-align: middle;">
-                                                <h1>Inscription sur le site d'Omaracuja</h1><br/>
+                                                <h1>Validation de votre compte sur le site d'Omaracuja</h1><br/>
                                                 <p>Bonjour {{user.username}},<br/><br/>
                                                     Votre compte a été activé sur Omaracuja.com.<br/><br/>
                                                     Conservez bien ce mail.<br/><br/>
                                                     Rappel de votre identifiant : {{user.username}}<br/><br/>
-                                                    Vous pouvez dès à présent consulter votre profil <a href="{{ url('fos_user_profile_show') }}">ici</a>.<br/><br/>
-                                                    Ou encore votre agenda <a href="{{ url('compte_agenda') }}">ici</a>.<br/><br/>                                                
+                                                    Vous pouvez dès à présent consulter votre <a href="{{ url('fos_user_profile_show') }}">profil</a><br/><br/>
+                                                    Ou encore votre <a href="{{ url('compte_agenda') }}">agenda</a><br/><br/>                                                
                                                 </p>
                                                 <p>
                                                     Nous vous remercions brave Marac'<br/><br/>

@@ -400,7 +400,7 @@ class AdminController extends Controller {
         $message->setReplyTo($senderEmail);
         $message->setFrom($senderEmail);
 
-        $subject = $user->getUsername() . ", bienvenue sur le site Omaracuja.com";
+        $subject = $user->getUsername() . ", votre compte est validé sur le site Omaracuja.com";
 
 
         $mailBody = $this->render('OmaracujaAdminBundle:Admin:activationUserMail.html.twig', array('user' => $user));
