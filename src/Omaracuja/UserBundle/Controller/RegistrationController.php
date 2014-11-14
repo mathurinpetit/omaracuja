@@ -88,8 +88,13 @@ class RegistrationController extends FOSRegistrationController {
         
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
         $url_logo = $message->embed(\Swift_Image::fromPath($baseurl."/bundles/omaracujafront/images/omaracuja_logo.png"));
-        $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user, 'url_logo' => $url_logo));
-       
+        $mailBody = '<html>' .
+' <head></head>' .
+' <body>' .
+'  Here is an image <img src="' . $url_logo . '" alt="Image" />' .
+'  Rest of message' .
+' </body>' .
+'</html>';
         $message->setSubject($subject);
         $message->setTo($user->getEmail());
         $message->setBody($mailBody, 'text/html');
