@@ -17,7 +17,7 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\RegistrationController as FOSRegistrationController;
-use Omaracuja\UserBundle\Entity\Avatar as Avatar;
+
 
 class RegistrationController extends FOSRegistrationController {
 
@@ -53,7 +53,7 @@ class RegistrationController extends FOSRegistrationController {
 
                 $userManager->updateUser($user);
 
-                $this->sendRegistrationMailToUser($user);
+                $this->sendRegistrationMailToUser($user,$request);
                 $this->sendRegistrationMailToAdmins($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
@@ -75,7 +75,7 @@ class RegistrationController extends FOSRegistrationController {
         
     }
     
-    private function sendRegistrationMailToUser($user) {
+    private function sendRegistrationMailToUser($user,$request) {
         
         $senderEmail = $this->container->getParameter('senderEmail');
         $message = \Swift_Message::newInstance();
@@ -84,7 +84,9 @@ class RegistrationController extends FOSRegistrationController {
         $message->setFrom($senderEmail);
         
         $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
-                
+        
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
+        $url_logo = $message->embed(\Swift_Image::fromPath($baseurl."/bundles/omaracujafront/images/omaracuja_logo.png"));
         $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
        
         $message->setSubject($subject);
