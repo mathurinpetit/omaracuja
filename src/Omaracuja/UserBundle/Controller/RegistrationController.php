@@ -88,6 +88,9 @@ class RegistrationController extends FOSRegistrationController {
         
         $webPath = $this->get('kernel')->getRootDir().'/../web';
         $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
+
+        //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
+        //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
         
         $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user, 'url_logo' => $path_logo));
         
