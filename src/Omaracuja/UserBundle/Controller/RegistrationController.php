@@ -18,7 +18,6 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Controller\RegistrationController as FOSRegistrationController;
 
-
 class RegistrationController extends FOSRegistrationController {
 
     public function registerAction(Request $request) {
@@ -51,14 +50,14 @@ class RegistrationController extends FOSRegistrationController {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-               // $userManager->updateUser($user);
+                // $userManager->updateUser($user);
 
-                $this->sendRegistrationMailToUser($user,$request);
-                $this->sendRegistrationMailToAdmins($user);
-                
+                $this->sendRegistrationMailToUser($user, $request);
+                $this->sendRegistrationMailToAdmins($user, $request);
+
 //                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
-                    $response = new RedirectResponse($url);
+                $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
+                $response = new RedirectResponse($url);
 //                }
 
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
@@ -72,31 +71,60 @@ class RegistrationController extends FOSRegistrationController {
         ));
     }
 
-    private function sendRegistrationMailToAdmins($user) {
-        
-    }
-    
-    private function sendRegistrationMailToUser($user,$request) {
-        
+    private function sendRegistrationMailToAdmins($user, $request) {
+
         $senderEmail = $this->container->getParameter('senderEmail');
         $message = \Swift_Message::newInstance();
         $message->setReturnPath($senderEmail);
         $message->setReplyTo($senderEmail);
         $message->setFrom($senderEmail);
-        
-        $subject = $user->getUsername().", bienvenue sur le site Omaracuja.com";
-        
-        $webPath = $this->get('kernel')->getRootDir().'/../web';
-        $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
 
+        $subject = $user->getUsername() . " vient de s'inscrire sur le site Omaracuja.com";
+
+        // $webPath = $this->get('kernel')->getRootDir().'/../web';
+        // $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
         //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
         //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
         
-        $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user, 'url_logo' => $path_logo));
+        $userManager = $this->container->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
         
+        $admins = array();
+        foreach ($users as $user) {
+            if($user->isAdmin()){
+                $admins[] = $user;
+            }
+        }
+        
+        foreach ($admins as $admin) {
+            $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:notificationAdminRegistrationMail.html.twig', array('user' => $user, 'admin' => $admin));
+            $message->setSubject($subject);
+            $message->setTo($admin->getEmail());
+            $message->setBody($mailBody, 'text/html');
+            $this->get('mailer')->send($message);
+        }
+    }
+
+    private function sendRegistrationMailToUser($user, $request) {
+
+        $senderEmail = $this->container->getParameter('senderEmail');
+        $message = \Swift_Message::newInstance();
+        $message->setReturnPath($senderEmail);
+        $message->setReplyTo($senderEmail);
+        $message->setFrom($senderEmail);
+
+        $subject = $user->getUsername() . ", bienvenue sur le site Omaracuja.com";
+
+        // $webPath = $this->get('kernel')->getRootDir().'/../web';
+        // $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
+        //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
+        //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
+
+        $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
+
         $message->setSubject($subject);
         $message->setTo($user->getEmail());
-        $message->setBody($mailBody,'text/html');
+        $message->setBody($mailBody, 'text/html');
         $this->get('mailer')->send($message);
     }
 

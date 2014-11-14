@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-            <title>{{user.username}}, bienvenue sur le portail d'Omaracuja.com!</title>
+            <title>{{user.username}} vient de s'inscrire sur le portail d'Omaracuja.com!</title>
             {% include "OmaracujaFrontBundle:Email:email_styles.html.twig" %}            
     </head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #ffffff;width: 100% !important;">
@@ -20,14 +20,13 @@
                                     <table border="0" cellpadding="0" cellspacing="0" width="600" height="400" id="templateHeader" style="background-color: #FFFFFF;border-bottom: 0;">
                                         <tr>
                                             <td class="headerContent" style="border-collapse: collapse;color: #202020;font-family: Arial;font-size: 18px;font-weight: bold;line-height: 100%;padding: 0;text-align: left;vertical-align: middle;">
-                                                <h1>Inscription sur le site d'Omaracuja</h1>
-                                                <p>Bonjour {{user.username}},<br/>
-                                                    Vous avez bien été inscrit(e) sur le site d'Omaracuja.com.<br/>
-                                                    Un administrateur va valider votre compte et vous serrez tenu(e) au courant de cette opération par mail.<br/>
-                                                    En attendant vous pouvez toujours consulter la partie publique du site internet.<br/>                                                    
+                                                <h1>Nouvelle inscription sur le site d'Omaracuja</h1>
+                                                <p>Bonjour {{admin.username}},<br/>
+                                                    L'utilisateur {{ user.username }} vient de s'inscrire sur le site Omaracuja.com <br/>
+                                                    Afin qu'il puisse utiliser convenablement le site internet vous pouvez valider son inscription <a href="{{ url('admin_panel_users')~"#"~user.id }}>ici</a> .<br/>                                                   
                                                 </p>
                                                 <p>
-                                                    Nous vous remercions pour cette inscription brave Marac'<br/>
+                                                    Merci d'avance, {{admin.username}}, brave Marac'<br/>
                                                     A très vite!<br/>
                                                     Bisous!
                                                 </p>
