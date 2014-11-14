@@ -21,9 +21,9 @@
                                         <tr>
                                             <td class="headerContent" style="border-collapse: collapse;color: #202020;font-family: Arial;font-size: 18px;font-weight: bold;line-height: 100%;padding: 0;text-align: left;vertical-align: middle;">
                                                 <h1>Nouvelle inscription sur le site d'Omaracuja</h1>
-                                                <p>Bonjour {{admin.username}},<br/>
-                                                    L'utilisateur {{ user.username }} vient de s'inscrire sur le site Omaracuja.com <br/>
-                                                    Afin qu'il puisse utiliser convenablement le site internet vous pouvez valider son inscription <a href="{{ url('admin_panel_users')~"#"~user.id }}>ici</a> .<br/>                                                   
+                                                <p>Bonjour {{admin.username}},<br/><br/>
+                                                    <span style="color: #cc0000;" >{{ user.username }}</span> vient de s'inscrire sur le site Omaracuja.com <br/>
+                                                    Afin qu'il puisse utiliser convenablement le site internet vous pouvez valider son inscription <a href="{{ url('admin_panel_users')~"#"~user.id }}">ici</a> .<br/>                                                   
                                                 </p>
                                                 <p>
                                                     Merci d'avance, {{admin.username}}, brave Marac'<br/>
