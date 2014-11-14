@@ -200,6 +200,7 @@ class AdminController extends Controller {
         $entity->activate();
         $em->persist($entity);
         $em->flush();
+        $this->sendActivationUserMail($entity, $request);
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
@@ -390,5 +391,25 @@ class AdminController extends Controller {
         }
         return $eventsForView;
     }
+    
+    private function sendActivationUserMail($user, $request) {
+
+        $senderEmail = $this->container->getParameter('senderEmail');
+        $message = \Swift_Message::newInstance();
+        $message->setReturnPath($senderEmail);
+        $message->setReplyTo($senderEmail);
+        $message->setFrom($senderEmail);
+
+        $subject = $user->getUsername() . ", bienvenue sur le site Omaracuja.com";
+
+
+        $mailBody = $this->render('OmaracujaAdminBundle:Registration:activationUserMail.html.twig', array('user' => $user));
+
+        $message->setSubject($subject);
+        $message->setTo($user->getEmail());
+        $message->setBody($mailBody, 'text/html');
+        $this->get('mailer')->send($message);
+    }
+
 
 }
