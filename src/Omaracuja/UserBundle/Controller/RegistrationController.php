@@ -50,7 +50,7 @@ class RegistrationController extends FOSRegistrationController {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-                // $userManager->updateUser($user);
+                $userManager->updateUser($user);
 
                 $this->sendRegistrationMailToUser($user, $request);
                 $this->sendRegistrationMailToAdmins($user, $request);

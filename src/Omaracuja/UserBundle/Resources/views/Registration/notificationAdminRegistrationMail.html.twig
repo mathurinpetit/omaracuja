@@ -23,7 +23,7 @@
                                                 <h1>Nouvelle inscription sur le site d'Omaracuja</h1>
                                                 <p>Bonjour {{admin.username}},<br/><br/>
                                                     <span style="color: #cc0000;" >{{ user.username }}</span> vient de s'inscrire sur le site Omaracuja.com <br/>
-                                                    Afin qu'il puisse utiliser convenablement le site internet vous pouvez valider son inscription <a href="{{ url('admin_panel_users')~"#"~user.id }}">ici</a> .<br/>                                                   
+                                                    Afin qu'il puisse utiliser convenablement le site internet vous pouvez valider son inscription <a href="{{ url('admin_panel_users', {'selectedUser' : user.id}) }}">ici</a> .<br/>                                                   
                                                 </p>
                                                 <p>
                                                     Merci d'avance, {{admin.username}}, brave Marac'<br/>

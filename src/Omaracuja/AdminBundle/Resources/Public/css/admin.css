@@ -2,6 +2,11 @@ body {
     background-color: #fcfcfc;
 }
 
+
+table.users tr.selected{
+    border: 2px black solid;
+}
+
 .eventPicture-link {
     display: block;
     max-width: 300px;

@@ -1,8 +1,8 @@
 #USERS
 
 admin_panel_users:
-     path:  /utilisateurs
-     defaults: { _controller: OmaracujaAdminBundle:Admin:userPanel }
+     path:  /utilisateurs/{selectedUser}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:userPanel, selectedUser: -1 }
      
 admin_user_activate:
      pattern: /activate/{userId}

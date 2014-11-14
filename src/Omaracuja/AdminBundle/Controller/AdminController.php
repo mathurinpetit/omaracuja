@@ -19,11 +19,12 @@ class AdminController extends Controller {
     /**
      * @Template()
      */
-    public function userPanelAction() {
+    public function userPanelAction(Request $request) {
+        $selectedUser = ( $request->get('selectedUser') >= 0 )? $request->get('selectedUser') : null;
         $em = $this->getDoctrine()->getManager();
         $usersAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByRole('ROLE_ADMIN');
         $usersNoAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByHasNotRole('ROLE_ADMIN');
-        return array('usersAdmin' => $usersAdmin, 'usersNoAdmin' => $usersNoAdmin);
+        return array('usersAdmin' => $usersAdmin, 'usersNoAdmin' => $usersNoAdmin, 'selectedUser' => $selectedUser);
     }
 
     /**
