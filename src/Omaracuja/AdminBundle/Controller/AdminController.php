@@ -200,7 +200,7 @@ class AdminController extends Controller {
         $entity->activate();
         $em->persist($entity);
         $em->flush();
-        $this->sendActivationUserMail($entity, $request);
+        $this->sendActivationUserMail($entity);
         return $this->redirect($this->generateUrl('admin_panel_users'));
     }
 
@@ -392,7 +392,7 @@ class AdminController extends Controller {
         return $eventsForView;
     }
     
-    private function sendActivationUserMail($user, $request) {
+    private function sendActivationUserMail($user) {
 
         $senderEmail = $this->container->getParameter('senderEmail');
         $message = \Swift_Message::newInstance();

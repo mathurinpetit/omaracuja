@@ -81,11 +81,6 @@ class RegistrationController extends FOSRegistrationController {
 
         $subject = $user->getUsername() . " vient de s'inscrire sur le site Omaracuja.com";
 
-        // $webPath = $this->get('kernel')->getRootDir().'/../web';
-        // $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
-        //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
-        //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
-        
         $userManager = $this->container->get('fos_user.user_manager');
         $all_users = $userManager->findUsers();
         
@@ -114,12 +109,6 @@ class RegistrationController extends FOSRegistrationController {
         $message->setFrom($senderEmail);
 
         $subject = $user->getUsername() . ", bienvenue sur le site Omaracuja.com";
-
-        // $webPath = $this->get('kernel')->getRootDir().'/../web';
-        // $path_logo = $message->embed(\Swift_Image::fromPath($webPath."/omaracuja_logo.png"));
-        //$baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();     
-        //$path_logo = $message->embed(\Swift_Image::fromPath($baseurl."/omaracuja_logo.png"));
-
         $mailBody = $this->container->get('templating')->render('OmaracujaUserBundle:Registration:registrationMail.html.twig', array('user' => $user));
 
         $message->setSubject($subject);
