@@ -403,7 +403,7 @@ class AdminController extends Controller {
         $subject = $user->getUsername() . ", bienvenue sur le site Omaracuja.com";
 
 
-        $mailBody = $this->render('OmaracujaAdminBundle:Registration:activationUserMail.html.twig', array('user' => $user));
+        $mailBody = $this->render('OmaracujaAdminBundle:Admin:activationUserMail.html.twig', array('user' => $user));
 
         $message->setSubject($subject);
         $message->setTo($user->getEmail());
