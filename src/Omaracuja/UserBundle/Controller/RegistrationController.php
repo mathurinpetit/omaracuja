@@ -73,12 +73,26 @@ class RegistrationController extends FOSRegistrationController {
     }
 
     private function sendRegistrationMailToAdmins($user) {
-        $emailManager = new EmailManager();
-        $emailManager->sendRegistrationMailToAdmins($user);
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $all_users = $userManager->findUsers();
+
+        $admins = array();
+        foreach ($all_users as $user_local) {
+            if ($user_local->isAdmin()) {
+                $admins[] = $user_local;
+            }
+        }
+
+        $emailManager = new EmailManager(new \Swift_Mailer(), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
+        
+        $emailManager->sendRegistrationMailToAdmins($user, $admins);
     }
 
     private function sendRegistrationMailToUser($user) {
-        $emailManager = new EmailManager();
+
+        $emailManager = new EmailManager(new \Swift_Mailer(), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
+        
         $emailManager->sendRegistrationMailToUser($user);
     }
 
