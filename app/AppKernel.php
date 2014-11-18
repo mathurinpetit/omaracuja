@@ -25,6 +25,8 @@ class AppKernel extends Kernel
             new Omaracuja\UserBundle\OmaracujaUserBundle(),           
             new Omaracuja\FrontBundle\OmaracujaFrontBundle(),
             new Omaracuja\AdminBundle\OmaracujaAdminBundle(),
+            new Omaracuja\EmailManagerBundle\OmaracujaEmailManagerBundle(),
+            
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
         );
 
