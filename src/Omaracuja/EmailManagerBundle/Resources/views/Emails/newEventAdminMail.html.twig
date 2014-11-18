@@ -28,7 +28,7 @@
                                                     Heure de fin : <span style="color: #cc0000;" >{{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</span><br/><br/>
                                                     Qui aura lieu à : <span style="color: #cc0000;" >{{ event.place }}</span><br/><br/><br/>
 
-                                                    Voici une liste des participants proposés : <br/>
+                                                    Voici une liste des participants proposés : <br/><br/>
                                                     {% for proposeUser in event.proposedTeam %}
                                                         <span style="color: #cc0000;" >{{ proposeUser.username }}, </span>
                                                     {% endfor %}
