@@ -418,7 +418,7 @@ class AdminController extends Controller {
         $proposedUsers = array();
         $proposedAdmins = array();
         
-        foreach ($event->proposedTeam as $proposedUser) {
+        foreach ($event->getProposedTeam() as $proposedUser) {
             if (!$proposedUser->isAdmin()) {
                 $proposedUsers[] = $proposedUser;
             }else{
