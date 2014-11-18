@@ -13,6 +13,8 @@ use Omaracuja\FrontBundle\Entity\Picture as Picture;
 use Omaracuja\FrontBundle\Form\VideoType as VideoType;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
 use Omaracuja\FrontBundle\Form\EventAlbumType as EventAlbumType;
+use Omaracuja\EmailManagerBundle\lib\EmailManager as EmailManager;
+
 
 class AdminController extends Controller {
 
