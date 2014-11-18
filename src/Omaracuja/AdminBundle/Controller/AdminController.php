@@ -129,7 +129,9 @@ class AdminController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-
+            
+            $this->sendMailToUsersAndAdminsNewEvent($event);
+            
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
         return array(
@@ -157,7 +159,7 @@ class AdminController extends Controller {
 
                 $event->setPicture($eventPicture);
                 $em->flush();
-
+                
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $eventPicture->getAjaxMsg(),
@@ -410,6 +412,25 @@ class AdminController extends Controller {
         $message->setBody($mailBody, 'text/html');
         $this->get('mailer')->send($message);
     }
+    
+    private function sendMailToUsersAndAdminsNewEvent($event) {
+        
+        $proposedUsers = array();
+        $proposedAdmins = array();
+        
+        foreach ($event->proposedTeam as $proposedUser) {
+            if (!$proposedUser->isAdmin()) {
+                $proposedUsers[] = $proposedUser;
+            }else{
+                $proposedAdmins[] = $proposedUser;
+            }
+        }
 
+        $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->getParameter('senderEmail'));
+        
+        $emailManager->sendMailToUsersNewEvent($proposedUsers, $event);
+        $emailManager->sendMailToAdminsNewEvent($proposedAdmins, $event);
+        
+    }
 
 }

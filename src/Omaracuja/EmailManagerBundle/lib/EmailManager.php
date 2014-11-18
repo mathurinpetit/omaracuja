@@ -48,6 +48,36 @@ class EmailManager {
         $this->sendMessage($this->from, $to, $subject, $body);
     }
 
+    public function sendMailToUsersNewEvent($users,$event) {
+        $template = 'OmaracujaEmailManagerBundle:Emails:newEventUserMail.html.twig';
+
+        $subject = "[Omaracuja.com Evennement] ".$event->getTitle();
+
+        foreach ($users as $user) {
+
+            $to = $user->getEmail();
+
+            $body = $this->templating->render($template, array('user' => $user, 'event' => $event));
+
+            $this->sendMessage($this->from, $to, $subject, $body);
+        }
+    }
+
+    public function sendMailToAdminsNewEvent($admins,$event) {
+        $template = 'OmaracujaEmailManagerBundle:Emails:newEventAdminMail.html.twig';
+
+        $subject = "[Omaracuja.com Evennement] ".$event->getTitle();
+
+        foreach ($admins as $admin) {
+
+            $to = $admin->getEmail();
+
+            $body = $this->templating->render($template, array('admin' => $admin, 'event' => $event));
+
+            $this->sendMessage($this->from, $to, $subject, $body);
+        }
+    }
+
     protected function sendMessage($from, $to, $subject, $body) {
         $mail = \Swift_Message::newInstance();
         $mail->setFrom($from)
