@@ -84,14 +84,14 @@ class RegistrationController extends FOSRegistrationController {
             }
         }
 
-        $emailManager = new EmailManager(new \Swift_Mailer(), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
+        $emailManager = new EmailManager($this->container->get('mailer'), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
         
         $emailManager->sendRegistrationMailToAdmins($user, $admins);
     }
 
     private function sendRegistrationMailToUser($user) {
 
-        $emailManager = new EmailManager(new \Swift_Mailer(), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
+        $emailManager = new EmailManager($this->container->get('mailer'), $this->container->get('templating'), $this->container->getParameter('senderEmail'));
         
         $emailManager->sendRegistrationMailToUser($user);
     }
