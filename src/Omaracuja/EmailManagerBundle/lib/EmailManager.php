@@ -29,7 +29,7 @@ class EmailManager {
 
             $to = $admin->getEmail();
 
-            $body = $body = $this->templating->render($template, array('user' => $user, 'admin' => $admin));
+            $body = $this->templating->render($template, array('user' => $user, 'admin' => $admin));
 
             $this->sendMessage($this->from, $to, $subject, $body);
         }
@@ -43,7 +43,7 @@ class EmailManager {
 
         $to = $user->getEmail();
 
-        $body = $body = $this->templating->render($template, array('user' => $user));
+        $body = $this->templating->render($template, array('user' => $user));
 
         $this->sendMessage($this->from, $to, $subject, $body);
     }
