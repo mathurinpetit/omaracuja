@@ -2,6 +2,8 @@
 
 namespace Omaracuja\EmailManagerBundle\lib;
 
+use Symfony\Component\DependencyInjection\ContainerAware;
+
 class EmailManager extends ContainerAware {
 
     public function sendRegistrationMailToAdmins($user) {
