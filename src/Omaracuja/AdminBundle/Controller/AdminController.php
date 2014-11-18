@@ -428,7 +428,7 @@ class AdminController extends Controller {
             }
         }
 
-        $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->get('senderEmail'));
+        $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->container->getParameter('senderEmail'));
         
         $emailManager->sendMailToUsersNewEvent($proposedUsers, $event);
         $emailManager->sendMailToAdminsNewEvent($proposedAdmins, $event);
