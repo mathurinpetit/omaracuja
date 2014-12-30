@@ -218,7 +218,7 @@ html,body{
 }
 
 .picture-view-modal, .carousel, .picture-view-modal-content{
-    height: 800px;
+    //height: 800px;
 }
 
 .pictures-show {
