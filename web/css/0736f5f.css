@@ -1,5 +1,10 @@
 body {
-    background-color: #fcfcfc;
+   // background-color: #fcfcfc;
+}
+
+
+table.users tr.selected{
+    border: 2px black solid;
 }
 
 .eventPicture-link {

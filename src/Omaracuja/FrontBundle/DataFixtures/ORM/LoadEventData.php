@@ -31,7 +31,7 @@ class LoadEventData implements FixtureInterface {
 
         $eventsTitle = array("Fête du slip", "Fête du cassoulet", "Fête des Crabes", "Nuit des toilettes publiques");
 
-        for ($annee = 2012; $annee < 2015; $annee++) {
+        for ($annee = 2012; $annee <= 2015; $annee++) {
             for ($mois = 1; $mois <= 12; $mois++) {
                 $nb_event = rand(0, 10);
                 for ($i = 0; $i <= $nb_event; $i++) {

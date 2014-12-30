@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Omaracuja - Présentation{% endblock %}
+{% block title %}Omaracuja{% endblock %}
 
 {% block connexion %}
     {% render url('fos_user_security_login') %}
@@ -8,61 +8,41 @@
 
 {% block content %}
     <div class="main">
-        {% if not actual_presentation is null %}
-            <h1>{{ actual_presentation.title }}</h1>
-            <br/>
-            <br/>
-            <div class="col-lg-5">
-                <p>{{ actual_presentation.paragraph1 }}</p>
-                {% if not actual_presentation.paragraph2 is null %}
-                    <p>{{ actual_presentation.paragraph2 }}</p>
-                {% endif %}
-                {% if not actual_presentation.paragraph3 is null %}
-                    <p>{{ actual_presentation.paragraph3 }}</p>
-                {% endif %}
-            </div>
-            <div class="col-lg-7">
-                <div class="row">
-                    {% if not actual_presentation.mapLink is null %}                    
-                        <iframe src="{{ actual_presentation.mapLink }}" width="600" height="450" frameborder="0" style="border:0"></iframe> 
-                    {% endif %}
-                </div>
-                <br/> 
-                {% if not actual_presentation.adresse is null %}   
-                    <div class="row">
-                        <div class="col-lg-4">
-                            Adresse :
-                        </div>
-                        <div class="col-lg-8">
-                            {{ actual_presentation.adresse }}
-                        </div>                
-                    </div> 
-                {% endif %} 
-                {% if not actual_presentation.contact is null %}   
-                    <br/>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            Contactez-nous :
-                        </div>
-                        <div class="col-lg-8">
-                            {{ actual_presentation.contact }}
-                        </div>                
-                    </div>
-                {% endif %} 
-                {% if not actual_presentation.fbLink is null %}   
+        <div class="row">
 
-                    <br/>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            Facebook c'est AC
-                        </div>
-                        <div class="col-lg-8">
-                            {{ actual_presentation.fbLink }}
-                        </div>                
-                    </div>
-                {% endif %}   
+            <div class="col-md-8 col-md-offset-2">
+                <div class="presentation_img">
+                    <img class="logo_img_shadows" src="{{ asset('bundles/omaracujafront/images/omaracuja_logo_shadows.png') }}" />                                    
+                </div>
             </div>
-        {% endif %}
+        </div>
+        <br/>            
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                {% autoescape false %}
+                    {{ contenu_presentation}}
+                {% endautoescape %}
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-warning">Date à venir</h3>
+                        <ul>
+                            {% for event in events %}
+                                <li>{{ event.title }}</li>
+                                {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
     </div>
 
 {% endblock %}

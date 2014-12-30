@@ -6,9 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Omaracuja\AdminBundle\Entity\Presentation as Presentation;
-use Omaracuja\FrontBundle\Entity\BlogPost;
-use Omaracuja\FrontBundle\Form\BlogPostType;
 use Symfony\Component\HttpFoundation\Response;
 
 class FrontController extends Controller {
@@ -59,15 +56,15 @@ class FrontController extends Controller {
      * @Template()
      */
     public function presentationAction() {
+        $contenu_presentation = $this->container->getParameter('pagePresentation');
+        $img_path_random = "";
         $em = $this->getDoctrine()->getManager();
-        $presentations = $em->getRepository('OmaracujaAdminBundle:Presentation')->findAll();
-        $actual_presentation = null;
-        foreach ($presentations as $presentation) {
-            if ($presentation->isSelected()) {
-                $actual_presentation = $presentation;
-            }
-        }
-        return array('actual_presentation' => $actual_presentation);
+
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
+       
+        return array('contenu_presentation' => $contenu_presentation,
+                     'img_path_random' => $img_path_random,
+                     'events' => $nextEvents);
     }
 
     public function albumsAction($mois) {

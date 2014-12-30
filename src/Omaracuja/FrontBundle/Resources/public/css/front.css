@@ -5,17 +5,59 @@
     Description:
         Purpose of the stylesheet follows.
 */
+
+html,body{
+    min-height: 100%; 
+    background-color: #000;
+}
+.container{
+ background-color: #222222;
+}
+
+.presentation_img {
+  display: block;
+  text-align: center;
+}
+
+.logo_img_shadows{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 200px;
+    line-height: 100%;
+    outline: none; 
+    text-decoration: none;
+}
+
+.presentation_img_static, presentation_img_random{  
+      margin: 0;
+    padding: 0;
+    border: 0;
+    height: 340px;
+    line-height: 100%;
+    outline: none; 
+    text-decoration: none;
+}
+
+
 .main{
     padding-top: 100px;
+    min-height: 100%;
+    background-color: #222222;
+    color: #FFF;
 }
 
 .navbar-inverse {
-    background-color: #000000;
+    background-color: #222222;
     border-color: #080808;
 }
 
 .navbar-inverse .navbar-nav > li > a {
     color: #FFFFFF;
+}
+
+.navbar-header{
+     background-color: #000;
 }
 
 .nav-logo{
