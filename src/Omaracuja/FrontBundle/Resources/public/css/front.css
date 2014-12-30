@@ -129,13 +129,13 @@ html,body{
 .panel-body-event
 {
     background-color: #fff;
-    color: #000;
-    border-bottom: 2px solid;
+    color: #000;    
 }
 .panel-head-event
 {
     background-color: #fff;
     color: #000;
+    border-bottom: 2px solid;
 }
 
 .panel-head-event a:after {
