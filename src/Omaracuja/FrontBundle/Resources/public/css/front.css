@@ -144,12 +144,12 @@ html,body{
     font-family: "Glyphicons Halflings";
     padding-top: 15px;
     text-align: center;
-    width: 100%;
+    width: 100%;    
+    border-bottom: 2px solid;
 }
 
 .panel-head-event a.collapsed:after {
     content: "";    
-    border-bottom: 2px solid;
 }
 
 
