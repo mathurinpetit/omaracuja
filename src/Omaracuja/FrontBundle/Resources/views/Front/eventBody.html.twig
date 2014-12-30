@@ -1,5 +1,5 @@
 <div id="event_collapse_{{event.id}}" class="panel-collapse collapse">
-    <div class="panel-body panel-body-event">
+    <div class="panel-body panel-body">
         <div class="row">
             <div class="col-md-4">
                 <div class="row event_left">
@@ -32,7 +32,7 @@
             <div class="col-md-8">   
                 {% if privilege is defined and privilege %}
                     <div class="agenda_description_panel panel panel-default">
-                        <div class="panel-body">
+                        <div class="panel-body-event">
                             {% autoescape false %}
                                 {{ event.privateDescription }}
                             {% endautoescape %}
@@ -40,7 +40,7 @@
                     </div>
                 {% endif %}   
                 <div class="agenda_description_panel panel panel-default">
-                    <div class="panel-body">
+                    <div class="panel-body-event">
                         {% autoescape false %}
                             {{ event.publicDescription }}
                         {% endautoescape %}
