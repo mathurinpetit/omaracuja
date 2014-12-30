@@ -13,7 +13,7 @@
         <br/>
         <br/>
         <br/>
-        <div class="col-md-12">  
+        <div class="col-md-8 col-md-offset-2">  
             {% for month,eventsByMonth in events %}
                 {% set stringMonth = events[month]|first.event.startAt |localizeddate('none', 'none', 'fr_FR', null, "MMMM Y") %}
                 <h2>{{ stringMonth|slice(0, 1)|upper~stringMonth|slice(1,stringMonth|length)  }}</h2>
