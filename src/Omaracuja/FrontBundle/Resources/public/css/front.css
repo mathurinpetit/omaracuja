@@ -217,8 +217,9 @@ html,body{
     content: "\e080";
 }
 
-.picture-view-modal, .carousel, .picture-view-modal-content{
-    //height: 800px;
+.carousel-indicators{
+   // height: 800px;
+    margin-bottom: -10px;
 }
 
 .pictures-show {
