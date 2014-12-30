@@ -113,6 +113,27 @@ html,body{
 }
 
 
+.panel-heading{
+   background-color: #222222;
+   color: #fff;
+}
+
+.panel-default > .panel-heading {
+   background-color: #222222;
+   color: #fff;
+}
+.panel-body{
+   background-color: #222222
+}
+
+.btn-warning, .btn-default{
+    color: #000;
+}
+
+.modal-content {
+    background-color: #555;
+}
+
 .event_left
 {
     margin-left: 20px;
