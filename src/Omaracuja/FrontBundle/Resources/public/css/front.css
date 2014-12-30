@@ -137,6 +137,10 @@ html,body{
     color: #000;
 }
 
+
+.datetimepicker {
+    color: #000;
+}
 .panel-head-event a:after {
     color: grey;
     content: "";

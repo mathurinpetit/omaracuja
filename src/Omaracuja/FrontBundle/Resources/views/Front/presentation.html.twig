@@ -34,15 +34,17 @@
                     <div class="col-md-4">
                         <h3 class="text-warning">Date à venir</h3>
                         <ul class="list-unstyled">
-                            {% for event in events %}
-                                <li>{{ event.title }}</li>
-                                {% endfor %}
-                        </ul>
+                            {% for eventByMonth in events %}
+                                {% for event in eventByMonth %}
+                                    <li>{{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }} -  {{ event.title }} - {{ event.place }}</li>
+                                    {% endfor %}
+                            {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <br/>
         </div>
-        <br/>
-    </div>
 
-{% endblock %}
+    {% endblock %}

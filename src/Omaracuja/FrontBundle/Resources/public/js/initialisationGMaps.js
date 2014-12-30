@@ -33,14 +33,14 @@ var initMap = function() {
 var findAdress = function() {
 
     var adresse = $('.google_map_adress').val();
-
+    
     geocoder.geocode({'address': adresse}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
 
-
+            console.log(results[0].geometry.location);
             $('.mapX_setting').val(results[0].geometry.location.k);
-            $('.mapY_setting').val(results[0].geometry.location.B);
+            $('.mapY_setting').val(results[0].geometry.location.D);
 
             var marker = new google.maps.Marker({
                 map: map,
