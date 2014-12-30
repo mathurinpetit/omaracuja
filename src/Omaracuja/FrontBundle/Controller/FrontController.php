@@ -94,7 +94,6 @@ class FrontController extends Controller {
                         $next_month_label = $month;
                         continue;
                     }
-                    continue;
                 }
                 if (!array_key_exists($month, $eventsByMonthWithAlbum)) {
                     $eventsByMonthWithAlbum[$month] = array();
@@ -105,6 +104,7 @@ class FrontController extends Controller {
                 $eventsByMonthWithAlbum[$month][] = $eventWithAlbum;
             }
         }
+        
         return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
                     'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
                     'last_month' => $last_month,
