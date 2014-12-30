@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 {% for user in usersAdmin %}
-                    <tr class="{% if(not user.isAdmin) %} {% if(user.isActif) %}success{% else %}danger{% endif %} {% endif %}">
+                    <tr class="{% if(not user.isAdmin) %}" style="background-color: {% if(user.isActif) %}#eee{% else %}#444444{% endif %} {% endif %}">
                         <td>{{ user.username|e }}</td>
                         <td>{{ user.firstname|e }}</td>
                         <td>{{ user.name|e }}</td>
