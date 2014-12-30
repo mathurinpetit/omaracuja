@@ -28,15 +28,21 @@
         </div>
     {% endif %}
 
-    <div class="col-md-4">
-        <strong>Du {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-    </div>
-    <div class="col-md-4">
-        <strong>Au {{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-    </div>
-    <div class="col-md-4 text-right">
-        <strong>{{ event.place }}</strong>
-    </div>
+    {%if privilegeMode is defined and privilegeMode %}
+        <div class="col-md-4">
+            <strong>Du {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+        </div>
+        <div class="col-md-4">
+            <strong>Au {{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+        </div>
+        <div class="col-md-4 text-right">
+            <strong>{{ event.place }}</strong>
+        </div>
+    {% else %}
+         <div class="col-md-4 col-md-offset-8">
+            <strong>Le {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+        </div>
+    {% endif %}
 
     {%if privilegeMode is defined and privilegeMode %}
         {% include "OmaracujaFrontBundle:Front:eventUsersAvatars.html.twig" with {'event': event, 'pastEvent' : pastEvent} %}  
