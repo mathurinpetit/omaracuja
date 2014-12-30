@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 {% for user in usersNoAdmin %}
-                    <tr class="{% if(not selectedUser is null and selectedUser == user.id ) %}selected{% endif %}  {% if(not user.isAdmin) %} {% if(user.isActif) %}success{% else %}danger{% endif %} {% endif %}">
+                    <tr class="{% if(not selectedUser is null and selectedUser == user.id ) %}selected{% endif %}"  style="background-color: {% if(not user.isAdmin) %} {% if(user.isActif) %}#eee{% else %}#444444{% endif %} {% endif %}">
                         <td>{{ user.username|e }}</td>
                         <td>{{ user.firstname|e }}</td>
                         <td>{{ user.name|e }}</td>
