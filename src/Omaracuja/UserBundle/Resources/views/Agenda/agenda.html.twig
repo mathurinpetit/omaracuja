@@ -23,7 +23,7 @@
                             {% include "OmaracujaUserBundle:Agenda:agenda_buttons_go_not_go.html.twig" with {'eventObj': eventObj, 'pastEvent' : pastEvent} %}                             
                         </div>
                         <div class="panel panel-default event-panel">
-                            <div class="panel-heading">
+                            <div class="panel-head-event">
                                 {% include "OmaracujaFrontBundle:Front:eventHeader.html.twig" with {'event': eventObj.event, 'pastEvent' : pastEvent, 'privilegeMode' : true , 'eventAccepted' : eventObj.accepted} %}                            
                             </div>
                             {% include "OmaracujaFrontBundle:Front:eventBody.html.twig" with {'event': eventObj.event, 'pastEvent' : pastEvent} %}                            
