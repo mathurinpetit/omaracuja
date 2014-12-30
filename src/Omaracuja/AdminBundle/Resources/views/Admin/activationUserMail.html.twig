@@ -4,11 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
             <title>{{user.username}}, votre compte a été validé sur le portail d'Omaracuja.com!</title>
-            {% include "OmaracujaFrontBundle:Email:email_styles.html.twig" %}            
+            {% include "OmaracujaEmailManagerBundle:Emails:email_styles.html.twig" %}               
     </head>
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #ffffff;width: 100% !important;">
         <center>
-            {% include "OmaracujaFrontBundle:Email:email_header.html.twig" %}
+            {% include "OmaracujaEmailManagerBundle:Emails:email_header.html.twig" %}
             <br/>
             <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="margin: 0;padding: 0;background-color: #ffffff;height: 100% !important;width: 100% !important;">
                 <tr>
@@ -44,7 +44,7 @@
                     </td>
                 </tr>
             </table>
-            {% include "OmaracujaFrontBundle:Email:email_footer.html.twig" %}
+            {% include "OmaracujaEmailManagerBundle:Emails:email_footer.html.twig" %}
             
         </center>
 </html>
