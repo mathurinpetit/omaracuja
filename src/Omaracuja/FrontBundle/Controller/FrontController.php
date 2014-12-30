@@ -14,7 +14,8 @@ class FrontController extends Controller {
      * @Template()
      */
     public function contactAction() {
-        return array('responsable' => $this->container->getParameter('responsable'));
+        return array('responsable' => $this->container->getParameter('responsable'),
+            'siegeSocial' => $this->container->getParameter('siegeSocial'));
     }
 
     /**
