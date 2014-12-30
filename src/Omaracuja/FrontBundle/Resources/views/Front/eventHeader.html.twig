@@ -39,8 +39,10 @@
             <strong>{{ event.place }}</strong>
         </div>
     {% else %}
-         <div class="col-md-4 col-md-offset-8">
-            <strong>Le {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+        <div class="col-md-4 col-md-offset-8">
+            <div class="text-right">
+                <strong>Le {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+            </div>
         </div>
     {% endif %}
 
