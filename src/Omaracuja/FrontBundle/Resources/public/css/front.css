@@ -138,6 +138,21 @@ html,body{
     color: #000;
 }
 
+.panel-head-event a:after {
+    color: grey;
+    content: "";
+    float: right;
+    font-family: "Glyphicons Halflings";
+    padding-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.panel-head-event a.collapsed:after {
+    content: "";
+}
+
+
 .text-red-omaracuja{
     color: #e1030c;
 }
