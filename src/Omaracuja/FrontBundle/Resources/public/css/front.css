@@ -135,7 +135,6 @@ html,body{
 {
     background-color: #fff;
     color: #000;
-    border-bottom: 2px solid;
 }
 
 .panel-head-event a:after {
@@ -149,7 +148,8 @@ html,body{
 }
 
 .panel-head-event a.collapsed:after {
-    content: "";
+    content: "";    
+    border-bottom: 2px solid;
 }
 
 
