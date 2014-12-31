@@ -161,8 +161,12 @@ html,body{
 }
 
 
-.text-red-omaracuja, .btn-danger {
+.text-red-omaracuja {
     color: #e1030c;
+}
+
+.btn-danger{
+    background-color:  #e1030c;
 }
 
 .btn-warning, .btn-default{
