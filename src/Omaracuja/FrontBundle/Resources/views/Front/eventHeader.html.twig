@@ -12,7 +12,7 @@
         </h3>
     </div>
     {% if eventAccepted is defined and not eventAccepted is null %}    
-        <div class="col-md-4 text-left">  
+        <div class="col-md-12 text-left">  
            <strong>
                 {% if not pastEvent %} 
                     {% if eventAccepted %}<span class="text-red-omaracuja" >J'y vais</span>{% else %}<span class="text-muted">J'y vais pas...</span>{% endif %}
@@ -29,10 +29,10 @@
     {% endif %}
 
     {%if privilegeMode is defined and privilegeMode %}
-        <div class="col-md-4">
+        <div class="col-md-4 text-left">
             <strong>Du {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 text-center">
             <strong>Au {{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
         </div>
         <div class="col-md-4 text-right">
