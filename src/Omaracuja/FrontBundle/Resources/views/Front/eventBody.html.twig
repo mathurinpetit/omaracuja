@@ -19,15 +19,8 @@
                         </div>
                     {% endif %}
                     <br/>
-                    <input type="hidden" value="{{ event.mapY }}" id="google_map_y_{{ event.id }}" />                            
-                    <input type="hidden" value="{{ event.mapX }}" id="google_map_x_{{ event.id }}" />
                 </div>
-                <br/>
-                <div class="row event_left">
-                    <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
-                        <img class="img-rounded img-responsive" src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
-                    </a>
-                </div>
+                <br/>                
             </div>
             <div class="col-md-8">   
                 {% if privilege is defined and privilege %}
@@ -47,6 +40,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <input type="hidden" value="{{ event.mapY }}" id="google_map_y_{{ event.id }}" />                            
+            <input type="hidden" value="{{ event.mapX }}" id="google_map_x_{{ event.id }}" />
+            <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
+                <img class="img-rounded img-responsive" src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=600x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
+            </a>
         </div>
     </div>
 </div>
