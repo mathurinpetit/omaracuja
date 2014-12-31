@@ -1,29 +1,32 @@
 {% for video in videos %}
     <div class="row">
 
-        <div class="md-12">
+        <div class="col-md-8 col-md-offset-2">
             <div class="row"> 
-                <div class="md-8">
-                    <h3 class="text-danger">{{ video.title }}</h3>                    
+                <div class="col-md-8 text-left">
+                    <h3 class="text-red-omaracuja">{{ video.title }}</h3>                    
                 </div>
-                <div class="md-4 text-right">
+                <div class="col-md-4 text-right">
                     <h4 class="text-muted"> {{ video.createdAtFr }} </h4>
                 </div>
             </div>
         </div>
     </div>  
     <div class="row">
-        <div class="md-12"> 
+        <div class="col-md-8 col-md-offset-2"> 
             {% autoescape false %}
                 {{ video.url }}
             {% endautoescape %}
         </div>
-    </div>  
+    </div> 
+    <br/>
     {% if admin is defined and admin %}
         <div class="row">
-            <div class="md-12"> 
+            <div class="col-md-06"> 
                 <a href="{{ path('admin_panel_videos_remove', { 'idVideo' : video.id }) }}" class="text-danger">supprimer la vidéo</a>
             </div>
-        </div> 
+        </div>  
+        <br/>
+
     {% endif %}
 {% endfor %}
