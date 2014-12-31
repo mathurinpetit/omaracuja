@@ -22,8 +22,8 @@
     <br/>
     {% if admin is defined and admin %}
         <div class="row">
-            <div class="col-md-06"> 
-                <a href="{{ path('admin_panel_videos_remove', { 'idVideo' : video.id }) }}" class="text-danger">supprimer la vidéo</a>
+            <div class="col-md-8 col-md-offset-2"> 
+                <a href="{{ path('admin_panel_videos_remove', { 'idVideo' : video.id }) }}" class="text-red-omaracuja">supprimer la vidéo</a>
             </div>
         </div>  
         <br/>

@@ -161,7 +161,7 @@ html,body{
 }
 
 
-.text-red-omaracuja{
+.text-red-omaracuja, btn-danger {
     color: #e1030c;
 }
 
