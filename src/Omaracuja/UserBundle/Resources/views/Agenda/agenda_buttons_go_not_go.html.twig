@@ -1,6 +1,6 @@
 {% if not pastEvent %}
     <div class="col-md-8 event_passed_link text-left agenda_buttons_go">
-        <ul class="list-inline">
+        <ul class="list-inline list-unstyled">
             {% if not eventObj.accepted %}
                 <li>
                     <form id="{{eventObj.event.id}}" class="col-md-3" method="post" action="{{ path('compte_accept_event',{ 'idEvent': eventObj.event.id }) }}">

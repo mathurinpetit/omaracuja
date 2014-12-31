@@ -1,5 +1,5 @@
 <a data-toggle="collapse" data-parent="#accordion" href="#event_collapse_{{event.id}}">
-    <div class="col-md-8 text-red-omaracuja">  
+    <div class="col-md-12 text-red-omaracuja">  
         <h3>
             {%if privilegeMode is defined and privilegeMode %}
                 {% if event.public %}
@@ -15,9 +15,9 @@
         <div class="col-md-4 text-right text-red-omaracuja">  
             <h3>
                 {% if not pastEvent %} 
-                    {% if eventAccepted %}<span >J'y vais</span>{% endif %}
+                    {% if eventAccepted %}<span class="text-red-omaracuja" >J'y vais</span>{% else %}<span class="text-muted">J'y vais pas...</span>{% endif %}
                 {% else %}
-                    {% if eventAccepted %}<span >J'y étais!</span>{% else %}<span class="text-info">Snif...</span>{% endif %}
+                    {% if eventAccepted %}<span class="text-red-omaracuja" >J'y étais!</span>{% else %}<span class="text-muted">Snif...</span>{% endif %}
                 {% endif %}
                 {% if admin is defined and not admin is null %}
                     <span>
