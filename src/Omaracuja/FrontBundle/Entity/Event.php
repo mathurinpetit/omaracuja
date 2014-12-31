@@ -572,7 +572,7 @@ class Event {
     }
     
     public function isOnlyOneDay() {
-        var_dump($this->getEndAt()->format('Ymd')); exit;
+        return $this->getEndAt()->format('Ymd') == $this->getStartAt()->format('Ymd');
     }
     
     
