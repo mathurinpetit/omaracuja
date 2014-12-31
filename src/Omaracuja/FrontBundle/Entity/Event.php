@@ -571,6 +571,10 @@ class Event {
         return $this->album;
     }
     
+    public function isOnlyOneDay() {
+        var_dump($this->getEndAtFr()); exit;
+    }
+    
     
     public function getNonAnswerUsers() {
         $proposedTeam = $this->getProposedTeam();
