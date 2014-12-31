@@ -7,14 +7,14 @@
                     {% if admin is defined and admin %}
                         <div id="{{event.id}}" class='crop-eventPicture'>
                             <div class="eventPicture-link eventPicture-view" title="Choisir une image pour cet événement">
-                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                                <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded img-responsive">
                             </div>   
                             {% include 'OmaracujaAdminBundle:Admin:eventPicture_cropping_modal.html.twig' with {'eventPictureForm': eventPictureForms['event_'~event.id], 'event':event } %}
                         </div>
                     {% else %}
 
                         <div id="{{event.id}}">
-                            <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded">
+                            <img src="{{event.getPicturePath}}" alt="{{event.title}}" class="img-rounded img-responsive">
 
                         </div>
                     {% endif %}
@@ -25,7 +25,7 @@
                 <br/>
                 <div class="row event_left">
                     <a href="http://maps.google.com/maps?q={{event.place | url_encode }}" target='_blank'>
-                        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
+                        <img class="img-rounded img-responsive" src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.mapX }},{{ event.mapY }}&zoom=15&size=400x280&markers=color:red%7C{{ event.mapX }},{{ event.mapY }}">
                     </a>
                 </div>
             </div>
