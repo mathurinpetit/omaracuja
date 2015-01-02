@@ -52,6 +52,7 @@ class FrontController extends Controller {
         return $this->render('OmaracujaFrontBundle:Front:evennement.html.twig', array(
                     'pastEvent' => true,
                     'events' => $nextEvents,
+                    'currentSelectedEventId' => null
         ));
     }
 
