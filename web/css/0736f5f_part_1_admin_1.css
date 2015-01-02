@@ -260,9 +260,11 @@ table.users tr.selected{
     position:relative;
 }
 
-.album_title{    
+.album_title {    
     min-height: 40px;
     text-align: center;
+    font-size: 13px;
+    font-weight: bolder;
 }
 
 .post-content {

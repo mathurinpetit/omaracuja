@@ -9,7 +9,7 @@
                     {% else %}
                         <a href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="left col-lg-3 col-md-4 col-xs-6  ">
                         {% endif %}
-                            <h3 class="text-red-omaracuja album_title">{{eventWithAlbum.event.title}}</h3>
+                            <p class="text-red-omaracuja album_title">{{eventWithAlbum.event.title}}</p>
                             <div class="thumbnail-pictures">
                                 <div class="img-with-title">
                                     {% for picture in eventWithAlbum.pictures %}
