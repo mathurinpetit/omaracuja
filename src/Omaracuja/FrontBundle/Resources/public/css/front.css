@@ -19,8 +19,11 @@ html,body{
 }
 
 .presentation_img {
-    display: block;
     text-align: center;
+}
+
+.presentation_img > img {
+    display: inline-block;
 }
 
 .logo_img_shadows{
