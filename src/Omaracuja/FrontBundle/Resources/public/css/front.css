@@ -168,6 +168,13 @@ html,body{
     color: #e1030c;
 }
 
+.title-date-a-venir{
+    margin-top: 0;
+}
+
+.bg-omaracuja-date-a-venir {
+    background-color: #fff;
+}
 
 .btn-warning, .btn-default{
     color: #000;
@@ -226,7 +233,7 @@ html,body{
 }
 
 .carousel-indicators{
-   // height: 800px;
+    // height: 800px;
     margin-bottom: -10px;
 }
 
