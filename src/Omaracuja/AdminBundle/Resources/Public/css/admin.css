@@ -263,7 +263,7 @@ table.users tr.selected{
 .album_title {    
     min-height: 40px;
     text-align: center;
-    font-size: 13px;
+    font-size: 12pt;
     font-weight: bolder;
 }
 
