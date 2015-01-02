@@ -32,13 +32,15 @@ class FrontController extends Controller {
     /**
      * @Template()
      */
-    public function evennementAction(Request $request) {
+    public function evennementAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
+        
         return array(
             'pastEvent' => false,
             'events' => $nextEvents,
+            'currentSelectedEventId' => $id
         );
     }
 

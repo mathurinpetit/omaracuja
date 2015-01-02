@@ -73,6 +73,11 @@ $(document).ready(function() {
         picture_slider.carousel(id);
         e.preventDefault();
     });
+    
+   $('.selected-event-panel-scroll').each(function (){
+       var scrollPosition = $(this).offset().top - 100;
+       $('html, body').animate({ scrollTop : scrollPosition }, 200);       
+   }); 
 });
 
 

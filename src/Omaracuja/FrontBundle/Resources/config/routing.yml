@@ -8,8 +8,8 @@ front_blog_post_create:
      defaults: { _controller: OmaracujaFrontBundle:Front:blogPostCreate }
      
 front_evennement:
-     path:  /evennements
-     defaults: { _controller: OmaracujaFrontBundle:Front:evennement }    
+     path:  /evennements/{id}
+     defaults: { _controller: OmaracujaFrontBundle:Front:evennement, id: null } 
      
 front_evennement_past:
      path:  /evennements-passes

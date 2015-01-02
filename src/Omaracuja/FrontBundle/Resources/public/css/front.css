@@ -342,6 +342,12 @@ hr {
 
 }
 
+.albums-by-month
+{
+    display: inline-block;
+    width: 100%;
+}
+
 .event-panel{
     margin-bottom: 40px !important;
 }
