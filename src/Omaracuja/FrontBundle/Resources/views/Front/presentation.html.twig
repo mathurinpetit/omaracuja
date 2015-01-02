@@ -36,7 +36,7 @@
                         <ul class="list-unstyled">
                             {% for eventByMonth in events %}
                                 {% for event in eventByMonth %}
-                                    <li class="bg-omaracuja-date-a-venir text-red-omaracuja">{{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "dd/MM/Y") }} | {{ event.title }} | {{ event.place }}</li>
+                                    <li class="text-red-omaracuja">{{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "dd/MM/Y") }} | {{ event.title }} | {{ event.place }}</li>
                                     {% endfor %}
                             {% endfor %}
                             </ul>
