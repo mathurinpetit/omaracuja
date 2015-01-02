@@ -5,11 +5,10 @@
             <h2>{{month}}</h2>
             {% for eventWithAlbum in eventsWithAlbum %}
                 {%if admin is defined %}
-                    <a href="{{ path('admin_add_event_album',{ 'eventId': eventWithAlbum.event.id }) }}">
+                    <a href="{{ path('admin_add_event_album',{ 'eventId': eventWithAlbum.event.id }) }}" class="left col-lg-3 col-md-4 col-xs-6 ">
                     {% else %}
-                        <a href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}">
+                        <a href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="left col-lg-3 col-md-4 col-xs-6  ">
                         {% endif %}
-                        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                             <h3 class="text-red-omaracuja album_title">{{eventWithAlbum.event.title}}</h3>
                             <div class="thumbnail-pictures">
                                 <div class="img-with-title">
@@ -21,7 +20,6 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                        </div>
                     </a>
                     {% set indexCarousel = indexCarousel + 1  %}       
                 {% endfor %}

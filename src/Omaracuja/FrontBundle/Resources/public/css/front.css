@@ -334,9 +334,9 @@ hr {
 }
 
 .rotate8  {  
-    -webkit-transform:rotate(-46deg);
-    -moz-transform:rotate(-47deg);
-    -o-transform:rotate(-42deg);
+    -webkit-transform:rotate(-40deg);
+    -moz-transform:rotate(-40deg);
+    -o-transform:rotate(-40deg);
     /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
     -ms-transform:rotate(-40deg);
 
