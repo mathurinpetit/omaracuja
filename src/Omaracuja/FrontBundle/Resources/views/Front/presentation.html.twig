@@ -36,7 +36,9 @@
                         <ul class="list-unstyled">
                             {% for eventByMonth in events %}
                                 {% for event in eventByMonth %}
-                                    <li class="text-red-omaracuja">{{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "dd/MM/Y") }} | {{ event.title }} | {{ event.place }}</li>
+                                    <a href="{{ path('front_evennement') }}">
+                                        <li class="text-red-omaracuja">{{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "dd/MM/Y") }} | {{ event.title }} | {{ event.place }}</li>
+                                    </a>
                                     {% endfor %}
                             {% endfor %}
                             </ul>
