@@ -18,7 +18,7 @@
         </div>
         <br/>            
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2">               
                 {% autoescape false %}
                     {{ contenu_presentation}}
                 {% endautoescape %}
@@ -32,21 +32,21 @@
                         <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
                     </div>
                     <div class="col-md-6">
-                        <h3 class="text-red-omaracuja title-date-a-venir">Date à venir</h3>
+                        <h3 class="text-red-omaracuja title-date-a-venir">Dates à venir</h3>
                         <ul class="list-unstyled">
                             {% for eventByMonth in events %}
                                 {% for event in eventByMonth %}
                                     <a href="{{ path('front_evennement',{ 'id': event.id }) }}">
                                         <li class="text-red-omaracuja">{{ event.startAt | localizeddate('none', 'none', 'fr_FR', null, "dd/MM/Y") }} | {{ event.title }} | {{ event.place }}</li>
                                     </a>
-                                    {% endfor %}
+                                {% endfor %}
                             {% endfor %}
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <br/>
         </div>
+        <br/>
+    </div>
 
-    {% endblock %}
+{% endblock %}
