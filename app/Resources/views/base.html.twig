@@ -70,6 +70,7 @@
                     <li><a href="{{ path('front_albums') }}">Photos</a></li>
                     <li><a href="{{ path('front_video') }}">Vidéos</a></li>
                     <li><a href="{{ path('front_contact') }}">Contact</a></li>
+                    <li><a href="{{ path('front_newsletter') }}">Newsletter</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
@@ -81,6 +82,8 @@
                                 <li><a href="{{ path('admin_panel_albums') }}">Albums photos</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{{ path('admin_panel_video') }}">Vidéos</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('admin_panel_newsletter') }}">Newsletter</a></li>
                             </ul>
                         </li>                        
                     {% endif %}
@@ -103,6 +106,7 @@
                         </li>
                     {% else %}
                         <li>
+                            <div class="nav-picto-equipe" id="nav-picto-equipe" ><img src="{{ asset('bundles/omaracujafront/images/omaracuja_picto_equipe.jpg') }}"></div>
                             {% block connexion %}
                             {% endblock %}    
                         </li>

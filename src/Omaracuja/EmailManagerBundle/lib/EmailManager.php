@@ -77,6 +77,19 @@ class EmailManager {
             $this->sendMessage($this->from, $to, $subject, $body);
         }
     }
+    
+    public function sendNewsletter($body,$members) {
+        $template = 'OmaracujaEmailManagerBundle:Emails:newsletters.html.twig';
+        $subject = "Omaracuja.com Newsletter";
+        foreach ($members as $newslettermember) {
+
+            $to = $newslettermember->getEmail();
+
+            $body = $this->templating->render($template, array('body' => $body));
+
+            $this->sendMessage($this->from, $to, $subject, $body);
+        }
+    }
 
     protected function sendMessage($from, $to, $subject, $body) {
         $mail = \Swift_Message::newInstance();

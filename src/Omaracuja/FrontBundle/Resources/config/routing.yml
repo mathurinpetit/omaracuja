@@ -35,3 +35,10 @@ front_contact:
      path:  /contact
      defaults: { _controller: OmaracujaFrontBundle:Front:contact }
      
+front_newsletter:
+     path:  /newsletter
+     defaults: { _controller: OmaracujaFrontBundle:Front:newsletter }
+#     
+#front_newsletterMember_add:
+#     path:  /newsletternouveaumembre
+#     defaults: { _controller: OmaracujaFrontBundle:Front:newsletterAjoutMembre }

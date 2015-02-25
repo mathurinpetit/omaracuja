@@ -1,0 +1,57 @@
+<?php
+
+namespace Omaracuja\FrontBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use \DateTime;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="omaracuja_newsletter_members")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Omaracuja\FrontBundle\Entity\NewsletterMemberRepository")
+ */
+class NewsLetterMember {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="text", nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var datetime $createdAt     
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     *       
+     */
+    private $createdAt;
+
+    /**
+     * @var string $firstname
+     *
+     * @ORM\Column(name="firstname", type="text", nullable=true)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $email;
+
+
+    public function __construct() {
+        $this->createdAt = new DateTime();
+    }
+
+
+}

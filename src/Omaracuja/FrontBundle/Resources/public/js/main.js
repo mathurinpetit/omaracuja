@@ -78,6 +78,11 @@ $(document).ready(function() {
        var scrollPosition = $(this).offset().top - 100;
        $('html, body').animate({ scrollTop : scrollPosition }, 200);       
    }); 
+   
+   $('#nav-picto-equipe').click(function (){
+       $(this).hide();
+       $('#connexion_form').show();
+   })
 });
 
 

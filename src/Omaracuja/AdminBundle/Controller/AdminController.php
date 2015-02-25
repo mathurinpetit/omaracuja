@@ -10,11 +10,11 @@ use Omaracuja\FrontBundle\Entity\Video as Video;
 use Omaracuja\FrontBundle\Entity\Event as Event;
 use Omaracuja\FrontBundle\Entity\EventPicture as EventPicture;
 use Omaracuja\FrontBundle\Entity\Picture as Picture;
+use Omaracuja\FrontBundle\Entity\NewsLetterMember as NewsLetterMember;
 use Omaracuja\FrontBundle\Form\VideoType as VideoType;
 use Omaracuja\FrontBundle\Form\EventType as EventType;
 use Omaracuja\FrontBundle\Form\EventAlbumType as EventAlbumType;
 use Omaracuja\EmailManagerBundle\lib\EmailManager as EmailManager;
-
 
 class AdminController extends Controller {
 
@@ -22,7 +22,7 @@ class AdminController extends Controller {
      * @Template()
      */
     public function userPanelAction(Request $request) {
-        $selectedUser = ( $request->get('selectedUser') >= 0 )? $request->get('selectedUser') : null;
+        $selectedUser = ( $request->get('selectedUser') >= 0 ) ? $request->get('selectedUser') : null;
         $em = $this->getDoctrine()->getManager();
         $usersAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByRole('ROLE_ADMIN');
         $usersNoAdmin = $em->getRepository('OmaracujaUserBundle:User')->findByHasNotRole('ROLE_ADMIN');
@@ -131,9 +131,9 @@ class AdminController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-            
+
             $this->sendMailToUsersAndAdminsNewEvent($event);
-            
+
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
         return array(
@@ -161,7 +161,7 @@ class AdminController extends Controller {
 
                 $event->setPicture($eventPicture);
                 $em->flush();
-                
+
                 $response = new Response(json_encode(array(
                             'state' => 200,
                             'message' => $eventPicture->getAjaxMsg(),
@@ -355,6 +355,27 @@ class AdminController extends Controller {
         return $this->redirect($this->generateUrl('admin_panel_pictures'));
     }
 
+    /*
+     * NEWSLETTER
+     */
+
+    public function newsletterCreatePanelAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $newslettermembers = $em->getRepository('OmaracujaFrontBundle:NewsLetterMember')->findAll();
+
+        $form = $this->createNewsLetterForm();
+        if ($request->isMethod('POST')) {
+             $form->bind($request);
+            $datas = $form->getData();
+            $mailBoby = htmlentities($datas["mailBody"]);
+            $this->sendNewsLetter($mailBoby,$newslettermembers);
+            return $this->redirect($this->generateUrl('admin_panel_newsletter'));
+        }
+        return $this->render('OmaracujaAdminBundle:Admin:newsLetterPanel.html.twig', array(
+                    'newsLetterForm' => $form->createView()
+        ));
+    }
+
     private function createPictureUploadForm($picture) {
         return $this->createFormBuilder($picture, array('csrf_protection' => false))
                         ->add('file')
@@ -362,6 +383,14 @@ class AdminController extends Controller {
                         ->add('data', 'hidden')
                         ->add('title', 'text')
                         ->add('description', 'text')
+                        ->getForm();
+    }
+
+    private function createNewsLetterForm() {
+        return $this->createFormBuilder()
+                        ->add('mailBody', 'textarea', array(
+                            'attr' => array(
+                                'class' => 'summernote')))
                         ->getForm();
     }
 
@@ -395,7 +424,7 @@ class AdminController extends Controller {
         }
         return $eventsForView;
     }
-    
+
     private function sendActivationUserMail($user) {
 
         $senderEmail = $this->container->getParameter('senderEmail');
@@ -414,25 +443,30 @@ class AdminController extends Controller {
         $message->setBody($mailBody, 'text/html');
         $this->get('mailer')->send($message);
     }
-    
+
     private function sendMailToUsersAndAdminsNewEvent($event) {
-        
+
         $proposedUsers = array();
         $proposedAdmins = array();
-        
+
         foreach ($event->getProposedTeam() as $proposedUser) {
             if (!$proposedUser->isAdmin()) {
                 $proposedUsers[] = $proposedUser;
-            }else{
+            } else {
                 $proposedAdmins[] = $proposedUser;
             }
         }
 
         $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->container->getParameter('senderEmail'));
-        
+
         $emailManager->sendMailToUsersNewEvent($proposedUsers, $event);
         $emailManager->sendMailToAdminsNewEvent($proposedAdmins, $event);
-        
+    }
+
+    private function sendNewsLetter($mailBoby,$newslettermembers) {
+        $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->container->getParameter('senderEmail'));
+
+        $emailManager->sendNewsletter($mailBoby,$newslettermembers);
     }
 
 }

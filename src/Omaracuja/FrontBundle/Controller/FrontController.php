@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Omaracuja\FrontBundle\Entity\NewsLetterMember as NewsLetterMember;
+use Omaracuja\FrontBundle\Form\NewsLetterMemberType as NewsLetterMemberType;
 
 class FrontController extends Controller {
 
@@ -36,7 +38,7 @@ class FrontController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
-        
+
         return array(
             'pastEvent' => false,
             'events' => $nextEvents,
@@ -65,12 +67,37 @@ class FrontController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
-       
+
         return array('contenu_presentation' => $contenu_presentation,
-                     'img_path_random' => $img_path_random,
-                     'events' => $nextEvents);
+            'img_path_random' => $img_path_random,
+            'events' => $nextEvents);
     }
 
+    /**
+     * @Template()
+     */
+    public function newsletterAction(Request $request) {
+        $newsletterMember = new NewsLetterMember();
+        $form = $this->createForm(new NewsLetterMemberType(), $newsletterMember, array(
+            'action' => $this->generateUrl('front_newsletter'),
+            'method' => 'POST',
+        ));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            try{
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newsletterMember);
+            $em->flush();
+            }
+ catch (\Doctrine\DBAL\DBALException $e){
+             return array('form' => $form->createView(),'erreur' => true);
+ }
+            return $this->redirect($this->generateUrl('front_presentation'));
+        }
+        return array('form' => $form->createView());
+    }
     public function albumsAction($mois) {
         $em = $this->getDoctrine()->getManager();
         $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
@@ -107,7 +134,7 @@ class FrontController extends Controller {
                 $eventsByMonthWithAlbum[$month][] = $eventWithAlbum;
             }
         }
-        
+
         return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
                     'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
                     'last_month' => $last_month,

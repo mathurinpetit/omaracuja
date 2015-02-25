@@ -79,6 +79,19 @@ html,body{
     padding-top: 0px;
 }
 
+.nav-picto-equipe{
+    padding: 0 30px;
+    margin: 0; 
+    top: -5px;
+}
+
+.nav-picto-equipe img{
+    width: 90px;
+    height: 55px;
+    padding-top: 0px;
+    cursor: pointer;
+}
+
 .connexion-form{
     padding: 0 30px;
 }

@@ -6,7 +6,7 @@
     <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
 {% endif %}
 
-<form action="{{ path("fos_user_security_check") }}" method="post" class="form-inline" role="form">
+<form action="{{ path("fos_user_security_check") }}" id="connexion_form" method="post" class="form-inline" role="form" style="display: none;">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <div class="row">
         <div class="form-group">

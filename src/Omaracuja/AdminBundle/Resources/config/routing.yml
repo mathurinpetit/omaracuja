@@ -28,7 +28,7 @@ admin_panel_videos_remove:
 #EVENTS  
 admin_panel_event:
      path:  /evenements
-     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel } 
+     defaults: { _controller: OmaracujaAdminBundle:Admin:eventPanel }    
      
 admin_events_passed:
      path:  /evenements-passes
@@ -67,3 +67,10 @@ admin_panel_albums:
 admin_picture_upload:
      path:  /photoTelechargement/{albumId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:pictureUpload }
+     
+     
+#NEWLETTERS
+
+admin_panel_newsletter:
+     path:  /newsletter/create
+     defaults: { _controller: OmaracujaAdminBundle:Admin:newsletterCreatePanel} 
