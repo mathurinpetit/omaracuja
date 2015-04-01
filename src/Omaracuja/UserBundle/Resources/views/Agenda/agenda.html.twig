@@ -26,7 +26,7 @@
                             <div class="panel-head-event">
                                 {% include "OmaracujaFrontBundle:Front:eventHeader.html.twig" with {'event': eventObj.event, 'pastEvent' : pastEvent, 'privilegeMode' : true , 'eventAccepted' : eventObj.accepted} %}                            
                             </div>
-                            {% include "OmaracujaFrontBundle:Front:eventBody.html.twig" with {'event': eventObj.event, 'pastEvent' : pastEvent} %}                            
+                            {% include "OmaracujaFrontBundle:Front:eventBody.html.twig" with {'event': eventObj.event, 'pastEvent' : pastEvent, 'currentSelectedEventId' : -1} %}                            
                         </div>
                     {% endfor %}
                 </div>

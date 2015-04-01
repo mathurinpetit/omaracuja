@@ -50,7 +50,7 @@ class AgendaController extends Controller {
         return $this->render('OmaracujaUserBundle:Agenda:agenda.html.twig', array(
                     'pastEvent' => false,
                     'events' => $nextEvents,
-                    'user' => $user,
+                    'user' => $user
         ));
     }
 
