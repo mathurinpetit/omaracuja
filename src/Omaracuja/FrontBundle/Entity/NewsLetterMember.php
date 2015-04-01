@@ -40,10 +40,17 @@ class NewsLetterMember {
      * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
+    
+     /**
+     * @ORM\Id
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $xkey;
 
 
     public function __construct() {
         $this->createdAt = new DateTime();
+        $this->xkey = md5(microtime().rand());
     }
 
 
@@ -126,6 +133,16 @@ class NewsLetterMember {
     {
         return $this->firstname;
     }
+    
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
     /**
      * Set email
@@ -141,12 +158,26 @@ class NewsLetterMember {
     }
 
     /**
-     * Get email
+     * Get xkey
      *
      * @return string 
      */
-    public function getEmail()
+    public function getXkey()
     {
-        return $this->email;
+        return $this->xkey;
     }
+
+    /**
+     * Set email
+     *
+     * @param string $xkey
+     * @return NewsLetterMember
+     */
+    public function setXkey($xkey)
+    {
+        $this->xkey = $xkey;
+
+        return $this;
+    }
+
 }
