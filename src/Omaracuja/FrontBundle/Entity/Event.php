@@ -44,8 +44,8 @@ class Event {
      * @Assert\NotBlank()
      */
     private $public_description;
-    
-        /**
+
+    /**
      * @var text $private_description     
      * @ORM\Column(name="private_description", type="text", nullable=false)
      * @Assert\NotBlank()
@@ -99,7 +99,7 @@ class Event {
      * @ORM\JoinTable(name="omaracuja_user_participate_event")
      */
     private $actualTeam;
-    
+
     /**
      * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="refusedEvents")
      * @ORM\JoinTable(name="omaracuja_user_refuse_event")
@@ -172,7 +172,6 @@ class Event {
     public function getTitle() {
         return $this->title;
     }
-
 
     /**
      * Set createdAt
@@ -272,8 +271,10 @@ class Event {
     }
 
     public function setEndAtFr($dateString) {
-        $date = DateTime::createFromFormat('d M Y H:i', $dateString);
-        $d = $this->setEndAt($date);
+        if ($dateString) {
+            $date = DateTime::createFromFormat('d M Y H:i', $dateString);
+            $d = $this->setEndAt($date);
+        }
         return $this;
     }
 
@@ -366,8 +367,8 @@ class Event {
     public function getActualTeam() {
         return $this->actualTeam;
     }
-    
-        /**
+
+    /**
      * Add refusedUsers
      *
      * @param \Omaracuja\UserBundle\Entity\User $refusedUser
@@ -455,15 +456,13 @@ class Event {
         return $this->eventPicture->getWebPath();
     }
 
-
     /**
      * Set public_description
      *
      * @param string $publicDescription
      * @return Event
      */
-    public function setPublicDescription($publicDescription)
-    {
+    public function setPublicDescription($publicDescription) {
         $this->public_description = $publicDescription;
 
         return $this;
@@ -474,8 +473,7 @@ class Event {
      *
      * @return string 
      */
-    public function getPublicDescription()
-    {
+    public function getPublicDescription() {
         return $this->public_description;
     }
 
@@ -485,8 +483,7 @@ class Event {
      * @param string $privateDescription
      * @return Event
      */
-    public function setPrivateDescription($privateDescription)
-    {
+    public function setPrivateDescription($privateDescription) {
         $this->private_description = $privateDescription;
 
         return $this;
@@ -497,8 +494,7 @@ class Event {
      *
      * @return string 
      */
-    public function getPrivateDescription()
-    {
+    public function getPrivateDescription() {
         return $this->private_description;
     }
 
@@ -508,8 +504,7 @@ class Event {
      * @param \Omaracuja\UserBundle\Entity\User $refusedUsers
      * @return Event
      */
-    public function addRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers)
-    {
+    public function addRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers) {
         $this->refusedUsers[] = $refusedUsers;
 
         return $this;
@@ -520,8 +515,7 @@ class Event {
      *
      * @param \Omaracuja\UserBundle\Entity\User $refusedUsers
      */
-    public function removeRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers)
-    {
+    public function removeRefusedUser(\Omaracuja\UserBundle\Entity\User $refusedUsers) {
         $this->refusedUsers->removeElement($refusedUsers);
     }
 
@@ -531,8 +525,7 @@ class Event {
      * @param \Omaracuja\FrontBundle\Entity\EventPicture $eventPicture
      * @return Event
      */
-    public function setEventPicture(\Omaracuja\FrontBundle\Entity\EventPicture $eventPicture = null)
-    {
+    public function setEventPicture(\Omaracuja\FrontBundle\Entity\EventPicture $eventPicture = null) {
         $this->eventPicture = $eventPicture;
 
         return $this;
@@ -543,8 +536,7 @@ class Event {
      *
      * @return \Omaracuja\FrontBundle\Entity\EventPicture 
      */
-    public function getEventPicture()
-    {
+    public function getEventPicture() {
         return $this->eventPicture;
     }
 
@@ -554,8 +546,7 @@ class Event {
      * @param \Omaracuja\FrontBundle\Entity\EventAlbum $album
      * @return Event
      */
-    public function setAlbum(\Omaracuja\FrontBundle\Entity\EventAlbum $album = null)
-    {
+    public function setAlbum(\Omaracuja\FrontBundle\Entity\EventAlbum $album = null) {
         $this->album = $album;
 
         return $this;
@@ -566,28 +557,30 @@ class Event {
      *
      * @return \Omaracuja\FrontBundle\Entity\EventAlbum 
      */
-    public function getAlbum()
-    {
+    public function getAlbum() {
         return $this->album;
     }
-    
+
     public function isOnlyOneDay() {
+        if (!$this->getEndAt()) {
+            return true;
+        }
         return $this->getEndAt()->format('Ymd') == $this->getStartAt()->format('Ymd');
     }
-    
-    
+
     public function getNonAnswerUsers() {
         $proposedTeam = $this->getProposedTeam();
         $actualTeam = $this->getActualTeam()->toArray();
         $refusedUser = $this->getRefusedUsers()->toArray();
-        
+
         $nonAnswerUsers = array();
         foreach ($proposedTeam as $key => $proposedUser) {
-            if(!in_array($proposedUser, $actualTeam) && !in_array($proposedUser, $refusedUser)){
+            if (!in_array($proposedUser, $actualTeam) && !in_array($proposedUser, $refusedUser)) {
                 $nonAnswerUsers[] = $proposedUser;
             }
         }
-        
+
         return $nonAnswerUsers;
     }
+
 }
