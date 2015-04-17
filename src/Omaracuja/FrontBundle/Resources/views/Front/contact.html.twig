@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}Omaracuja - Albums{% endblock %}
+{% block title %}O Maracujá - Contact{% endblock %}
 
 {% block connexion %}
     {% render url('fos_user_security_login') %}
@@ -8,42 +8,42 @@
 
 {% block content %}
     <div class="main" style="margin-bottom: 10px; padding-bottom: 10px;">
-        <h1>Omaracuja - Contact</h1>
+        <h1>Contact</h1>
         <br/>
         <div class="col-md-12 text-center">
             <div class="row">
-                <div class="col-md-6 text-left">
-                    Responsable : 
+                <div class="col-md-3 text-left">
+                    <strong>Responsable : </strong>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-3 text-left">
                     {{ responsable['nom'] }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 text-left">
-                    Téléphone portable : 
+                <div class="col-md-3 text-left">
+                    <strong>éléphone portable :  </strong>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-3 text-left">
                     {{ responsable['telephonePortable'] }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 text-left">
-                    Email : 
+                <div class="col-md-3 text-left">
+                    <strong>Email :  </strong>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-3 text-left">
                     {{ responsable['email'] }}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 text-left">
-                    Siège Social : 
+                <div class="col-md-3 text-left">
+                    <strong>Siège Social :  </strong>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-3 text-left">
                     {{ siegeSocial['adresse'] }}
                 </div>
             </div>
-        <br/><br/>
+            <br/><br/>
         </div> 
     </div>
 {% endblock %}
