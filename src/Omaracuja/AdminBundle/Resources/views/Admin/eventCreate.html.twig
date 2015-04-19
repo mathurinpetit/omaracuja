@@ -25,46 +25,50 @@
                         <div class="error_list">{{ form_errors(eventForm.title) }}</div>
                         {{ form_widget(eventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
                     </div>
-                    <div class="form-group event_description">                        
-                        <div class="error_list">{{ form_errors(eventForm.public_description) }}</div>
-                        <label class="required" for="omaracuja_frontbundle_event_public_description">Description publique</label>
-                        {{ form_widget(eventForm.public_description, {'attr': {'class': 'form-control summernote_event', 'placeholder': 'Description publique'} }) }}
-                    </div>                    
+
                     <div class="form-group event_description">                        
                         <div class="error_list">{{ form_errors(eventForm.private_description) }}</div>
                         <label class="required" for="omaracuja_frontbundle_event_private_description">Description privée</label>
                         {{ form_widget(eventForm.private_description, {'attr': {'class': 'form-control summernote_event', 'placeholder': 'Description privée'} }) }}
+                    </div>                    
+                    <div class="row">  
+                        <div class="col-md-4 form-group" >
+                            {{ form_label(eventForm.public) }}
+                            {{ form_widget(eventForm.public) }}
+                        </div>
+                        <div class="col-md-4 form-group" >
+                            <div class="error_list">{{ form_errors(eventForm.place) }}</div>
+                            {{form_label(eventForm.place)}}
+                            {{ form_widget(eventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
+                        </div>
+                        <div class="col-md-4  form-group" >
+                            <div class="error_list">{{ form_errors(eventForm.startAtFr) }}</div>
+                            {{form_label(eventForm.startAtFr)}}
+                            {{ form_widget(eventForm.startAtFr, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="map-canvas" class="event_map_choose col-md-10" ></div>
+                        {{ form_widget(eventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
+                        {{ form_widget(eventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
                     </div>
                 </div>
             </div>
             <div class="row">  
-                <div class="col-md-3">
-                    <div class="form-group" >
-                        {{ form_label(eventForm.public) }}
-                        {{ form_widget(eventForm.public) }}
-                    </div>
-                    <div class="form-group" >
-                        <div class="error_list">{{ form_errors(eventForm.place) }}</div>
-                        {{form_label(eventForm.place)}}
-                        {{ form_widget(eventForm.place, {'attr': {'class': 'form-control google_map_adress', 'placeholder': 'Lieu'} }) }}
-                    </div>
-                    <div class="form-group" >
-                        <div class="error_list">{{ form_errors(eventForm.startAtFr) }}</div>
-                        {{form_label(eventForm.startAtFr)}}
-                        {{ form_widget(eventForm.startAtFr, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
+                <div class="form-group col-md-6">
+                    <div class="error_list">{{ form_errors(eventForm.dateAAfficher) }}</div>
+                    {{form_label(eventForm.dateAAfficher)}}
+                    {{ form_widget(eventForm.dateAAfficher, {'attr': {'class': 'form-control', 'placeholder': 'Date à afficher'} }) }}
 
-                    </div>
-                    <div class="form-group" >
-                        <div class="error_list">{{ form_errors(eventForm.endAtFr) }}</div>
-                        {{form_label(eventForm.endAtFr)}}
-                        {{ form_widget(eventForm.endAtFr, {'attr': {'class': 'datetimepicker', 'placeholder': 'ex: 07 Sep 1985 11:55'} }) }}
-
-                    </div>
                 </div>
-                <div id="map-canvas" class="col-md-8 event_map_choose" ></div>
-                {{ form_widget(eventForm.mapX, {'attr': {'class': 'mapX_setting'} }) }}
-                {{ form_widget(eventForm.mapY, {'attr': {'class': 'mapY_setting'} }) }}
-            </div>
+                <div class="form-group col-md-6">
+                    <div class="error_list">{{ form_errors(eventForm.lieuAAfficher) }}</div>
+                    {{form_label(eventForm.lieuAAfficher)}}
+                    {{ form_widget(eventForm.lieuAAfficher, {'attr': {'class': 'form-control', 'placeholder': 'Lieu à Afficher'} }) }}
+
+                </div>
+            </div> 
             <div class="row">  
                 <div class="form-group">
                     <div class="col-md-12">

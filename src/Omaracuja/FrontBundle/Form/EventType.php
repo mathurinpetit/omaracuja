@@ -19,15 +19,19 @@ class EventType extends AbstractType {
                     'label' => 'Titre',
                     'required' => true
                 ))
-                ->add('public_description')
                 ->add('private_description')
                 ->add('public', 'checkbox', array(
                     'label' => 'Evènement publique'
                 ))
                 ->add('startAtFr', 'text', array('label' => 'Date de début', 'attr' => array('class' => 'datetimepicker')))
-                ->add('endAtFr', 'text', array('label' => 'Date de fin', 'attr' => array('class' => 'datetimepicker')))
+                ->add('dateAAfficher', 'text', array(
+                    'label' => 'Date à afficher'
+                ))
                 ->add('place', 'text', array(
                     'label' => 'Lieu'
+                ))
+                ->add('lieuAAfficher', 'text', array(
+                    'label' => 'Lieu à afficher'
                 ))
                 ->add('proposedTeam', 'entity', array(
                     'class' => 'OmaracujaUserBundle:User',

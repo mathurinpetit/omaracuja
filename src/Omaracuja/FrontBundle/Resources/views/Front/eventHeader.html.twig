@@ -28,21 +28,12 @@
         </div>
     {% endif %}
 
-    {%if not event.isOnlyOneDay %}
         <div class="col-md-8 text-left event_header_dates">            
-            <strong>Du {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }} au {{ event.endAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
+            <strong>{{ event.dateAAfficher }}</strong>
         </div>
         <div class="col-md-4 text-right">
-            <strong>{{ event.place }}</strong>
+            <strong>{{ event.lieuAAfficher }}</strong>
         </div>
-    {% else %}
-        <div class="col-md-6 text-left">
-                <strong>Le {{ event.startAt |localizeddate('none', 'none', 'fr_FR', null, "cccc dd MMMM Y 'à' H:mm") }}</strong>
-        </div>
-            <div class="col-md-6 text-right">
-            <strong>{{ event.place }}</strong>
-        </div>
-    {% endif %}
 
     {%if privilegeMode is defined and privilegeMode %}
         {% include "OmaracujaFrontBundle:Front:eventUsersAvatars.html.twig" with {'event': event, 'pastEvent' : pastEvent} %}  

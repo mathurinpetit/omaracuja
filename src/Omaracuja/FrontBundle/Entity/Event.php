@@ -39,13 +39,6 @@ class Event {
     private $title;
 
     /**
-     * @var text $public_description     
-     * @ORM\Column(name="public_description", type="text", nullable=false)
-     * @Assert\NotBlank()
-     */
-    private $public_description;
-
-    /**
      * @var text $private_description     
      * @ORM\Column(name="private_description", type="text", nullable=false)
      * @Assert\NotBlank()
@@ -72,13 +65,14 @@ class Event {
      * @Assert\NotBlank()
      */
     private $startAt;
-
+    
     /**
-     * @var datetime $endAt
-     *
-     * @ORM\Column(name="end_at", type="datetime", nullable=true)
+     * @var string $dateAAfficher    
+     * @ORM\Column(name="date_a_afficher", type="text", nullable=false)
+     * @Assert\NotBlank()
      */
-    private $endAt;
+    private $dateAAfficher;
+
 
     /**
      * @var string $place
@@ -87,6 +81,15 @@ class Event {
      * @Assert\NotBlank()
      */
     private $place;
+    
+     /**
+     * @var string $lieuAAfficher
+     * 
+     * @ORM\Column(name="lieu_a_afficher", type="text", nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $lieuAAfficher;
+    
 
     /**
      * @ORM\ManyToMany(targetEntity="Omaracuja\UserBundle\Entity\User", inversedBy="proposedEvents")
@@ -248,43 +251,6 @@ class Event {
      */
     public function getStartAt() {
         return $this->startAt;
-    }
-
-    /**
-     * Set endAt
-     *
-     * @param \DateTime $endAt
-     * @return Event
-     */
-    public function setEndAt($endAt) {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
-
-    public function getEndAtFr() {
-        $d = $this->getEndAt();
-        if ($d) {
-            return $d->format('d M Y H:i');
-        }
-        return '';
-    }
-
-    public function setEndAtFr($dateString) {
-        if ($dateString) {
-            $date = DateTime::createFromFormat('d M Y H:i', $dateString);
-            $d = $this->setEndAt($date);
-        }
-        return $this;
-    }
-
-    /**
-     * Get endAt
-     *
-     * @return \DateTime 
-     */
-    public function getEndAt() {
-        return $this->endAt;
     }
 
     /**
@@ -457,27 +423,6 @@ class Event {
     }
 
     /**
-     * Set public_description
-     *
-     * @param string $publicDescription
-     * @return Event
-     */
-    public function setPublicDescription($publicDescription) {
-        $this->public_description = $publicDescription;
-
-        return $this;
-    }
-
-    /**
-     * Get public_description
-     *
-     * @return string 
-     */
-    public function getPublicDescription() {
-        return $this->public_description;
-    }
-
-    /**
      * Set private_description
      *
      * @param string $privateDescription
@@ -561,13 +506,6 @@ class Event {
         return $this->album;
     }
 
-    public function isOnlyOneDay() {
-        if (!$this->getEndAt()) {
-            return true;
-        }
-        return $this->getEndAt()->format('Ymd') == $this->getStartAt()->format('Ymd');
-    }
-
     public function getNonAnswerUsers() {
         $proposedTeam = $this->getProposedTeam();
         $actualTeam = $this->getActualTeam()->toArray();
@@ -583,4 +521,50 @@ class Event {
         return $nonAnswerUsers;
     }
 
+
+    /**
+     * Set dateAAfficher
+     *
+     * @param string $dateAAfficher
+     * @return Event
+     */
+    public function setDateAAfficher($dateAAfficher)
+    {
+        $this->dateAAfficher = $dateAAfficher;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAAfficher
+     *
+     * @return string 
+     */
+    public function getDateAAfficher()
+    {
+        return $this->dateAAfficher;
+    }
+
+    /**
+     * Set lieuAAfficher
+     *
+     * @param string $lieuAAfficher
+     * @return Event
+     */
+    public function setLieuAAfficher($lieuAAfficher)
+    {
+        $this->lieuAAfficher = $lieuAAfficher;
+
+        return $this;
+    }
+
+    /**
+     * Get lieuAAfficher
+     *
+     * @return string 
+     */
+    public function getLieuAAfficher()
+    {
+        return $this->lieuAAfficher;
+    }
 }

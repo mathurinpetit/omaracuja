@@ -132,7 +132,7 @@ class AdminController extends Controller {
             $em->persist($event);
             $em->flush();
 
-            $this->sendMailToUsersAndAdminsNewEvent($event);
+          //  $this->sendMailToUsersAndAdminsNewEvent($event);
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
