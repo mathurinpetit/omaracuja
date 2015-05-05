@@ -5,13 +5,7 @@ security:
     providers:
       fos_userbundle:
           id: fos_user.user_provider.username
-      in_memory:          
-          memory:
-              users:
-                  mathurin:  { password: rogerrabbit, roles: [ 'ROLE_USER' ] }
-                  admin: { password: rogerrabbit, roles: [ 'ROLE_ADMIN' ] }
-
-    firewalls:      
+      firewalls:      
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js|media)/
             security: false
