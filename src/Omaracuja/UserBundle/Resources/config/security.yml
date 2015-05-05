@@ -5,7 +5,10 @@ security:
     providers:
       fos_userbundle:
           id: fos_user.user_provider.username
-      firewalls:      
+      in_memory:          
+          memory:
+              users:
+    firewalls:      
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js|media)/
             security: false
