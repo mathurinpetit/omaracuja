@@ -567,4 +567,8 @@ class Event {
     {
         return $this->lieuAAfficher;
     }
+    
+    public function hasPrivateDescription() {
+        return $this->private_description && ($this->private_description !=  "<p><br></p>")  && ($this->private_description !=  "<p><br><br></p>");
+    }
 }
