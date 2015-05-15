@@ -41,7 +41,7 @@ var findAdress = function() {
             console.log(results[0].geometry.location.lat());
              console.log(results[0].geometry.location.lng());
             $('.mapX_setting').val(results[0].geometry.location.lat());
-            $('.mapY_setting').val(results[0].geometry.location.pf.F);
+            $('.mapY_setting').val(results[0].geometry.location.lng());
 
             var marker = new google.maps.Marker({
                 map: map,
