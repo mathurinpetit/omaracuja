@@ -4,12 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="fos_user_security_login" pattern="/connexion-interne">
+    <route id="fos_user_security_login" pattern="/connexion">
         <default key="_controller">FOSUserBundle:Security:login</default>
-    </route>
-    
-    <route id="omaracuja_security_login" pattern="/connexion">
-        <default key="_controller">OmaracujaUserBundle:Security:login</default>
     </route>
 
     <route id="fos_user_security_check" pattern="/connexion_check">

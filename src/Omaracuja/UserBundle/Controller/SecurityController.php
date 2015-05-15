@@ -15,6 +15,6 @@ class SecurityController extends FOSSecurityController {
     
     protected function renderLogin(array $data)
     {
-        return $this->render('OmaracujaUserBundle:Security:connexion.html.twig', $data);
+        return $this->render('OmaracujaUserBundle:Security:connexionExterne.html.twig', $data);
     }
 }

@@ -37,9 +37,6 @@ var findAdress = function() {
     geocoder.geocode({'address': adresse}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
-
-            console.log(results[0].geometry.location.lat());
-             console.log(results[0].geometry.location.lng());
             $('.mapX_setting').val(results[0].geometry.location.lat());
             $('.mapY_setting').val(results[0].geometry.location.lng());
 

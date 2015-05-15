@@ -1,16 +1,15 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block main %}   
+{% block fos_user_content %}  
 {% if error %}
     <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
 {% endif %}
-
 <form action="{{ path("fos_user_security_check") }}" id="connexion_form" method="post" class="form-inline" role="form" style="display: none;">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
     <div class="row">
         <div class="form-group">
-
+ddd
             <label class="sr-only" for="username">{{ 'security.login.username'|trans }}</label>
             <div class="left-inner-addon ">
                 <i class="glyphicon glyphicon-user"></i>
@@ -36,5 +35,5 @@
         </div>
     </div>
 </form>
-{% endblock main %}
+{% endblock fos_user_content %}
 
