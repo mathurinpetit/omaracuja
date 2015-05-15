@@ -38,9 +38,9 @@ var findAdress = function() {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
 
-            console.log(results[0].geometry.location);
-            $('.mapX_setting').val(results[0].geometry.location.a);
-            $('.mapY_setting').val(results[0].geometry.location.F);
+            console.log(results[0].geometry.location.pf);
+            $('.mapX_setting').val(results[0].geometry.location.pf.A);
+            $('.mapY_setting').val(results[0].geometry.location.pf.F);
 
             var marker = new google.maps.Marker({
                 map: map,
