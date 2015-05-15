@@ -12,6 +12,7 @@ html,body{
 }
 .container{
     background-color: #222222;
+    padding-bottom: 20px;
 }
 
 .container-fluid{
