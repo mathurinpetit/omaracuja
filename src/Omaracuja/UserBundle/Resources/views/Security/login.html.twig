@@ -1,7 +1,8 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
+{#{% block fos_user_content %}#}
+{% block main %}   
 {% if error %}
     <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
 {% endif %}
@@ -36,5 +37,6 @@
         </div>
     </div>
 </form>
+{% endblock main %}
 
-{% endblock fos_user_content %}
+{#{% endblock fos_user_content %}#}
