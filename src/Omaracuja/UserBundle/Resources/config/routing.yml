@@ -16,3 +16,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "routing/change_mot_de_passe.xml"
     prefix: /compte
+    
+connexion_externe:
+    path:  /connexion-externe
+    defaults: { _controller: OmaracujaUserBundle:SecurityOmaracuja:login }

@@ -33,7 +33,7 @@ security:
                 failure_forward: false
                 failure_path_parameter: _failure_path
                 
-                login_path: fos_user_security_login
+                login_path: connexion_externe
                 check_path: fos_user_security_check
             logout:
                 path:       fos_user_security_logout

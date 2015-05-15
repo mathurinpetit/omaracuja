@@ -1,8 +1,11 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% trans_default_domain 'FOSUserBundle' %}
-
+{% block title %}Omaracuja - Connexion{% endblock %}
 {% block content %}   
-    <div class="main">
+    <div class="main" style="padding-left: 40px;">
+        <br/>
+        <h2>Connexion à Omaracuja.com</h2>
+        <br/>
         {% if error %}
             <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
         {% endif %}
