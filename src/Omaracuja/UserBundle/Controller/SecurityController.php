@@ -11,7 +11,7 @@ namespace Omaracuja\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Controller\SecurityController as FOSSecurityController;
 
-class ProfileController extends FOSSecurityController {    
+class SecurityController extends FOSSecurityController {    
     
     protected function renderLogin(array $data)
     {
