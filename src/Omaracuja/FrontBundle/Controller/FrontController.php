@@ -37,7 +37,7 @@ class FrontController extends Controller {
     public function evennementAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true,true);
 
         return array(
             'pastEvent' => false,
@@ -49,7 +49,7 @@ class FrontController extends Controller {
     public function evennementPastAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true);
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true,true);
 
         return $this->render('OmaracujaFrontBundle:Front:evennement.html.twig', array(
                     'pastEvent' => true,
@@ -66,8 +66,8 @@ class FrontController extends Controller {
         $img_path_random = "";
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true);
-
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true,true);
+        
         return array('contenu_presentation' => $contenu_presentation,
             'img_path_random' => $img_path_random,
             'events' => $nextEvents);

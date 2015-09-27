@@ -26,7 +26,7 @@
         </div>
         <br/>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
                         <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
@@ -37,7 +37,7 @@
                             {% for eventByMonth in events %}
                                 {% for event in eventByMonth %}
                                     <a href="{{ path('front_evennement',{ 'id': event.id }) }}" style="">
-                                        <li> <span style="color: black; font-weight: bold; font-size: 20px;" >{{ event.dateAAfficher }}&nbsp;-</span>&nbsp;<span class="text-red-omaracuja" style=" font-size: 20px;">{{ event.title }}</span></li>
+                                        <li> <span style="color: white; font-weight: bold; font-size: 20px;" >{{ event.dateAAfficher }}&nbsp;-</span>&nbsp;&nbsp;<span class="text-red-omaracuja" style=" font-size: 20px;">{{ event.title }}</span></li>
                                     </a>
                                 {% endfor %}
                             {% endfor %}

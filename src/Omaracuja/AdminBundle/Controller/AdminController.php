@@ -89,7 +89,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $eventsAccepted = $user->getParticipateEvents();
-        $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate();
+        $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(false,true);
 
         $eventPictureForms = $this->getEventsPicturesForms($nextEventsByMonth);
 
@@ -105,7 +105,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $eventsAccepted = $user->getParticipateEvents();
-        $pastEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate();
+        $pastEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(false, true);
 
         $eventPictureForms = $this->getEventsPicturesForms($pastEventsByMonth);
 

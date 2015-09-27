@@ -2,14 +2,14 @@
 <div class="col-md-12" >
     {% for month,eventsWithAlbum in eventsByMonthWithAlbum %}
         <div class="albums-by-month">
-            <h2>{{month}}</h2>
+           
             {% for eventWithAlbum in eventsWithAlbum %}
                 {%if admin is defined %}
                     <a href="{{ path('admin_add_event_album',{ 'eventId': eventWithAlbum.event.id }) }}" class="left col-lg-3 col-md-4 col-xs-6 ">
                     {% else %}
                         <a href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="left col-lg-3 col-md-4 col-xs-6  ">
                         {% endif %}
-                            <p class="text-red-omaracuja album_title">{{eventWithAlbum.event.title}}</p>
+                            <p class="text-red-omaracuja album_title" style="font-size: 18pt;">{{eventWithAlbum.event.title}}</p>
                             <div class="thumbnail-pictures">
                                 <div class="img-with-title">
                                     {% for picture in eventWithAlbum.pictures %}
