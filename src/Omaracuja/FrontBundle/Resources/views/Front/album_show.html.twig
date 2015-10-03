@@ -13,7 +13,7 @@
                             <div class="thumbnail-pictures">
                                 <div class="img-with-title">
                                     {% for picture in eventWithAlbum.pictures %}
-                                        {% if loop.index0 < 8 %}
+                                        {% if loop.index0 < 4 %}
                                             {% set class = 'rotate'~loop.index0 %}
                                             <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive {{class}}">
                                         {% endif %}

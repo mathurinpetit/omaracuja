@@ -37,7 +37,7 @@ class FrontController extends Controller {
     public function evennementAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true,true);
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
 
         return array(
             'pastEvent' => false,
@@ -49,7 +49,7 @@ class FrontController extends Controller {
     public function evennementPastAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true,true);
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true, true);
 
         return $this->render('OmaracujaFrontBundle:Front:evennement.html.twig', array(
                     'pastEvent' => true,
@@ -66,8 +66,8 @@ class FrontController extends Controller {
         $img_path_random = "";
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true,true);
-        
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
+
         return array('contenu_presentation' => $contenu_presentation,
             'img_path_random' => $img_path_random,
             'events' => $nextEvents);
@@ -86,25 +86,21 @@ class FrontController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            try{
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($newsletterMember);
-            $em->flush();
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($newsletterMember);
+                $em->flush();
+            } catch (\Doctrine\DBAL\DBALException $e) {
+                return array('form' => $form->createView(), 'erreur' => true);
             }
- catch (\Doctrine\DBAL\DBALException $e){
-             return array('form' => $form->createView(),'erreur' => true);
- }
             return $this->redirect($this->generateUrl('front_presentation'));
         }
         return array('form' => $form->createView());
     }
+
     public function albumsAction($mois) {
         $em = $this->getDoctrine()->getManager();
         $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
-        $last_month = null;
-        $last_month_label = null;
-        $next_month = null;
-        $next_month_label = null;
 
         if (($mois == "now") || !preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois)) {
             $mois = date('Y-m');
@@ -113,18 +109,6 @@ class FrontController extends Controller {
         $eventsByMonthWithAlbum = array();
         foreach ($eventsByMonth as $month => $events) {
             foreach ($events as $event) {
-                if ($event->getStartAt()->format("Ym") != str_replace('-', '', $mois)) {
-                    if (!$last_month && ($event->getStartAt()->format("Ym") < str_replace('-', '', $mois))) {
-                        $last_month = $event->getStartAt()->format("Y-m");
-                        $last_month_label = $month;
-                        continue;
-                    }
-                    if ($event->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
-                        $next_month = $event->getStartAt()->format("Y-m");
-                        $next_month_label = $month;
-                        continue;
-                    }
-                }
                 if (!array_key_exists($month, $eventsByMonthWithAlbum)) {
                     $eventsByMonthWithAlbum[$month] = array();
                 }
@@ -136,11 +120,8 @@ class FrontController extends Controller {
         }
 
         return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
-                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
-                    'last_month' => $last_month,
-                    'last_month_label' => $last_month_label,
-                    'next_month' => $next_month,
-                    'next_month_label' => $next_month_label
+                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum
+                
         ));
     }
 

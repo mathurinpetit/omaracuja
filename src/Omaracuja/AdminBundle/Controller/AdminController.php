@@ -268,11 +268,6 @@ class AdminController extends Controller {
 
         $albumForView = array();
 
-        $last_month = null;
-        $last_month_label = null;
-        $next_month = null;
-        $next_month_label = null;
-
         if (($mois == "now") || !preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois)) {
             $mois = date('Y-m');
         }
@@ -280,19 +275,6 @@ class AdminController extends Controller {
         $eventsByMonthWithAlbum = array();
         foreach ($eventsByMonth as $month => $events) {
             foreach ($events as $event) {
-                if ($event->getStartAt()->format("Ym") != str_replace('-', '', $mois)) {
-                    if (!$last_month && ($event->getStartAt()->format("Ym") < str_replace('-', '', $mois))) {
-                        $last_month = $event->getStartAt()->format("Y-m");
-                        $last_month_label = $month;
-                        continue;
-                    }
-                    if ($event->getCreatedAt()->format("Ym") > str_replace('-', '', $mois)) {
-                        $next_month = $event->getStartAt()->format("Y-m");
-                        $next_month_label = $month;
-                        continue;
-                    }
-                    continue;
-                }
                 if (!array_key_exists($month, $eventsByMonthWithAlbum)) {
                     $eventsByMonthWithAlbum[$month] = array();
                 }
@@ -304,11 +286,7 @@ class AdminController extends Controller {
         }
         return $this->render('OmaracujaAdminBundle:Admin:albumsPanel.html.twig', array(
                     'admin' => true,
-                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum,
-                    'last_month' => $last_month,
-                    'last_month_label' => $last_month_label,
-                    'next_month' => $next_month,
-                    'next_month_label' => $next_month_label
+                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum
         ));
     }
 
