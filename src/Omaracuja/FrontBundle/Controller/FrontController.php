@@ -49,7 +49,7 @@ class FrontController extends Controller {
     public function evennementPastAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true, true);
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true);
 
         return $this->render('OmaracujaFrontBundle:Front:evennement.html.twig', array(
                     'pastEvent' => true,
