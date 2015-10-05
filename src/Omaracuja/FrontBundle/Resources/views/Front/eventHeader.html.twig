@@ -16,7 +16,7 @@
             <strong>{{ event.dateAAfficher }}</strong>
         </div>
     {% if eventAccepted is defined and not eventAccepted is null %}    
-        <div class="col-md-8 text-left">  
+        <div class="col-md-6 text-left">  
            <strong>
                 {% if not pastEvent %} 
                     {% if eventAccepted %}<span class="text-red-omaracuja" >J'y vais</span>{% else %}<span class="text-muted">J'y vais pas...</span>{% endif %}
@@ -31,7 +31,7 @@
             </strong>
         </div>
     {% endif %}
-        <div class="col-md-4 text-right">
+        <div class="col-md-6 text-right">
             <strong>{{ event.lieuAAfficher }}</strong>
         </div>
 
