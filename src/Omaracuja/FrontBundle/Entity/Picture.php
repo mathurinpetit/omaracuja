@@ -59,7 +59,7 @@ class Picture {
 
     /**
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventAlbum", inversedBy="pictures", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Omaracuja\FrontBundle\Entity\EventAlbum", inversedBy="pictures")
      */
     private $album;
 
@@ -97,15 +97,6 @@ class Picture {
         $originalFile = $this->getWebOriginalPath("");
         if ($originalFile) {
             unlink($originalFile);
-        }
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload() {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
         }
     }
 
@@ -312,6 +303,18 @@ class Picture {
 
     public function __toString() {
         return $this->getWebPath();
+    }
+
+    public function getAlbum() {
+        return $this->album;
+    }
+
+    public function unlink() {
+        $pathToRemove = $this->getWebPath();
+        if (file_exists($pathToRemove) &&
+                is_writable($pathToRemove)) {
+            unlink($pathToRemove);
+        }
     }
 
 }

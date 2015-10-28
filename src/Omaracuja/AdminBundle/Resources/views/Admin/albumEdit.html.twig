@@ -28,7 +28,7 @@
                 {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': newPictureform } %}
                 <br/>
 
-                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event } %}
+                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event , 'admin' : true } %}
 
             </div>
         </div>

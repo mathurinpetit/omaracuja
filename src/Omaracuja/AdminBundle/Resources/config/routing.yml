@@ -57,6 +57,9 @@ admin_edit_event_album:
      path:  /editionAlbum/{albumId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:editAlbumEvent }     
      
+admin_remove_album:
+     path:  /albums/remove/{albumId}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:removeAlbumEvent }   
      
 #PHOTOS         
 admin_panel_albums:
@@ -64,9 +67,14 @@ admin_panel_albums:
      defaults: { _controller: OmaracujaAdminBundle:Admin:albumsPanel, mois: now }   
      
      
+     
 admin_picture_upload:
      path:  /photoTelechargement/{albumId}
      defaults: { _controller: OmaracujaAdminBundle:Admin:pictureUpload }
+     
+admin_picture_remove:
+     path:  /photoSupression/{idPicture}
+     defaults: { _controller: OmaracujaAdminBundle:Admin:pictureRemove }
      
      
 #NEWLETTERS

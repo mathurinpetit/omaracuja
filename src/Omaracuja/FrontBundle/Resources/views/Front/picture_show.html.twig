@@ -10,7 +10,11 @@
                         <h2>{{picture.title}}</h2>
                         <p>{{picture.description}}</p>
                         <p><a href="#" class="label btn-zoom" rel="tooltip" title="Zoomer" id="{{ indexCarousel }}" >Zoom</a>
-                            <a href="{{ path('front_picture_download',{ 'idPicture': picture.id }) }}" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a></p>
+                            <a href="{{ path('front_picture_download',{ 'idPicture': picture.id }) }}" class="label label-default" rel="tooltip" title="Télécharger">Téléchargement</a>
+                        {% if(admin) %}
+                            <a href="{{ path('admin_picture_remove',{ 'idPicture': picture.id }) }}" class="label label-danger">X</a>
+                        {% endif %}
+                        </p>
                     </div>
                     <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive">
                 </div>

@@ -89,7 +89,7 @@ class AdminController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $eventsAccepted = $user->getParticipateEvents();
-        $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(false,true);
+        $nextEventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(false, true);
 
         $eventPictureForms = $this->getEventsPicturesForms($nextEventsByMonth);
 
@@ -132,7 +132,7 @@ class AdminController extends Controller {
             $em->persist($event);
             $em->flush();
 
-          //  $this->sendMailToUsersAndAdminsNewEvent($event);
+            //  $this->sendMailToUsersAndAdminsNewEvent($event);
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
@@ -232,6 +232,24 @@ class AdminController extends Controller {
         $em->flush();
 
         return $this->redirect($this->generateUrl('admin_edit_event_album', array('albumId' => $album->getId())));
+    }
+    
+     public function removeAlbumEventAction(Request $request, $albumId) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
+
+        
+        $event = $em->getRepository('OmaracujaFrontBundle:Event')->findOneByAlbum($album);
+        $event->setAlbum(null);
+        $em->persist($event);
+        $em->flush();
+
+        $em->remove($album);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_panel_albums'));
     }
 
     public function editAlbumEventAction(Request $request, $albumId) {
@@ -333,6 +351,16 @@ class AdminController extends Controller {
         return $this->redirect($this->generateUrl('admin_panel_pictures'));
     }
 
+    public function pictureRemoveAction(Request $request, $idPicture) {
+        $em = $this->getDoctrine()->getManager();
+        $picture = $em->getRepository('OmaracujaFrontBundle:Picture')->findOneById($idPicture);
+
+        $albumId = $picture->getAlbum()->getId();
+        $em->remove($picture);
+        $em->flush();
+        return $this->redirect($this->generateUrl('admin_edit_event_album',array('albumId' =>$albumId)));
+    }
+
     /*
      * NEWSLETTER
      */
@@ -343,10 +371,10 @@ class AdminController extends Controller {
 
         $form = $this->createNewsLetterForm();
         if ($request->isMethod('POST')) {
-             $form->bind($request);
+            $form->bind($request);
             $datas = $form->getData();
             $mailBoby = htmlentities($datas["mailBody"]);
-            $this->sendNewsLetter($mailBoby,$newslettermembers);
+            $this->sendNewsLetter($mailBoby, $newslettermembers);
             return $this->redirect($this->generateUrl('admin_panel_newsletter'));
         }
         return $this->render('OmaracujaAdminBundle:Admin:newsLetterPanel.html.twig', array(
@@ -441,10 +469,10 @@ class AdminController extends Controller {
         $emailManager->sendMailToAdminsNewEvent($proposedAdmins, $event);
     }
 
-    private function sendNewsLetter($mailBoby,$newslettermembers) {
+    private function sendNewsLetter($mailBoby, $newslettermembers) {
         $emailManager = new EmailManager($this->get('mailer'), $this->get('templating'), $this->container->getParameter('senderEmail'));
 
-        $emailManager->sendNewsletter($mailBoby,$newslettermembers);
+        $emailManager->sendNewsletter($mailBoby, $newslettermembers);
     }
 
 }
