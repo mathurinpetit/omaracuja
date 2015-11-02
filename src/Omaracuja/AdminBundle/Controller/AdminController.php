@@ -132,7 +132,7 @@ class AdminController extends Controller {
             $em->persist($event);
             $em->flush();
 
-            //  $this->sendMailToUsersAndAdminsNewEvent($event);
+            $this->sendMailToUsersAndAdminsNewEvent($event);
 
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
@@ -188,7 +188,8 @@ class AdminController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-
+            
+            $this->sendMailToUsersAndAdminsNewEvent($event);
             return $this->redirect($this->generateUrl('admin_panel_event'));
         }
 
@@ -452,13 +453,11 @@ class AdminController extends Controller {
 
     private function sendMailToUsersAndAdminsNewEvent($event) {
 
-        $proposedUsers = array();
+        $proposedUsers = $event->getNonAnswerUsers();
         $proposedAdmins = array();
 
         foreach ($event->getProposedTeam() as $proposedUser) {
-            if (!$proposedUser->isAdmin()) {
-                $proposedUsers[] = $proposedUser;
-            } else {
+            if ($proposedUser->isAdmin()) {                
                 $proposedAdmins[] = $proposedUser;
             }
         }
