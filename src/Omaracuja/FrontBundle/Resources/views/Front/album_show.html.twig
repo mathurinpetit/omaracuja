@@ -1,30 +1,26 @@
 {% set indexCarousel = 0 %}
 <div class="col-md-12" >
     {% for month,eventsWithAlbum in eventsByMonthWithAlbum %}
-        <div class="albums-by-month">
-
+       
             {% for eventWithAlbum in eventsWithAlbum %}
-                <a href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="left col-lg-3 col-md-4 col-xs-6  ">
-                    <p class="text-red-omaracuja album_title" style="font-size: 18pt;">{{eventWithAlbum.event.title}}</p>
-                    {%if admin is defined %}
-                        <a href="{{ path('admin_remove_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="btn btn-md btn-danger">X</a>
-                    {% endif %}
-
-                    <div class="thumbnail-pictures">
-                        <div class="img-with-title">
-                            {% for picture in eventWithAlbum.pictures %}
-                                {% if loop.index0 < 4 %}
-                                    {% set class = 'rotate'~loop.index0 %}
-                                    <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive {{class}}">
-                                {% endif %}
-                            {% endfor %}
+                <div class="left col-lg-3 col-md-4 col-xs-6  ">
+                    <p class="text-red-omaracuja album_title" style="font-size: 18pt;">{{eventWithAlbum.event.title}}{%if admin is defined %}<a href="{{ path('admin_remove_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" class="btn btn-md btn-danger pull-right">X</a> {% endif %}</p>
+                   
+                    <a  href="{{ path('front_album',{ 'albumId': eventWithAlbum.event.album.id }) }}" >
+                        <div class="thumbnail-pictures">
+                            <div class="img-with-title">
+                                {% for picture in eventWithAlbum.pictures %}
+                                    {% if loop.index0 < 4 %}
+                                        {% set class = 'rotate'~loop.index0 %}
+                                        <img src="{{picture.getCurrentPicturePath}}" alt="{{picture.title}}" class="img-responsive {{class}}">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
                 {% set indexCarousel = indexCarousel + 1  %}       
             {% endfor %}
-        </div>
-        <br/>
     {% endfor %}
 </div>
 <hr>
