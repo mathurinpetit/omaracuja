@@ -38,7 +38,7 @@
                             {% for eventByMonth in events %}
                                 {% for event in eventByMonth %}
                                     <a href="{{ path('front_evennement',{ 'id': event.id }) }}" style="">
-                                        <li> <span style="color: white; font-weight: bold; font-size: 18px;" >{{ event.dateAAfficher }}&nbsp;-&nbsp{{ event.lieuAAfficher }}&nbsp;-</span>&nbsp;<span class="text-red-omaracuja" style=" font-size: 20px;">{{ event.title }}</span></li>
+                                        <li> <span style="color: white; font-weight: bold; font-size: 16px;" >{{ event.dateAAfficher }}&nbsp;-&nbsp{{ event.lieuAAfficher }}&nbsp;-</span>&nbsp;<span class="text-red-omaracuja" style=" font-size: 16px;">{{ event.title }}</span></li>
                                     </a>
                                 {% endfor %}
                             {% endfor %}
