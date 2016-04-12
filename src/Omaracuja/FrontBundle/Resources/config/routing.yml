@@ -7,6 +7,19 @@ front_blog_post_create:
      path:  /blogPostCreate
      defaults: { _controller: OmaracujaFrontBundle:Front:blogPostCreate }
      
+front_next_evennements:
+     path:  /evenements/next-evennements
+     defaults: { _controller: OmaracujaFrontBundle:Front:nextEvennement}      
+     
+front_photos_views:
+     path:  /photos-view
+     defaults: { _controller: OmaracujaFrontBundle:Front:photosView } 
+     
+front_videos_views:
+     path:  /videos-view
+     defaults: { _controller: OmaracujaFrontBundle:Front:videosView }      
+
+     
 front_evennement:
      path:  /evenements/{id}
      defaults: { _controller: OmaracujaFrontBundle:Front:evennement, id: null } 

@@ -341,7 +341,7 @@ font-style: italic;
 /*sf_admin_theme_plugin styles*/
 #sf_admin_theme_header
 {
-  background: url("/bundles/actualysbootstrap/images/header_bg.png") repeat-x;
+  background: url("../images/header_bg.png") repeat-x;
   border-bottom: #C64934 4px solid;
   margin: 0;
   padding: 0;
@@ -419,7 +419,7 @@ font-style: italic;
 ul.error_list
 {
   border: 1px red solid;
-  background: url("/bundles/actualysbootstrap/images/error.png") no-repeat;
+  background: url("../images/error.png") no-repeat;
   background-position: 99% 50%;
   margin-left: 0;
 }
@@ -451,7 +451,7 @@ ul.error_list li
   margin-bottom: 2em;
 }
 .login h1 {
-  background:transparent url("/bundles/actualysbootstrap/images/login_error.png") no-repeat scroll left top;
+  background:transparent url("../images/login_error.png") no-repeat scroll left top;
   color:#333333;
   font-size:1.5em;
   height:50px;
@@ -519,12 +519,12 @@ li.node
   float: left;
   position: relative;
   padding: 7px 20px 7px 10px;
-  background: url("/bundles/actualysbootstrap/images/menubardown.gif") no-repeat right;
+  background: url("../images/menubardown.gif") no-repeat right;
 }
 
 li.nodehover
 {
-  background: url("/bundles/actualysbootstrap/images/menubardownhover.gif") no-repeat right;
+  background: url("../images/menubardownhover.gif") no-repeat right;
 }
 
 li.node ul

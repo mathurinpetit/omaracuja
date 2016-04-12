@@ -7,6 +7,32 @@
 {% endblock %}
 
 {% block content %}
+    <div class="fond"><div id="video-wrapper"></div></div>
+    <div class="logo"></div>	
+    <div class="energie"></div>
+
+
+
+    <div id="mainContainer" class="container">
+        <div class="main">         
+            <div class="row">
+                <div class="col">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="{{ asset('bundles/omaracujafront/images/nexth.png')}}" id="coming-soon">
+        <img src="{{ asset('bundles/omaracujafront/images/nextv.png')}}" id="coming-soon-v">		 
+        <ul class="list-evenements"></ul>
+    </footer>
+
+    <div id="events_view" data-url="{{ path('front_next_evennements') }}"></div>
+    <div id="photos_view" data-url="{{ path('front_photos_views') }}"></div>    
+    <div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
+    <div id="flow"></div>
+
+    <!--
     <div class="main">
         <div class="row">
 
@@ -19,35 +45,35 @@
         <br/>            
         <div class="row">
             <div class="col-md-12">               
-                {% autoescape false %}
-                    {{ contenu_presentation}}
-                {% endautoescape %}
-            </div>
+    {% autoescape false %}
+        {{ contenu_presentation}}
+    {% endautoescape %}
+</div>
+</div>
+<br/>
+<br/>
+<div class="row">
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
         </div>
-        <br/>
-        <br/>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
-                    </div>
-                    <div class="col-md-8">
-                        <h3 class="text-red-omaracuja title-date-a-venir">Dates à venir</h3>
-                        <ul class="list-unstyled">
-                            {% for eventByMonth in events %}
-                                {% for event in eventByMonth %}
-                                    <a href="{{ path('front_evennement',{ 'id': event.id }) }}" style="">
-                                        <li> <span style="color: white; font-weight: bold; font-size: 16px;" >{{ event.dateAAfficher }}</span><span style="color: white;  font-size: 16px;" >&nbsp;-&nbsp{{ event.lieuAAfficher }}&nbsp;-&nbsp;</span><span class="text-red-omaracuja" style=" font-size: 16px;">{{ event.title }}</span></li>
-                                    </a>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br/>
-    </div>
-
+        <div class="col-md-8">
+            <h3 class="text-red-omaracuja title-date-a-venir">Dates à venir</h3>
+            <ul class="list-unstyled">
+    {% for eventByMonth in events %}
+        {% for event in eventByMonth %}
+            <a href="{{ path('front_evennement',{ 'id': event.id }) }}" style="">
+                <li> <span style="color: white; font-weight: bold; font-size: 16px;" >{{ event.dateAAfficher }}</span><span style="color: white;  font-size: 16px;" >&nbsp;-&nbsp{{ event.lieuAAfficher }}&nbsp;-&nbsp;</span><span class="text-red-omaracuja" style=" font-size: 16px;">{{ event.title }}</span></li>
+            </a>
+        {% endfor %}
+    {% endfor %}
+</ul>
+</div>
+</div>
+</div>
+</div>
+<br/>
+</div>
+    -->
 {% endblock %}

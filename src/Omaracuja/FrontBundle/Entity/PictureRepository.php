@@ -6,12 +6,28 @@ use Doctrine\ORM\EntityRepository;
 
 class PictureRepository extends EntityRepository {
 
-   public function findAllOrderedByDate() {
-        $qb = $this->createQueryBuilder('e');        
+    public function findAllOrderedByDate() {
+        $qb = $this->createQueryBuilder('e');
         $qb->orderBy('e.createdAt', 'DESC');
         return $this->sortPicturesByMonth($qb->getQuery()->getResult());
     }
-    
+
+    public function find10RandomPictures() {
+        $allPictures = $this->findAllOrderedByDate();
+        $allPicturesArr = array();
+        foreach ($allPictures as $picturesByMonth) {
+            foreach ($picturesByMonth as $picture) {
+                $allPicturesArr[] = $picture;
+            }
+        }
+        $nbPictures = count($allPicturesArr);
+        $randomPictures = array();
+        if ($nbPictures < 10) {
+            return $allPicturesArr;
+        }
+        return $allPicturesArr;
+    }
+
     public function sortPicturesByMonth($picturesArray) {
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
         $monthPicturesArray = array();
@@ -25,4 +41,5 @@ class PictureRepository extends EntityRepository {
         }
         return $monthPicturesArray;
     }
+
 }

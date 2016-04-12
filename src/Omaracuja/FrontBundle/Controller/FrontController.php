@@ -46,6 +46,72 @@ class FrontController extends Controller {
         );
     }
 
+    public function nextEvennementAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
+        $num_lien = 1;
+        $nextEventsJson = array();
+        $nextEventsJson[] = array("lien" => "", "imgsrc" => "", "date" => "", "lieu" => "", "titre" => "", "texte" => "", "x" => "", "y" => "", "zoom" => "");
+        foreach ($nextEvents as $month => $eventByMonth) {
+            foreach ($eventByMonth as $event) {
+
+                $eventJson = array("lien" => $num_lien,
+                    "imgsrc" => $event->getPicturePath(),
+                    "date" => $event->getDateAAfficher(),
+                    "lieu" => $event->getLieuAAfficher(),
+                    "titre" => $event->getTitle(),
+                    "texte" => $event->getPublic(),
+                    "x" => $event->getMapX(),
+                    "y" => $event->getMapY(),
+                    "zoom" => 15
+                );
+                $num_lien++;
+                $nextEventsJson[] = $eventJson;
+            }
+        }
+
+        $response = new Response();
+        $response->setContent(json_encode($nextEventsJson));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    public function photosViewAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $randomPictures = $em->getRepository('OmaracujaFrontBundle:Picture')->find10RandomPictures();
+        $randomPicturesJson = array();
+         $num_picture = 1;
+        foreach ($randomPictures as $picture) {
+            $randomPicturesJson[] = array("numero" => $num_picture,
+                "imgsrc" => $picture->getCurrentPicturePath(),
+                "titre" => $picture->getTitle(),
+                "texte" => $picture->getDescription()
+            );
+            $num_picture++;            
+        }
+        $response = new Response();
+        $response->setContent(json_encode($randomPicturesJson));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+     public function videosViewAction(Request $request) {
+        $videosJson = array();
+         $nbVideos = 4;
+         for ($index = 1; $index <= $nbVideos; $index++) {
+            $videosJson[] = array("numero" => $index,
+                "vidsrc"=> "videos/omaracuja_video_$index.mp4",
+		"preview"=> "videos/omaracuja_video_$index.jpg",
+		"titre"=> "Omaracuja $index",
+		"texte"=> "Omaracuja description $index"
+            ); 
+         }
+        $response = new Response();
+        $response->setContent(json_encode($videosJson));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     public function evennementPastAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
@@ -121,7 +187,6 @@ class FrontController extends Controller {
 
         return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
                     'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum
-                
         ));
     }
 

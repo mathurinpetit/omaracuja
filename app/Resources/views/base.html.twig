@@ -17,6 +17,11 @@
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/cropper.css') }}" />     
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/summernote.css') }}" /> 
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/summernote/css/font-awesome.min.css') }}" /> 
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/unslider.css') }}">
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/mediaelementplayer.min.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/mejs-skins.css') }}" />
+
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -39,6 +44,10 @@
         <script src="{{ asset('/bundles/omaracujafront/js/cropper.js') }}"></script>  
         <script src="{{ asset('/bundles/omaracujafront/js/main.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/initialisationGMaps.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/unslider-min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/bootbox.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/mediaelement-and-player.min.js') }}"></script>
+
         <script src="{{ asset('/bundles/omaracujafront/summernote/summernote.min.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/summernote/summernote-fr-FR.js') }}"></script>
 
@@ -54,62 +63,69 @@
     <nav role="navigation" class="navbar navbar-fixed-top navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar">
+                <a type="button" class="navbar-toggle collapsed" href="{{ path('front_presentation') }}" data-toggle="collapse" data-target="#nav-bar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a href="{{ path('front_presentation') }}" class="nav-logo" ><img src="{{ asset('/bundles/omaracujafront/images/omaracuja_logo.png') }}"></a>
+                </a>                
             </div>
 
             <div id="nav-bar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-left navbar-form">
-                    <li><a href="{{ path('front_evennement') }}">Évènements</a></li>
-                    <li><a href="{{ path('front_albums') }}">Photos</a></li>
-                    <li><a href="{{ path('front_video') }}">Vidéos</a></li>
-                    <li><a href="{{ path('front_contact') }}">Contact</a></li>
-                    <li><a href="{{ path('front_newsletter') }}">Newsletter</a></li>
+                <ul class="nav navbar-nav navbar-right navbar-form">
+
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                        <li><a href="{{ path('front_evennement') }}">Évènements</a></li>
+                        {% else %}
+
+                        <li><a id="menu-evt"  href="#">Évènements</a></li>
+                        {% endif %}
+                    <li class="reddot"><a id="menu-photos"  href="{{ path('front_albums') }}">Photos</a></li>
+                    <li class="reddot"><a id="menu-videos" href="{{ path('front_video') }}">Vidéos</a></li>
+                    <li class="reddot"><a id="menu-contact"  href="{{ path('front_contact') }}">Contact</a></li>
+                    <li class="reddot"><a id="menu-news"  href="{{ path('front_newsletter') }}">Newsletter</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ path('admin_panel_users') }}">Utilisateurs</a></li>
-                                <li class="divider"></li>
+                                <li class="reddot"></li>
                                 <li><a href="{{ path('admin_panel_event') }}">Evènements</a></li>
-                                <li class="divider"></li>
+                                <li class="reddot"></li>
                                 <li><a href="{{ path('admin_panel_albums') }}">Albums photos</a></li>
-                                <li class="divider"></li>
+                                <li class="reddot"></li>
                                 <li><a href="{{ path('admin_panel_video') }}">Vidéos</a></li>
-                                <li class="divider"></li>
+                                <li class="reddot"></li>
                                 <li><a href="{{ path('admin_panel_newsletter') }}">Newsletter</a></li>
                             </ul>
                         </li>                        
                     {% endif %}
-                </ul>
-                <ul class="nav navbar-nav navbar-right navbar-form connexion-form">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        {% if app.user.isActif() %}
-                            <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
-                            <li><a href="{{ path('compte_agenda') }}">Mon Agenda</a></li>
-                            {% endif %}
-                        <li>
-                            <a href="{{ path('fos_user_profile_show') }}">
-                                &nbsp;{{ app.user.username }}{% if (not app.user.isActif()) %} - compte non validé{% endif %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_security_logout') }}">
-                                <span class=" glyphicon glyphicon-ban-circle"></span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <div class="nav-picto-equipe" id="nav-picto-equipe" ><img src="{{ asset('bundles/omaracujafront/images/omaracuja_picto_equipe.jpg') }}"></div>
-                                {% block connexion %}
-                                {% endblock %}    
-                        </li>
-                    {% endif %}
+                    <ul class="nav navbar-nav navbar-right navbar-form connexion-form">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {% if app.user.isActif() %}
+                                <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
+                                <li><a href="{{ path('compte_agenda') }}">Mon Agenda</a></li>
+                                {% endif %}
+                            <li>
+                                <a href="{{ path('fos_user_profile_show') }}">
+                                    &nbsp;{{ app.user.username }}{% if (not app.user.isActif()) %} - compte non validé{% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    <span class=" glyphicon glyphicon-ban-circle"></span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="entree-artistes">
+                                    <img src="{{ asset('bundles/omaracujafront/images/artistes.png')}}"></a>
+                                    {% block connexion %}
+                                    {% endblock %}    
+                            </li>
+                        {% endif %}
+                    </ul>
                 </ul>
             </div>
         </div>
