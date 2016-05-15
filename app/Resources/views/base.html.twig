@@ -84,8 +84,8 @@
 
                         <li><a id="menu-evt"  href="#">Évènements</a></li>
                         {% endif %}
-                    <li class="reddot"><a id="menu-photos"  href="{{ path('front_albums') }}">Photos</a></li>
-                    <li class="reddot"><a id="menu-videos" href="{{ path('front_video') }}">Vidéos</a></li>
+                    <li class="reddot"><a  href="{{ path('front_albums') }}">Photos</a></li>
+                    <li class="reddot"><a href="{{ path('front_video') }}">Vidéos</a></li>
                     <li class="reddot"><a id="menu-contact"  href="{{ path('front_contact') }}">Contact</a></li>
                     <li class="reddot"><a id="menu-news"  href="{{ path('front_newsletter') }}">Newsletter</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}

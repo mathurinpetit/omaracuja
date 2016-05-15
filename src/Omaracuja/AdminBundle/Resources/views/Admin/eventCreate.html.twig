@@ -25,7 +25,11 @@
                         <div class="error_list">{{ form_errors(eventForm.title) }}</div>
                         {{ form_widget(eventForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
                     </div>
-
+                    <div class="form-group event_description">                        
+                        <div class="error_list">{{ form_errors(eventForm.private_description) }}</div>
+                        <label class="required" for="omaracuja_frontbundle_event_public_description">Texte publique de l'évennement</label>
+                        {{ form_widget(eventForm.public_description, {'attr': {'class': 'form-control summernote_event', 'placeholder': 'Petit texte publique'} }) }}
+                    </div>     
                     <div class="form-group event_description">                        
                         <div class="error_list">{{ form_errors(eventForm.private_description) }}</div>
                         <label class="required" for="omaracuja_frontbundle_event_private_description">Description privée</label>

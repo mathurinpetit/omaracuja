@@ -317,4 +317,17 @@ class Picture {
         }
     }
 
+
+    /**
+     * Set album
+     *
+     * @param \Omaracuja\FrontBundle\Entity\EventAlbum $album
+     * @return Picture
+     */
+    public function setAlbum(\Omaracuja\FrontBundle\Entity\EventAlbum $album = null)
+    {
+        $this->album = $album;
+
+        return $this;
+    }
 }

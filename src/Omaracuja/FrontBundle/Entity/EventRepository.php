@@ -16,7 +16,7 @@ class EventRepository extends EntityRepository {
 
     public function findNextOrderedByDate($restrictPublic = false, $chronologique_order = false) {
         $qb = $this->createQueryBuilder('e');
-      //  $qb->where('e.startAt >= CURRENT_DATE()');
+        $qb->where('e.startAt >= CURRENT_DATE()');
         if ($restrictPublic) {
             $qb->andWhere('e.public = 1');
         }

@@ -33,9 +33,9 @@ class FrontController extends Controller {
     public function videosAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
-
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
         $videos = $em->getRepository('OmaracujaFrontBundle:Video')->findAllOrderedByDate();
-        return array('videos' => $videos);
+        return array('videos' => $videos, 'events' => $nextEvents);
     }
 
     /**
@@ -67,7 +67,7 @@ class FrontController extends Controller {
                     "date" => $event->getDateAAfficher(),
                     "lieu" => $event->getLieuAAfficher(),
                     "titre" => $event->getTitle(),
-                    "texte" => $event->getPublic(),
+                    "texte" => $event->getPublicDescription(),
                     "x" => $event->getMapX(),
                     "y" => $event->getMapY(),
                     "zoom" => 15
@@ -174,7 +174,7 @@ class FrontController extends Controller {
     public function albumsAction($mois) {
         $em = $this->getDoctrine()->getManager();
         $eventsByMonth = $em->getRepository('OmaracujaFrontBundle:Event')->findAllWithAlbumOrderedByDate();
-
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
         if (($mois == "now") || !preg_match('/^[0-9]{4}-[0-9]{2}$/', $mois)) {
             $mois = date('Y-m');
         }
@@ -193,7 +193,7 @@ class FrontController extends Controller {
         }
 
         return $this->render('OmaracujaFrontBundle:Front:albums.html.twig', array(
-                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum
+                    'eventsByMonthWithAlbum' => $eventsByMonthWithAlbum, 'events' => $nextEvents
         ));
     }
 

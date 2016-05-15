@@ -39,6 +39,12 @@ class Event {
     private $title;
 
     /**
+     * @var text $public_description     
+     * @ORM\Column(name="public_description", type="text", nullable=true)
+     */
+    private $public_description;
+    
+    /**
      * @var text $private_description     
      * @ORM\Column(name="private_description", type="text", nullable=false)
      * @Assert\NotBlank()
@@ -570,5 +576,28 @@ class Event {
     
     public function hasPrivateDescription() {
         return $this->private_description && ($this->private_description !=  "<p><br></p>")  && ($this->private_description !=  "<p><br><br></p>");
+    }
+
+    /**
+     * Set public_description
+     *
+     * @param string $publicDescription
+     * @return Event
+     */
+    public function setPublicDescription($publicDescription)
+    {
+        $this->public_description = $publicDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get public_description
+     *
+     * @return string 
+     */
+    public function getPublicDescription()
+    {
+        return $this->public_description;
     }
 }

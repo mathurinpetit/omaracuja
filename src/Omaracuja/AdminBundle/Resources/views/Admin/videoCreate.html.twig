@@ -7,47 +7,53 @@
 {% endblock %}
 
 {% block content %}
+    <br/>
+    <br/>
+    <br/>
     <div class="main">  
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Ajout d'une Vidéo</h3>    
+                <br/>
+                <div class="col-md-12">  
+                    {{ form_start(videoForm) }} 
 
-        <h3>Ajout d'une Vidéo</h3>    
-        <br/>
-        <div class="col-md-12">  
-            {{ form_start(videoForm) }} 
-
-            <div class="row">  
-                <div class="col-md-4">        
-                    {{ form_label(videoForm.title) }}
-                </div>
-                <div class=" col-md-8">  
-                    <div class="form-group">
-                        <div class="error_list">{{ form_errors(videoForm.title) }}</div>
-                        {{ form_widget(videoForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+                    <div class="row">  
+                        <div class="col-md-4">        
+                            {{ form_label(videoForm.title) }}
+                        </div>
+                        <div class=" col-md-8">  
+                            <div class="form-group">
+                                <div class="error_list">{{ form_errors(videoForm.title) }}</div>
+                                {{ form_widget(videoForm.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="row">  
+                        <div class="col-md-4">        
+                            {{ form_label(videoForm.url) }}
+                        </div>
+                        <div class=" col-md-8">  
+                            <div class="form-group">
+                                <div class="error_list">{{ form_errors(videoForm.url) }}</div>
+                                {{ form_widget(videoForm.url, {'attr': {'class': 'form-control', 'placeholder': 'http://youtubeUrl.com'} }) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row _create_submit">  
+                        <div class="form-group">
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
+                            </div>
+                        </div>
+                    </div>
+                    {{form_end(videoForm)}}
+
                 </div>
             </div>
-
-            <div class="row">  
-                <div class="col-md-4">        
-                    {{ form_label(videoForm.url) }}
-                </div>
-                <div class=" col-md-8">  
-                    <div class="form-group">
-                        <div class="error_list">{{ form_errors(videoForm.url) }}</div>
-                        {{ form_widget(videoForm.url, {'attr': {'class': 'form-control', 'placeholder': 'http://youtubeUrl.com'} }) }}
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row _create_submit">  
-                <div class="form-group">
-                    <div class="text-center">
-                        <input type="submit" class="btn btn-default btn-success text-right" value="Enregistrer" />
-                    </div>
-                </div>
-            </div>
-            {{form_end(videoForm)}}
-
         </div>
     </div>
 {% endblock %}

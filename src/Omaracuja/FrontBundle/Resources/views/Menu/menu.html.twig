@@ -1,1 +1,15 @@
-{# empty Twig template #}
+<footer>
+    <img src="{{ asset('bundles/omaracujafront/images/nexth.png')}}" id="coming-soon">
+    <img src="{{ asset('bundles/omaracujafront/images/nextv.png')}}" id="coming-soon-v">		 
+    <ul class="list-evenements"></ul>
+</footer>
+<div id="events_view" data-url="{{ path('front_next_evennements') }}"></div>
+<div id="photos_view" data-url="{{ path('front_photos_views') }}"></div>    
+<div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
+<div id="flow"></div>
+
+{% for eventByMonth in events %}
+    {% for event in eventByMonth %}
+        {{ path('front_evennement',{ 'id': event.id }) }}               
+    {% endfor %}
+{% endfor %}
