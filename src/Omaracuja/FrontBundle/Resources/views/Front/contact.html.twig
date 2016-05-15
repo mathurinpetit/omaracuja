@@ -10,10 +10,11 @@
     <br/>
     <br/>
     <br/>
+    <br/>
 
     <div class="main" style="margin-bottom: 10px; padding-bottom: 10px;">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
                 <h1>Contact</h1>
                 <br/>
                 <div class="col-md-12 text-center">
@@ -27,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3 text-left">
-                            <strong>Téléphone portable :  </strong>
+                            <strong>Téléphone :  </strong>
                         </div>
                         <div class="col-md-9 text-left">
                             <a href="tel:{{ responsable['telephonePortable'] }}">{{ responsable['telephonePortable'] }}</a>
@@ -54,4 +55,9 @@
             </div>
         </div>
     </div>  
+
+    <div id="events_view" data-url="{{ path('front_next_evennements') }}"></div>
+    <div id="photos_view" data-url="{{ path('front_photos_views') }}"></div>    
+    <div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
+    <div id="flow"></div>
 {% endblock %}

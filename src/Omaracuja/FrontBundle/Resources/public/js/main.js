@@ -390,10 +390,9 @@ $(document).ready(function () {
 
             texte += '<div class="row mobile_condensed" onclick="openEvent(' + data.lien + ')">' +
                     '<div class="col-md-4 event_preview_poster" style="text-align:right"><img src="' + data.imgsrc + '" style="height:120px;margin-bottom:10px"></div>' +
-                    '<div class="col-md-6 event_preview" style="cursor:pointer;"><div class="event-date">' + data.date + '</div>' +
+                    '<div class="col-md-8 event_preview" style="cursor:pointer;"><div class="event-date">' + data.date + '</div>' +
                     '<div class="event-lieu"><span class="text-muted">' + data.lieu + '</span></div>' +
                     '<div class="event-titre">' + data.titre + '</div></div>' +
-                    '<div class="col-md-1 event_preview_next"><img src="/bundles/omaracujafront/images/next.png" style="cursor:pointer"></div>' +
                     '</div>';
         }
 
@@ -404,7 +403,7 @@ $(document).ready(function () {
             title: "<h2>Les évènements à venir</h2>",
             buttons: {
                 success: {
-                    label: "J'ai trop envie d'y aller.",
+                    label: "Fermer",
                     className: "btn-success",
                 },
             }

@@ -12,7 +12,7 @@
         <div id="video-wrapper"></div>
     {% endblock %}
 
-    <div class="energie"></div>
+    <div class="energie"  data-url="{{ path('front_bulle_maracuja') }}" style="cursor: pointer;"></div>
 
 
 
@@ -35,48 +35,11 @@
     <div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
     <div id="flow"></div>
 
-    <!--
-    <div class="main">
-        <div class="row">
-
-            <div class="col-md-8 col-md-offset-2">
-                <div class="presentation_img">
-                    <img class="logo_img_shadows img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_logo_shadows.png') }}" />                                    
-                </div>
-            </div>
-        </div>
-        <br/>            
-        <div class="row">
-            <div class="col-md-12">               
-    {% autoescape false %}
-        {{ contenu_presentation}}
-    {% endautoescape %}
-</div>
-</div>
-<br/>
-<br/>
-<div class="row">
-<div class="col-md-12">
-    <div class="row">
-        <div class="col-md-4">
-            <img class="presentation_img_static img-responsive" src="{{ asset('bundles/omaracujafront/images/omaracuja_img_static.jpg') }}" />
-        </div>
-        <div class="col-md-8">
-            <h3 class="text-red-omaracuja title-date-a-venir">Dates à venir</h3>
-            <ul class="list-unstyled">
     {% for eventByMonth in events %}
         {% for event in eventByMonth %}
-            <a href="{{ path('front_evennement',{ 'id': event.id }) }}" style="">
-                <li> <span style="color: white; font-weight: bold; font-size: 16px;" >{{ event.dateAAfficher }}</span><span style="color: white;  font-size: 16px;" >&nbsp;-&nbsp{{ event.lieuAAfficher }}&nbsp;-&nbsp;</span><span class="text-red-omaracuja" style=" font-size: 16px;">{{ event.title }}</span></li>
-            </a>
+            {{ path('front_evennement',{ 'id': event.id }) }}               
         {% endfor %}
     {% endfor %}
-</ul>
-</div>
-</div>
-</div>
-</div>
-<br/>
-</div>
-    -->
+    
+   
 {% endblock %}
