@@ -7,8 +7,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="fond"><div id="video-wrapper"></div></div>
-    <div class="logo"></div>	
+
+    {% block video %}
+        <div id="video-wrapper"></div>
+    {% endblock %}
+
     <div class="energie"></div>
 
 

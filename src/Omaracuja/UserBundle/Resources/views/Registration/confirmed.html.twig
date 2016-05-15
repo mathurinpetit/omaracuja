@@ -1,14 +1,18 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% block content %}
-<div class="main">
-    <h2>Votre inscription à Omaracuja.com est confirmée</h2>
-    <br/>
-    <br/>
-    <p>
-        Votre compte sera actif après validation des administateurs.
-    </p>
-    <br/>
-    <br/>
-        <a class="btn btn-default text-left" href="{{ path('front_presentation') }}">Retour à l'accueil</a>
-</div>
+    <div class="main">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <h2>Votre inscription à Omaracuja.com est confirmée</h2>
+                <br/>
+                <br/>
+                <p>
+                    Votre compte sera actif après validation des administateurs.
+                </p>
+                <br/>
+                <br/>
+                <a class="btn btn-default text-left" href="{{ path('front_presentation') }}">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -1,38 +1,42 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
-
-{% block fos_user_content %}  
-{% if error %}
-    <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
-{% endif %}
-<form action="{{ path("fos_user_security_check") }}" id="connexion_form" method="post" class="form-inline" role="form" style="display: none;">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    <div class="row">
-        <div class="form-group">
-            <label class="sr-only" for="username">{{ 'security.login.username'|trans }}</label>
-            <div class="left-inner-addon ">
-                <i class="glyphicon glyphicon-user"></i>
-                <input type="text" id="username" placeholder="Pseudo" class="form-control input-sm" name="_username" value="{{ last_username }}" required="required" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="password">{{ 'security.login.password'|trans }}</label>
-            <div class="left-inner-addon ">
-                <i class="glyphicon glyphicon-lock"></i>
-                <input type="password" class="form-control input-sm" id="password" placeholder="Mot de Passe" name="_password" required="required" />
-            </div>
-        </div>
-        <input type="submit" class="btn btn-default btn-sm" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-    </div>
-    <div class="row">
-        <div class="checkbox col-lg-6 remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> 
-            <label>{{ 'security.login.remember_me'|trans }}</label>  
-        </div>
-        <div class="col-lg-6 text-right">     
-            <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>     
-        </div>
-    </div>
-</form>
-{% endblock fos_user_content %}
+<span class="titre-bootbox"><h2>Connexion</h2></span>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+        {% block fos_user_content %}  
+            {% if error %}
+                <div class="text-danger"><strong>Le nom d'utilisateur ou le mot de passe est incorrect.</strong></div>
+            {% endif %}
+            <form action="{{ path("fos_user_security_check") }}" id="connexion_form" method="post" class="form-inline" role="form" >
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <div class="row">
+                    <div class="form-group">
+                        <label class="sr-only" for="username">{{ 'security.login.username'|trans }}</label>
+                        <div class="left-inner-addon ">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <input type="text" id="username" placeholder="Pseudo" class="form-control input-sm" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password">{{ 'security.login.password'|trans }}</label>
+                        <div class="left-inner-addon ">
+                            <i class="glyphicon glyphicon-lock"></i>
+                            <input type="password" class="form-control input-sm" id="password" placeholder="Mot de Passe" name="_password" required="required" />
+                        </div>
+                    </div>
+                    {#        <input type="submit" class="btn btn-default btn-sm" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
+                </div>
+                <div class="row">
+                    <div class="checkbox col-lg-6 remember_me">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> 
+                        <label>{{ 'security.login.remember_me'|trans }}</label>  
+                    </div>
+                    <div class="col-lg-6 text-right">     
+                        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>     
+                    </div>
+                </div>
+            </form> 
+        {% endblock fos_user_content %} 
+    </div>    
+</div>
 

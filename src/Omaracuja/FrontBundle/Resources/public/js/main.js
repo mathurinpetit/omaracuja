@@ -7,7 +7,6 @@
 $(document).ready(function () {
 
     $.datepicker.setDefaults($.datepicker.regional[ "fr" ]);
-
     $('.datetimepicker').datetimepicker({
         lang: 'fr',
         i18n: {
@@ -23,7 +22,6 @@ $(document).ready(function () {
         timepicker: true,
         format: 'd M Y H:i'
     });
-
     $('.summernote').summernote({
         lang: 'fr-FR',
         toolbar: [
@@ -35,7 +33,6 @@ $(document).ready(function () {
             ['height', ['height']],
         ]
     });
-
     $('.summernote_event').summernote({
         lang: 'fr-FR',
         height: 170,
@@ -50,10 +47,7 @@ $(document).ready(function () {
         ]
     });
     $(".select2").select2();
-
-
     $("[rel='tooltip']").tooltip();
-
     $('.thumbnail').hover(
             function () {
                 $(this).find('.caption').slideDown(250); //.fadeIn(250)
@@ -62,33 +56,26 @@ $(document).ready(function () {
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
     );
-
-
     var picture_slider = $('#picture-carousel').carousel({interval: false});
-
     $('.btn-zoom').click(function (e) {
         var id = $(this).attr('id');
         $('#picture-view-modal').modal("show");
         picture_slider.carousel(id);
         e.preventDefault();
     });
-
     $('.selected-event-panel-scroll').each(function () {
         var scrollPosition = $(this).offset().top - 100;
         $('html, body').animate({scrollTop: scrollPosition}, 200);
     });
-
     $('#nav-picto-equipe').click(function () {
         $(this).hide();
         $('#connexion_form').show();
     });
-
     var actus;
     var map;
     var myLatLng;
     var mobile = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     var slider;
-
     var lanceVideo = function (path) {
         $("#player1").attr("src", path);
         $("#player1").get(0).play();
@@ -97,7 +84,6 @@ $(document).ready(function () {
     $(document).ready(function () {
         if (mobile === false) {
             $('#video-wrapper').html('<video class="mejs-wmp" style="position:absolute; width: 100%; height:100%;" src="../data/videos/omaracuja_video_1.mp4" type="video/mp4" id="player1" controls="controls" preload="none" poster="/bundles/omaracujafront/images/transparent.png" ></video>');
-
             $('video').mediaelementplayer({
                 success: function (player, node) {}
             });
@@ -171,7 +157,7 @@ $(document).ready(function () {
         }
 
         $(document).on("click", ".entree-artistes", function (e) {
-            var url = $(this).data('url');
+            var url = $(this).attr('data-url');
             jQuery.ajax({
                 type: 'POST',
                 url: url,
@@ -192,15 +178,13 @@ $(document).ready(function () {
                             }
                         }
                     });
-
                 }
             });
         });
-
         $(document).on("click", ".energie", function (e) {
             jQuery.ajax({
                 type: 'POST',
-                url: './bulle_maracuja.html',
+                url: $(this).attr('data-url'),
                 success: function (data) {
                     open_dialog({
                         message: data,
@@ -218,7 +202,7 @@ $(document).ready(function () {
         $(document).on("click", ".logo", function (e) {
             jQuery.ajax({
                 type: 'POST',
-                url: './bulle_maracuja.html',
+                url: $(this).attr('data-url'),
                 success: function (data) {
                     open_dialog({
                         message: data,
@@ -233,7 +217,6 @@ $(document).ready(function () {
                 }
             });
         });
-
         $(document).on("click", "#menu-photos", function (e) {
             jQuery.ajax({
                 type: 'POST',
@@ -244,7 +227,6 @@ $(document).ready(function () {
                     $('body').append(data);
                     $('#mini-galerie').html("");
                     $('#mainContainer').find(".col").html("<div class='my-slider' id='slider-galerie' style='opacity:0'><ul></ul></div>");
-
                     for (i = 0; i < photos.length; i++) {
                         photo = photos[i];
                         $('#mini-galerie').append('<img src="' + photo.imgsrc + '" onclick="slider.unslider(' + "'animate:" + i + "'" + ');" title="' + photo.titre + ' - ' + photo.texte + '">');
@@ -254,7 +236,6 @@ $(document).ready(function () {
                     $('#slider-galerie li').css({"height": calculht});
                     $('#slider-galerie').eq(0).animate({"opacity": "1"}, 1200, function () {});
                     $('#footer-galerie').eq(0).animate({"opacity": "1"}, 1200, function () {});
-
                     $('#galerie-close').click(function (e) {
                         $('#slider-galerie').eq(0).animate({"opacity": "0"}, 700, function () {
                             $('#slider-galerie').eq(0).remove();
@@ -263,15 +244,12 @@ $(document).ready(function () {
                             $('#footer-galerie').eq(0).remove();
                         })
                     });
-
                     slider = $('.my-slider').unslider({
                         keys: true, arrows: false, nav: false, infinite: true
                     });
-
                 }
             });
         });
-
         $(document).on("click", "#menu-videos", function (e) {
             jQuery.ajax({
                 type: 'POST',
@@ -282,24 +260,20 @@ $(document).ready(function () {
                     $('#footer-galerie').eq(0).remove();
                     $('body').append(data);
                     $('#mini-galerie').html("");
-
                     for (i = 0; i < videos.length; i++) {
                         video = videos[i];
                         $('#mini-galerie').append("<img src='" + video.preview + "' onclick='lanceVideo(\"" + video.vidsrc + "\");'" + ' title="' + video.titre + ' - ' + video.texte + '">');
                     }
                     calculht = $(window).height() - 120;
                     $('#footer-galerie').eq(0).animate({"opacity": "1"}, 1200, function () {});
-
                     $('#galerie-close').click(function (e) {
                         $('#footer-galerie').eq(0).animate({"opacity": "0"}, 700, function () {
                             $('#footer-galerie').eq(0).remove();
                         })
                     });
-
                 }
             });
         });
-
         $(document).on("click", "#menu-contact", function (e) {
             jQuery.ajax({
                 type: 'POST',
@@ -318,7 +292,6 @@ $(document).ready(function () {
                 }
             });
         });
-
         $(document).on("click", "#menu-news", function (e) {
             jQuery.ajax({
                 type: 'POST',
@@ -337,20 +310,15 @@ $(document).ready(function () {
                 }
             });
         });
-
     });
-
-
     var open_dialog = function (content_dialog) {
         $(".navbar-collapse").collapse('hide');
-
         if ($('.bootbox').length == 0) {
             $('.modal-backdrop').eq(0).animate({"opacity": "0"}, 700, function () {
                 $('.modal-backdrop').eq(0).remove();
             })
 
             bootbox.dialog(content_dialog);
-
             if (mobile === false) {
                 ajust_bootbox();
             } else {
@@ -370,7 +338,6 @@ $(document).ready(function () {
             $(".btn-success").html(content_dialog.buttons.success.label);
             if (mobile === false)
                 ajust_bootbox();
-
         }
     }
     var ajust_bootbox = function () {
@@ -391,16 +358,13 @@ $(document).ready(function () {
             dataprev = actus[actus.length - 1];
         else
             dataprev = actus[id - 1];
-
-     
-        texte = '<div class="row" style="margin:0"><div class="col-md-1 evl"><img src="../images/prev.png" class="event_prev" onclick="openEvent(' + dataprev.lien + ')"></div>' +
+        texte = '<div class="row" style="margin:0"><div class="col-md-1 evl"><img src="/bundles/omaracujafront/images/prev.png" class="event_prev" onclick="openEvent(' + dataprev.lien + ')"></div>' +
                 '<div class="col-md-6 event-poster" style="background-image:url(\'' + data.imgsrc + '\');"></div>' +
                 '<div class="col-md-5 event-detail"><div class="event-date">' + data.date + '</div>' +
                 '<div class="event-lieu">' + data.lieu + '</div><br>' +
-                '<div class="event-texte"><span class="text-muted">' + data.texte  + '</span></div><br>' +
+                '<div class="event-texte"><span class="text-muted">' + data.texte + '</span></div><br>' +
                 '<div class="gmap_event" id="gmap_event_' + id + '"></div>' +
-                '</div><div class="col-md-1 evr" onclick="openEvent(' + datanext.lien + ')"><img src="../images/next.png" class="event_next"></div></div>';
-
+                '</div><div class="col-md-1 evr" onclick="openEvent(' + datanext.lien + ')"><img src="/bundles/omaracujafront/images/next.png" class="event_next"></div></div>';
         open_dialog({
             message: texte,
             title: "<h2>" + data.titre + "</h2>",
@@ -411,7 +375,6 @@ $(document).ready(function () {
                 },
             }
         });
-
         myLatLng = {lat: data.x, lng: data.y};
         setTimeout("map = new google.maps.Map(document.getElementById('gmap_event_" + id + "'), {"
                 + "center: myLatLng, zoom: " + data.zoom + "});"
@@ -430,9 +393,11 @@ $(document).ready(function () {
                     '<div class="col-md-6 event_preview" style="cursor:pointer;"><div class="event-date">' + data.date + '</div>' +
                     '<div class="event-lieu"><span class="text-muted">' + data.lieu + '</span></div>' +
                     '<div class="event-titre">' + data.titre + '</div></div>' +
-                    '<div class="col-md-1 event_preview_next"><img src="./images/next.png" style="cursor:pointer"></div>' +
+                    '<div class="col-md-1 event_preview_next"><img src="/bundles/omaracujafront/images/next.png" style="cursor:pointer"></div>' +
                     '</div>';
         }
+
+        //texte = (actus.length && actus[0].titre !="") ? texte : 'Aucun évennement prévu pour le moment...';
 
         open_dialog({
             message: texte,

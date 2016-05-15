@@ -21,6 +21,8 @@
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/front.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/mediaelementplayer.min.css') }}" />
         <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/mejs-skins.css') }}" />
+        <link rel="stylesheet"  type="text/css" media="all" href="{{ asset('/bundles/omaracujafront/css/jquery.mCustomScrollbar.css') }}" />
+
 
         {% stylesheets '@CraueFormFlowBundle/Resources/assets/css/buttons.css' %}
         <link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
@@ -47,6 +49,7 @@
         <script src="{{ asset('/bundles/omaracujafront/js/unslider-min.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/bootbox.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/js/mediaelement-and-player.min.js') }}"></script>
+        <script src="{{ asset('/bundles/omaracujafront/js/jquery.mCustomScrollbar.min.js') }}"></script>
 
         <script src="{{ asset('/bundles/omaracujafront/summernote/summernote.min.js') }}"></script>
         <script src="{{ asset('/bundles/omaracujafront/summernote/summernote-fr-FR.js') }}"></script>
@@ -119,10 +122,9 @@
                             </li>
                         {% else %}
                             <li>
-                                <a class="entree-artistes">
+                                <a class="entree-artistes" data-url="{{ path('fos_user_security_login') }}">
                                     <img src="{{ asset('bundles/omaracujafront/images/artistes.png')}}"></a>
-                                    {% block connexion %}
-                                    {% endblock %}    
+
                             </li>
                         {% endif %}
                     </ul>
@@ -137,7 +139,11 @@
                 {{ flashMessage | raw }}
             </div>
         {% endfor %}
-
+        <div class="fond">
+            {% block video %}
+            {% endblock %}
+        </div>
+        <div class="logo" data-url="{{ path('front_bulle_maracuja') }}"></div>    
         {% block content %}
         {% endblock %}
     </div>

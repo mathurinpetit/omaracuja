@@ -15,6 +15,13 @@ class FrontController extends Controller {
     /**
      * @Template()
      */
+    public function bulleMaracujaAction() {
+        return array();
+    }
+
+    /**
+     * @Template()
+     */
     public function contactAction() {
         return array('responsable' => $this->container->getParameter('responsable'),
             'siegeSocial' => $this->container->getParameter('siegeSocial'));
@@ -80,32 +87,32 @@ class FrontController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $randomPictures = $em->getRepository('OmaracujaFrontBundle:Picture')->find10RandomPictures();
         $randomPicturesJson = array();
-         $num_picture = 1;
+        $num_picture = 1;
         foreach ($randomPictures as $picture) {
             $randomPicturesJson[] = array("numero" => $num_picture,
                 "imgsrc" => $picture->getCurrentPicturePath(),
                 "titre" => $picture->getTitle(),
                 "texte" => $picture->getDescription()
             );
-            $num_picture++;            
+            $num_picture++;
         }
         $response = new Response();
         $response->setContent(json_encode($randomPicturesJson));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
-    
-     public function videosViewAction(Request $request) {
+
+    public function videosViewAction(Request $request) {
         $videosJson = array();
-         $nbVideos = 4;
-         for ($index = 1; $index <= $nbVideos; $index++) {
+        $nbVideos = 4;
+        for ($index = 1; $index <= $nbVideos; $index++) {
             $videosJson[] = array("numero" => $index,
-                "vidsrc"=> "videos/omaracuja_video_$index.mp4",
-		"preview"=> "videos/omaracuja_video_$index.jpg",
-		"titre"=> "Omaracuja $index",
-		"texte"=> "Omaracuja description $index"
-            ); 
-         }
+                "vidsrc" => "videos/omaracuja_video_$index.mp4",
+                "preview" => "videos/omaracuja_video_$index.jpg",
+                "titre" => "Omaracuja $index",
+                "texte" => "Omaracuja description $index"
+            );
+        }
         $response = new Response();
         $response->setContent(json_encode($videosJson));
         $response->headers->set('Content-Type', 'application/json');
