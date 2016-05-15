@@ -40,6 +40,14 @@ a:hover {
 	background:url("../images/omaracuja_logo_new.png") no-repeat;cursor:pointer;
 	background-size:contain;	
 }
+.logoAdmin {
+	z-index:1081;position:fixed;
+	width: 480px;height: 30%;margin:0;
+	left:0;top:-5px;
+	overflow:hidden;
+	background:url("../images/omaracuja_logo_new.png") no-repeat;cursor:pointer;
+	background-size:contain;	
+}
 .energie {
 	z-index:1082;position:fixed;
 	width:16%;height:22%;margin:0;

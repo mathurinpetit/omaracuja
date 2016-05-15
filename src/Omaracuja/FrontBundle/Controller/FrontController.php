@@ -45,7 +45,6 @@ class FrontController extends Controller {
      */
     public function evennementAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
 
         return array(
@@ -106,8 +105,8 @@ class FrontController extends Controller {
 
     public function videosViewAction(Request $request) {
         $videosJson = array();
-        $nbVideos = 4;
-        for ($index = 1; $index <= $nbVideos; $index++) {
+        $nbVideos = rand(1,4);
+        for ($index = $nbVideos; $index <= $nbVideos; $index++) {
             $videosJson[] = array("numero" => $index,
                 "vidsrc" => "videos/omaracuja_video_$index.mp4",
                 "preview" => "videos/omaracuja_video_$index.jpg",
@@ -138,13 +137,13 @@ class FrontController extends Controller {
      */
     public function presentationAction() {
         $contenu_presentation = $this->container->getParameter('pagePresentation');
-        $img_path_random = "";
+        $numeroVideo = rand(1,4);
         $em = $this->getDoctrine()->getManager();
 
         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
 
         return array('contenu_presentation' => $contenu_presentation,
-            'img_path_random' => $img_path_random,
+            'numeroVideo' => $numeroVideo,
             'events' => $nextEvents);
     }
 

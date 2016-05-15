@@ -8,29 +8,35 @@
 
 {% block content %}
     <div class="main">
-        <h1>Administration - Photos <small class="text-danger">{{event.title}}</small></h1>
         <br/>
-        <div class="col-md-12">
-            <div class="row" id="crop-picture">
+        <br/>
+        <br/>
 
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="#" class="picture-link btn btn-default btn-danger text-right">Ajouter une photo</a>
-                            <a href="{{path('admin_panel_albums')}}" class="btn btn-default btn-warning text-right">Retour aux Albums</a>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">  
+                <h2>Administration - Photos <small class="text-danger">{{event.title}}</small></h2>
+                <div class="row" id="crop-picture">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a href="#" class="picture-link btn btn-default btn-danger text-right">Ajouter une photo</a>
+                                <a href="{{path('admin_panel_albums')}}" class="btn btn-default btn-warning text-right">Retour aux Albums</a>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="picture-default-view">
+                        <img src="{{newPicture.getCurrentPicturePath}}" style="display: none;">
+                    </div> 
+                    {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': newPictureform } %}
+                    <br/>
+
+                    {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event , 'admin' : true } %}
+
                 </div>
-
-                <div class="picture-default-view">
-                    <img src="{{newPicture.getCurrentPicturePath}}" style="display: none;">
-                </div> 
-                {% include 'OmaracujaAdminBundle:Admin:picture_cropping_modal.html.twig' with {'pictureForm': newPictureform } %}
-                <br/>
-
-                {% include 'OmaracujaFrontBundle:Front:picture_show.html.twig' with {'picturesCollection': album.pictures, 'event' : event , 'admin' : true } %}
-
             </div>
+
         </div>
         {% include 'OmaracujaFrontBundle:Front:picture_view_modal.html.twig' with {'picturesCollection': album.pictures } %}
     </div> 

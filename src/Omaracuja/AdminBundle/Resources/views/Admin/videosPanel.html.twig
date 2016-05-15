@@ -12,22 +12,23 @@
     <br/>
     <br/>
 
-    <div class="main">   
+    <div class="main"> 
+        <br/>
+        <br/>
+        <br/>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h1>Liste des Vidéos</h1>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12 text-right">
                         <a href=" {{path('admin_panel_videos_add')}} " class="picture-link btn btn-default btn-danger text-right">Ajouter une vidéo</a>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         {% include "OmaracujaFrontBundle:Front:videos_list.html.twig" with {'videos' : videos, 'admin': 1} %}       
+        <br/>
+        
 
     </div>
 

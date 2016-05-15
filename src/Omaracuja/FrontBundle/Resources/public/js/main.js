@@ -82,7 +82,10 @@ var lanceVideo = function (path) {
 
 $(document).ready(function () {
     if (mobile === false) {
-        $('#video-wrapper').html('<video class="mejs-wmp" style="position:absolute; width: 100%; height:100%;" src="../data/videos/omaracuja_video_1.mp4" type="video/mp4" id="player1" controls="controls" preload="none" poster="/bundles/omaracujafront/images/transparent.png" ></video>');
+        $('#video-wrapper').each(function () {
+            var numeroVideo = $(this).attr('data-numero-video');
+            $(this).html('<video class="mejs-wmp" style="position:absolute; width: 100%; height:100%;" src="../data/videos/omaracuja_video_'+numeroVideo+'.mp4" type="video/mp4" id="player1" controls="controls" preload="none" poster="/bundles/omaracujafront/images/transparent.png" ></video>');
+        });
         $('video').mediaelementplayer({
             success: function (player, node) {}
         });
@@ -121,7 +124,7 @@ $(document).ready(function () {
         var nb_videos;
         $.ajax({
             type: 'POST',
-                url: $('#videos_view').data('url'),
+            url: $('#videos_view').data('url'),
             dataType: 'html',
             success: function (data) {
                 videos = $.parseJSON(data);
@@ -172,8 +175,10 @@ $(document).ready(function () {
                         },
                         main: {
                             label: "Connexion",
-                            className: "btn-primary",
-                            callback: function () {}
+                            className: "btn-success",
+                            callback: function () {
+                                $('form#connexion_form input[id="_submit"]').click();
+                            }
                         }
                     }
                 });
@@ -358,15 +363,15 @@ var openEvent = function (id) {
     else
         dataprev = actus[id - 1];
     var description = "";
-    if(data.texte){
+    if (data.texte) {
         description = '<div class="event-texte"><span class="text-muted">' + data.texte + '</span></div><br>';
-        
+
     }
     texte = '<div class="row" style="margin:0"><div class="col-md-1 evl"><img src="/bundles/omaracujafront/images/prev.png" class="event_prev" onclick="openEvent(' + dataprev.lien + ')"></div>' +
             '<div class="col-md-6 event-poster" style="background-image:url(\'' + data.imgsrc + '\');"></div>' +
             '<div class="col-md-5 event-detail"><div class="event-date">' + data.date + '</div>' +
             '<div class="event-lieu">' + data.lieu + '</div><br>' +
-             description +
+            description +
             '<div class="gmap_event" id="gmap_event_' + id + '"></div>' +
             '</div><div class="col-md-1 evr" onclick="openEvent(' + datanext.lien + ')"><img src="/bundles/omaracujafront/images/next.png" class="event_next"></div></div>';
     open_dialog({
@@ -396,7 +401,7 @@ $(document).on("click", "#menu-evt", function (e) {
                 '<div class="col-md-7 event_preview" style="cursor:pointer;"><div class="event-date">' + data.date + '</div>' +
                 '<div class="event-lieu"><span class="text-muted">' + data.lieu + '</span></div>' +
                 '<div class="event-titre">' + data.titre + '</div></div>' +
-                '<div class="col-md-1 event_preview_next"><img src="/bundles/omaracujafront/images/next.png" style="cursor:pointer"></div>'+
+                '<div class="col-md-1 event_preview_next"><img src="/bundles/omaracujafront/images/next.png" style="cursor:pointer"></div>' +
                 '</div>';
     }
 

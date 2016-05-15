@@ -143,7 +143,12 @@
             {% block video %}
             {% endblock %}
         </div>
-        <div class="logo" data-url="{{ path('front_bulle_maracuja') }}"></div>    
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <div class="logo" ></div> 
+        {% else %}
+            <div class="logoAdmin" data-url="{{ path('front_bulle_maracuja') }}" ></div>
+        {% endif %}   
+
         {% block content %}
         {% endblock %}
     </div>

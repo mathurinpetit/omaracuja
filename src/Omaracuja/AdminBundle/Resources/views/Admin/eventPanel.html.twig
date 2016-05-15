@@ -8,15 +8,16 @@
 
 {% block content %}
     <div class="main">
+        <br/>
+        <br/>
+        <br/>
         <h1>Administration - {%if pastEvent %}Les événements passés{% else %}Les événements{% endif %}</h1> 
         <br/>
         <div class="form-group event_panel_button">
-            <div class="row">
-                {% include "OmaracujaAdminBundle:Admin:event_actions_buttons.html.twig" with {'pastEvent' : pastEvent} %}  
-            </div>
+
+            {% include "OmaracujaAdminBundle:Admin:event_actions_buttons.html.twig" with {'pastEvent' : pastEvent} %}  
+
         </div>
-        <br/>
-        <br/>
         <div class="col-md-8 col-md-offset-2">  
             {% for month,eventsByMonth in nextEvents %}
                 <h2>{{ month }}</h2>

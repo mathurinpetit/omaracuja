@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}O Maracujá{% endblock %}
+{% block title %}O Maracujá ({{ numeroVideo }}){% endblock %}
 
 {% block connexion %}
     {% render url('fos_user_security_login') %}
@@ -8,8 +8,17 @@
 
 {% block content %}
 
+
     {% block video %}
-        <div id="video-wrapper"></div>
+        <div id="video-wrapper" data-numero-video="{{ numeroVideo }}"></div>
+        <style>
+            .fond {
+                background:url("../data/videos/omaracuja_video_{{ numeroVideo }}.jpg") no-repeat center center; 
+                background-size: cover;
+                z-index:0;position:fixed;
+                width:100%;height:100%;margin:0;
+            }
+        </style>
     {% endblock %}
 
     <div class="energie"  data-url="{{ path('front_bulle_maracuja') }}" style="cursor: pointer;"></div>
@@ -25,5 +34,5 @@
     </div>
 
     {% include "OmaracujaFrontBundle:Menu:menu.html.twig" %}
- 
+
 {% endblock %}
