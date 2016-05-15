@@ -56,8 +56,6 @@
         </div>
     </div>  
 
-    <div id="events_view" data-url="{{ path('front_next_evennements') }}"></div>
-    <div id="photos_view" data-url="{{ path('front_photos_views') }}"></div>    
-    <div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
-    <div id="flow"></div>
+
+    {% include "OmaracujaFrontBundle:Menu:menu.html.twig" %}
 {% endblock %}

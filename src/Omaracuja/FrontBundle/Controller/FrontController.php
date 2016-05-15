@@ -23,8 +23,10 @@ class FrontController extends Controller {
      * @Template()
      */
     public function contactAction() {
+        $em = $this->getDoctrine()->getManager();
+        $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
         return array('responsable' => $this->container->getParameter('responsable'),
-            'siegeSocial' => $this->container->getParameter('siegeSocial'));
+            'siegeSocial' => $this->container->getParameter('siegeSocial'), 'events' => $nextEvents);
     }
 
     /**
@@ -150,6 +152,8 @@ class FrontController extends Controller {
      * @Template()
      */
     public function newsletterAction(Request $request) {
+         $em = $this->getDoctrine()->getManager();
+         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findPastEventOrderedByDate(true);
         $newsletterMember = new NewsLetterMember();
         $form = $this->createForm(new NewsLetterMemberType(), $newsletterMember, array(
             'action' => $this->generateUrl('front_newsletter'),
@@ -168,7 +172,7 @@ class FrontController extends Controller {
             }
             return $this->redirect($this->generateUrl('front_presentation'));
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'events' => $nextEvents);
     }
 
     public function albumsAction($mois) {
@@ -199,11 +203,12 @@ class FrontController extends Controller {
 
     public function albumAction($albumId) {
         $em = $this->getDoctrine()->getManager();
+         $nextEvents = $em->getRepository('OmaracujaFrontBundle:Event')->findNextOrderedByDate(true, true);
         $album = $em->getRepository('OmaracujaFrontBundle:EventAlbum')->find($albumId);
         $event = $em->getRepository('OmaracujaFrontBundle:Event')->findOneByAlbum($album);
 
         return $this->render('OmaracujaFrontBundle:Front:album.html.twig', array('album' => $album,
-                    'event' => $event));
+                    'event' => $event,'events' => $nextEvents));
     }
 
     public function downloadPictureAction($idPicture) {
