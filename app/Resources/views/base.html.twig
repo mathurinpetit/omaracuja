@@ -90,7 +90,7 @@
                     <li class="reddot"><a id="menu-news"  href="{{ path('front_newsletter') }}">Newsletter</a></li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.isAdmin() %}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ path('admin_panel_users') }}">Utilisateurs</a></li>
                                 <li class="reddot"></li>
@@ -107,8 +107,8 @@
                     <ul class="nav navbar-nav navbar-right navbar-form connexion-form">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             {% if app.user.isActif() %}
-                                <li><a href="{{ path('fos_user_profile_show') }}">Mon Profil</a></li>
-                                <li><a href="{{ path('compte_agenda') }}">Mon Agenda</a></li>
+                                <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                                <li><a href="{{ path('compte_agenda') }}">Agenda</a></li>
                                 {% endif %}
                             <li>
                                 <a href="{{ path('fos_user_profile_show') }}">

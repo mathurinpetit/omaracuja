@@ -18,7 +18,8 @@ ul {
 
 }
 a   {
-	color:#aaa;
+        font-weight: bold;
+	color:whitesmoke;
 	cursor:pointer;
 }
 a:hover {
