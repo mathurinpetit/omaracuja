@@ -84,7 +84,7 @@ $(document).ready(function () {
     if (mobile === false) {
         $('#video-wrapper').each(function () {
             var numeroVideo = $(this).attr('data-numero-video');
-            $(this).html('<video class="mejs-wmp" style="position:absolute; width: 100%; height:100%;" src="../data/videos/omaracuja_video_'+numeroVideo+'.mp4" type="video/mp4" id="player1" controls="controls" preload="none" poster="/bundles/omaracujafront/images/transparent.png" ></video>');
+            $(this).html('<video class="mejs-wmp" style="position:absolute; width: 100%; height:100%;" src="../data/videos/omaracuja_video_'+numeroVideo+'.m4v" type="video/mp4" id="player1" controls="controls" preload="none" poster="/bundles/omaracujafront/images/transparent.png" ></video>');
         });
         $('video').mediaelementplayer({
             success: function (player, node) {}

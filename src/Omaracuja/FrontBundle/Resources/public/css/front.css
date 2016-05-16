@@ -103,7 +103,7 @@ a:hover {
 }
 #video-wrapper {
     position: absolute;
-    bottom: 0;
+    
     width: 100%;
 }
 .video-controls {
