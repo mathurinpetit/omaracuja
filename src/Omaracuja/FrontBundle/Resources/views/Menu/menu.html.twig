@@ -8,8 +8,10 @@
 <div id="videos_view" data-url="{{ path('front_videos_views') }}"></div>
 <div id="flow"></div>
 
-{% for eventByMonth in events %}
-    {% for event in eventByMonth %}
-        {{ path('front_evennement',{ 'id': event.id }) }}               
+<div style="display: none;">
+    {% for eventByMonth in events %}
+        {% for event in eventByMonth %}
+            {{ path('front_evennement',{ 'id': event.id }) }}     
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</div>
