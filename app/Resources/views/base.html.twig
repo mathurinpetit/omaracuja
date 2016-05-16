@@ -144,9 +144,9 @@
             {% endblock %}
         </div>
         {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <div class="logo" ></div> 
+            <div class="logo" data-url="{{ path('front_bulle_maracuja') }}"  ></div> 
         {% else %}
-            <div class="logoAdmin" data-url="{{ path('front_bulle_maracuja') }}" ></div>
+            <div class="logoAdmin" ></div>
         {% endif %}   
 
         {% block content %}
