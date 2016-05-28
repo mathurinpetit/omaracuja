@@ -19,6 +19,7 @@
                 <table class="table table-responsive">
                     <thead>
                         <tr>
+                            <td></td>
                             <td>Nom d'utilisateur</td>
                             <td>Prénom</td>
                             <td>Nom</td>
@@ -29,6 +30,9 @@
                     <tbody>
                         {% for user in usersAdmin %}
                             <tr class="" style="background-color: {% if(user.isActif) %}#444444{% else %}#666666{% endif %} ">
+                                 <td class="col-md-4">
+                                <img src="{{user.getCurrentAvatarPath}}" alt="{{user.username}}" class="img-rounded">
+                            </td>
                                 <td>{{ user.username|e }}</td>
                                 <td>{{ user.firstname|e }}</td>
                                 <td>{{ user.name|e }}</td>
@@ -44,6 +48,7 @@
                 <table class="table table-responsive users">
                     <thead>
                         <tr>
+                            <td></td>
                             <td>Nom d'utilisateur</td>
                             <td>Prénom</td>
                             <td>Nom</td>
@@ -54,6 +59,9 @@
                     <tbody>
                         {% for user in usersNoAdmin %}
                             <tr class="{% if(not selectedUser is null and selectedUser == user.id ) %}selected{% endif %}"  style="background-color: {% if(not user.isAdmin) %} {% if(user.isActif) %}#444444{% else %}#666666{% endif %} {% endif %}">
+                                <td class="col-md-4">
+                                    <img src="{{user.getCurrentAvatarPath}}" alt="{{user.username}}" class="img-rounded">
+                                </td>
                                 <td>{{ user.username|e }}</td>
                                 <td>{{ user.firstname|e }}</td>
                                 <td>{{ user.name|e }}</td>
