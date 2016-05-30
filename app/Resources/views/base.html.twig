@@ -118,12 +118,9 @@
             {% block video %}
             {% endblock %}
         </div>
-        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <div class="logo" data-url="{{ path('front_bulle_maracuja') }}"  ></div> 
-        {% else %}
-            <div class="logoAdmin" ></div>
-        {% endif %}   
-
+        
+            <a href="{{ path('front_presentation') }}"><div class="logoAdmin" ></div></a>
+       
         {% block content %}
         {% endblock %}
     </div>
@@ -139,7 +136,7 @@
             </div>
         </div>
     </div>
-
+  <div class="energie"  data-url="{{ path('front_bulle_maracuja') }}" style="cursor: pointer;"></div>
         <script src="{{ asset('/bundles/omaracujafront/js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr"></script>
         <script src="{{ asset('/bundles/omaracujafront/bootstrap/js/bootstrap.min.js') }}"></script>

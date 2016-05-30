@@ -31,6 +31,7 @@ $(document).ready(function () {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
+            ['link', ['link']]
         ]
     });
     $('.summernote_event').summernote({
@@ -44,6 +45,7 @@ $(document).ready(function () {
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
+            ['link', ['link']]
         ]
     });
     $(".select2").select2();
