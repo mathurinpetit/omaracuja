@@ -1,18 +1,3 @@
-# app/config/routing.yml
-
-omaracuja:
-    pattern:  /
-    defaults: { _controller: OmaracujaFrontBundle:Front:presentation }
-    requirements:
-        _method:  GET
-
-omaracuja_front:
-    resource: "@OmaracujaFrontBundle/Resources/config/routing.yml"          
-          
-omaracuja_admin:
-    resource: "@OmaracujaAdminBundle/Resources/config/routing.yml"        
-    prefix:   /admin          
-          
-omaracuja_user:
-    resource: "@OmaracujaUserBundle/Resources/config/routing.yml" 
-    
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

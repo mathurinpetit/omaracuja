@@ -1,50 +1,24 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
 security:
-    encoders:
-        Omaracuja\UserBundle\Entity\User: sha512
-        Omaracuja\UserBundle\Entity\Group: sha512
-        FOS\UserBundle\Model\UserInterface: sha512
 
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-      fos_userbundle:
-          id: fos_user.user_manager
-      in_memory:          
-          memory:
-              users:
-    firewalls:      
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js|media)/
-            security: false
-        main:
-            pattern:        ^/
-            anonymous:      true
-            form_login:
-                provider: fos_userbundle
-                csrf_provider: form.csrf_provider
-                always_use_default_target_path: false
-                default_target_path: /compte
-                target_path_parameter: _target_path
-                use_referer: false
-                
-                failure_path:    /
-                failure_forward: false
-                failure_path_parameter: _failure_path
-                
-                login_path: connexion_externe
-                check_path: fos_user_security_check
-            logout:
-                path:       fos_user_security_logout
-                target:     /
-            remember_me:
-                key:        %secret%
+        in_memory:
+            memory: ~
 
-    access_control:
-         - { path: ^/construction$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
-        
-         - { path: ^/compte/login$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/compte/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/compte,          role: [ROLE_USER, ROLE_ADMIN] }    
-         - { path: ^/admin,          role: [ROLE_ADMIN] }    
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~
