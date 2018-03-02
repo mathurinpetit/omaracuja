@@ -1,6 +1,6 @@
 @font-face {
 font-family: 'Regular';
-src: url('actionofthetime.eot');
+src: url('actionofthetime.ttf') format('truetype');
 
 src: url('actionofthetime.ttf') format('truetype'),
      url('actionofthetime.woff') format('woff'),
