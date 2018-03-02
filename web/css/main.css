@@ -1,3 +1,14 @@
+@font-face {
+font-family: 'Regular';
+src: url('fonts/actionofthetime.eot');
+
+src: url('fonts/actionofthetime.ttf') format('truetype'),
+     url('fonts/actionofthetime.woff') format('woff'),
+     url('fonts/actionofthetime.eot?#iefix') format('embedded-opentype'),
+font-weight: normal;
+font-style: normal;
+}
+
 body,
 html {
   width: 100%;
