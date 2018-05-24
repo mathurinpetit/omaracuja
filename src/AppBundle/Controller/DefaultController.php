@@ -13,19 +13,16 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $string_dates = file('../dates.csv');
+        $dates = array();
+        foreach ($string_dates as $line_num => $date) {
+            if($date){
+                $dates[$line_num] = str_getcsv($date,';');
+            }
+        }
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-    }
-
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function adminAction(Request $request)
-    {
-        var_dump('admin'); exit;
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'dates' => $dates
         ]);
     }
 }
