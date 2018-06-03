@@ -125,7 +125,7 @@ img::-moz-selection {
 
 .navbar-brand img {
     max-height: 80px;
-    transform: rotate(-5deg);
+    transform: rotate(-12deg);
 }
 
 #mainNav .navbar-brand {
@@ -182,8 +182,8 @@ section#dates {
 
     .navbar-brand img {
         max-height: 130px;
-        margin-top: 30px;
-        transform: rotate(-5deg);
+        margin-top: 56px;
+        transform: rotate(-12deg);
     }
    .logo{
           margin-top: 20px
