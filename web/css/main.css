@@ -2,11 +2,21 @@
 font-family: 'Regular';
 src: url('cracked.ttf') format('truetype');
 
-src: url('cracked.ttf') format('truetype'),
-     url('cracked.woff') format('woff'),
-     url('cracked.eot?#iefix') format('embedded-opentype'),
 font-weight: normal;
 font-style: normal;
+}
+
+
+@font-face
+{
+    font-family: 'Regular';
+    src: url('MSGothic.ttf') format('truetype');
+
+    src: url('MSGothic.ttf') format('truetype'),
+         url('MSGothic.woff') format('woff'),
+         url('MSGothic.eot?#iefix') format('embedded-opentype'),
+    font-weight: normal;
+    font-style: normal;
 }
 
 body,
