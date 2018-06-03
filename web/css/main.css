@@ -1,10 +1,10 @@
 @font-face {
 font-family: 'Regular';
-src: url('actionofthetime.ttf') format('truetype');
+src: url('cracked.ttf') format('truetype');
 
-src: url('actionofthetime.ttf') format('truetype'),
-     url('actionofthetime.woff') format('woff'),
-     url('actionofthetime.eot?#iefix') format('embedded-opentype'),
+src: url('cracked.ttf') format('truetype'),
+     url('cracked.woff') format('woff'),
+     url('cracked.eot?#iefix') format('embedded-opentype'),
 font-weight: normal;
 font-style: normal;
 }
@@ -17,7 +17,7 @@ html {
 }
 
 body {
-    font-family: "Action of the Time", Regular;
+    font-family: "Cracked", Regular;
     line-height: 1.0;
     font-size: 1.4rem;
     color: white;
@@ -51,7 +51,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Action of the Time", Regular;
+    font-family: "Cracked", Regular;
 }
 
 .bg-primary {
@@ -116,7 +116,7 @@ img::-moz-selection {
 #mainNav {
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
   background-color: #fff;
-  font-family: "Action of the Time", Regular;
+  font-family: "Cracked", Regular;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
@@ -131,7 +131,7 @@ img::-moz-selection {
 #mainNav .navbar-brand {
   font-weight: 400;
   color: #e90004;
-  font-family: "Action of the Time", Regular;
+  font-family: "Cracked", Regular;
 }
 
 #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
@@ -371,7 +371,7 @@ header.omaracujaquisommesnous {
 .omaracuja-box .omaracuja-box-caption .omaracuja-box-caption-content .project-category,
 .omaracuja-box .omaracuja-box-caption .omaracuja-box-caption-content .project-name {
   padding: 0 15px;
-  font-family: "Action of the Time", Regular;
+  font-family: "Cracked", Regular;
 }
 
 .omaracuja-box .omaracuja-box-caption .omaracuja-box-caption-content .project-category {
@@ -410,7 +410,7 @@ header.omaracujaquisommesnous {
   text-transform: uppercase;
   border: none;
   border-radius: 300px;
-  font-family: "Action of the Time", Regular;
+  font-family: "Cracked", Regular;
 }
 
 .btn-xl {
