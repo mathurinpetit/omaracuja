@@ -133,8 +133,9 @@ img::-moz-selection {
   color: #e90004;
   font-family: "Cracked", Regular;
 }
+
 a.nav-link {
-    text-transform: none;
+    text-transform: none !important;
 }
 
 #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
