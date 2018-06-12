@@ -1,10 +1,10 @@
 @font-face {
 font-family: 'Regular';
-src: url('Broken Glass.ttf') format('truetype');
+src: url('../fonts/BrokenGlass.ttf') format('truetype');
 
-src: url('Broken Glass.ttf') format('truetype'),
-     url('Broken Glass.woff') format('woff'),
-     url('Broken Glass.eot?#iefix') format('embedded-opentype'),
+src: url('../fonts/BrokenGlass.ttf') format('truetype'),
+     url('../fonts/BrokenGlass.woff') format('woff'),
+     url('../fonts/BrokenGlass.eot?#iefix') format('embedded-opentype'),
 
 font-weight: normal;
 font-style: normal;
@@ -14,11 +14,11 @@ font-style: normal;
 @font-face
 {
     font-family: 'Regular';
-    src: url('MSGothic.ttf') format('truetype');
+    src: url('../fonts/MSGothic.ttf') format('truetype');
 
-    src: url('MSGothic.ttf') format('truetype'),
-         url('MSGothic.woff') format('woff'),
-         url('MSGothic.eot?#iefix') format('embedded-opentype'),
+    src: url('../fonts/MSGothic.ttf') format('truetype'),
+         url('../fonts/MSGothic.woff') format('woff'),
+         url('../fonts/MSGothic.eot?#iefix') format('embedded-opentype'),
     font-weight: normal;
     font-style: normal;
 }
