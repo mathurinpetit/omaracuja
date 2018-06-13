@@ -70,4 +70,10 @@
     }
   });
 
+  $('.fa').hover(  function() {
+    $(this).css('color',"#e90004").removeClass('text-muted');
+  }, function() {
+    $(this).css('color',"").addClass('text-muted');
+  })
+
 })(jQuery); // End of use strict

@@ -197,6 +197,10 @@ section#dates {
     min-height: 100%;
 }
 
+.socials {
+    padding-top:200px;
+}
+
 @media (min-width: 992px) {
 
 
@@ -251,15 +255,22 @@ section#dates {
 
 }
 
+
 @media (max-width: 767px){
+    .navbar-brand img {
+        max-height: 70px;
+    }
     .omaracujahead{
-        margin-top: 250px;
+        margin-top: 120px;
         padding-bottom: 120px !important;
     }
     .omaracujaquisommesnous{
         background-size: 100% !important;
         padding-top: 100px !important;
         background-repeat: no-repeat !important;
+    }
+    #nosspectacles,#contact {
+        padding-top: 120px !important;
     }
     .nav-link {
         color: #fff  !important;
@@ -270,6 +281,10 @@ section#dates {
         text-align: right;
         color: #fff !important;
         padding-right: 10px;
+    }
+
+    .socials {
+        padding-top:0px;
     }
 }
 
@@ -344,18 +359,19 @@ header.omaracujahead p {
 
 
 header.omaracujaquisommesnous {
-  padding-top: 500px;
+  padding-top: 950px;
   padding-bottom: calc(10rem - 56px);
   background-image: url("../img/portfolio/fullsize/0l.jpg");
   background-position: center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  -webkit-background-size:  cover;
+  -moz-background-size:  cover;
+  -o-background-size:  cover;
   background-size: cover;
+
 }
 
-#photos{
-    padding-top: 100px !important;
+#photos, #nosspectacles, #contact{
+    padding-top: 200px;
 }
 
 .service-box {
@@ -445,10 +461,6 @@ header.omaracujaquisommesnous {
   border-color: #e90004;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  color: #fff;
-  background-color: #ee4b28 !important;
-}
 
 .btn-primary:active, .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
