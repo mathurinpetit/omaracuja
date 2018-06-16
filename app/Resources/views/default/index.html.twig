@@ -32,7 +32,7 @@
                   <div class="container-fluid p-0">
                     <div class="row no-gutters">
                       <div class="col-lg-12 col-sm-12">
-                          <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+                          <img class="img-fluid" src="img/onyetait/thumbnails/1.jpg" alt="">
                       </div>
                       </div>
                       </div>
@@ -47,7 +47,7 @@
                 <div class="container-fluid p-0">
                   <div class="row no-gutters">
                     <div class="col-lg-12 col-sm-12">
-                        <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+                        <img class="img-fluid" src="img/onyetait/thumbnails/1.jpg" alt="">
                     </div>
                     </div>
                     </div>
@@ -69,89 +69,29 @@
 <section class="bg-primary p-0" id="photos">
       <div class="container-fluid p-0">
         <div class="row no-gutters popup-gallery">
-          <div class="col-lg-4 col-sm-6">
-            <a class="omaracuja-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
-              <div class="omaracuja-box-caption">
-                <div class="omaracuja-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
+        {% for photovideo in onyetait %}
+            {% if photovideo[0] == 'PHOTO' %}
+              <div class="col-lg-4 col-sm-6">
+                <a class="omaracuja-box" href="img/onyetait/fullsize/{{photovideo[3]}}" alt="{{photovideo[1]}}">
+                  <img class="img-fluid" src="img/onyetait/thumbnails/{{photovideo[4]}}" alt="{{photovideo[1]}}">
+                  <div class="omaracuja-box-caption">
+                    <div class="omaracuja-box-caption-content">
+                      <div class="project-category text-faded">
+                        {{photovideo[1]}}
+                      </div>
+                      <div class="project-name">
+                        {{photovideo[2]}}
+                      </div>
+                    </div>
                   </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
+                </a>
               </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="omaracuja-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
-              <div class="omaracuja-box-caption">
-                <div class="omaracuja-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-
+              {% elseif photovideo[0] == 'YOUTUBE' %}
               <div class="omaracuja-box container-video">
-                  <iframe  class="video" src="https://www.youtube.com/embed/KWlQ2VRdzkw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                  <iframe class="video" src="{{photovideo[1]}}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               </div>
-
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="omaracuja-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
-              <div class="omaracuja-box-caption">
-                <div class="omaracuja-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="omaracuja-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
-              <div class="omaracuja-box-caption">
-                <div class="omaracuja-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="omaracuja-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
-              <div class="omaracuja-box-caption">
-                <div class="omaracuja-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+              {% endif %}
+          {% endfor %}
       </div>
   </div>
 </section>

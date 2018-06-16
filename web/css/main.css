@@ -1,10 +1,10 @@
 @font-face {
 font-family: 'Regular';
-src: url('../fonts/cracked.ttf') format('truetype');
+src: url('../fonts/Cracked-Wide.ttf') format('truetype');
 
-src: url('../fonts/cracked.ttf') format('truetype'),
-     url('../fonts/cracked.woff') format('woff'),
-     url('../fonts/cracked.eot?#iefix') format('embedded-opentype'),
+src: url('../fonts/Cracked-Wide.ttf') format('truetype'),
+     url('../fonts/Cracked-Wide.woff') format('woff'),
+     url('../fonts/Cracked-Wide.eot?#iefix') format('embedded-opentype'),
 
 font-weight: normal;
 font-style: normal;
