@@ -1,10 +1,10 @@
 @font-face {
 font-family: 'Cracked';
-src: url('../fonts/Cracked-Wide.ttf') format('truetype');
+src: url('../fonts/Middcracked.ttf') format('truetype');
 
-src: url('../fonts/Cracked-Wide.ttf') format('truetype'),
-     url('../fonts/Cracked-Wide.woff') format('woff'),
-     url('../fonts/Cracked-Wide.eot?#iefix') format('embedded-opentype'),
+src: url('../fonts/Middcracked.ttf') format('truetype'),
+     url('../fonts/Middcracked.woff') format('woff'),
+     url('../fonts/Middcracked.eot?#iefix') format('embedded-opentype'),
 
 font-weight: normal;
 font-style: normal;

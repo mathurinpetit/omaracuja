@@ -51,7 +51,10 @@ class DefaultController extends Controller
             $message = (new \Swift_Message($data['name'].' : Nouveau contact OMaracuja'))
         ->setFrom($data['email'])
         ->setTo('contact@omaracuja.com')
-        ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit : \n'.$data['message'],
+        ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
+
+
+        '.$data['message'],
             'text/plain'
         );
 
