@@ -166,26 +166,27 @@
                     </div>
               </div>
           </div>
+
       <div class="col-lg-3 text-left" style='font-family:"Courier New", Regular; font-size: 15pt;'>
-            <form>
+          {{ form_start(form) }}
               <div class="row">
                   <div class="col-lg-10 col-centered">
                       <div class="form-group">
-                          <input id="paiements_numeroRemise" name="paiements[numeroRemise]" placeholder="Nom " class="form-control" type="text">
+                          {{ form_widget(form.name) }}
                       </div>
                   </div>
               </div>
               <div class="row">
                   <div class="col-lg-10 col-centered">
                       <div class="form-group">
-                          <input id="paiements_numeroRemise" name="paiements[numeroRemise]" placeholder="Téléphone " class="form-control" type="text">
+                          {{ form_widget(form.phone) }}
                       </div>
                   </div>
               </div>
               <div class="row">
                   <div class="col-lg-10 col-centered">
                       <div class="form-group">
-                          <input id="paiements_numeroRemise" name="paiements[numeroRemise]" placeholder="Mail " class="form-control" type="text">
+                          {{ form_widget(form.email) }}
                       </div>
 
                   </div>
@@ -193,18 +194,18 @@
               <div class="row">
                   <div class="col-lg-10 col-centered">
                       <div class="form-group">
-                          <textarea id="rendezvous_description" name="rendezvous[description]" placeholder="Message " rows="5" class="form-control"></textarea>
+                          {{ form_widget(form.message) }}
                       </div>
                   </div>
               </div>
               <div class="row">
                   <div class="col-lg-10 col-centered">
                       <div class="form-group">
-                          <button type="submit" class="btn btn-primary"><span>Envoyer</span></button>
+                          {{ form_widget(form.Envoyer) }}
                       </div>
                   </div>
               </div>
-            </form>
+              {{ form_end(form) }}
       </div>
     </div>
     <div class="col-lg-3"></div>
