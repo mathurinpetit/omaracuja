@@ -70,25 +70,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/updates", name="updates")
-     */
-    public function updatesAction(Request $request){
-        return $this->redirectToRoute('homepage');
-        return $this->render('default/updates.html.twig');
-    }
-
-    /**
-     * @Route("/update/{env}", name="update")
-     */
-    public function updateAction(Request $request,$env = null){
-        return $this->redirectToRoute('homepage');
-        $retour = exec('bash ../bin/updateEdition.sh '.$env);
-        $request->getSession()
-        ->getFlashBag()
-        ->add('success', $retour);
-        return $this->redirectToRoute('homepage');
-    }
 
 
 }
