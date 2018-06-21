@@ -59,6 +59,9 @@ class DefaultController extends Controller
         );
 
             $mailer->send($message);
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', "Votre email est parti :)");
         }
 
         return $this->render('default/index.html.twig', [
@@ -66,4 +69,26 @@ class DefaultController extends Controller
             'dates' => $dates,'onyetait' => $onyetait
         ]);
     }
+
+    /**
+     * @Route("/updates", name="updates")
+     */
+    public function updatesAction(Request $request){
+        return $this->redirectToRoute('homepage');
+        return $this->render('default/updates.html.twig');
+    }
+
+    /**
+     * @Route("/update/{env}", name="update")
+     */
+    public function updateAction(Request $request,$env = null){
+        return $this->redirectToRoute('homepage');
+        $retour = exec('bash ../bin/updateEdition.sh '.$env);
+        $request->getSession()
+        ->getFlashBag()
+        ->add('success', $retour);
+        return $this->redirectToRoute('homepage');
+    }
+
+
 }
