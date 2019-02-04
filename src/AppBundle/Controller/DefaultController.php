@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DefaultController extends Controller
@@ -36,6 +37,7 @@ class DefaultController extends Controller
         }
         $defaultData = array('message' => '');
         $emailForm = $this->createFormBuilder($defaultData)
+               ->add('nonnon', TextType::class,array('required' => false, "attr" => array('class' => 'form-control')))
                ->add('name', TextType::class,array('constraints' => array( new NotBlank()), "attr" => array('class' => 'form-control', 'placeholder' => 'Nom', 'oninvalid' => "this.setCustomValidity('Dis nous ton nom ou un pseudo au pire!')", 'oninput' => "setCustomValidity('')")))
                ->add('email', EmailType::class,array('constraints' => array( new NotBlank()), "attr" => array('class' => 'form-control', 'placeholder' => 'Email','oninvalid' => "this.setCustomValidity('Donnes nous ton email, on t\'écrira!')", 'oninput' => "setCustomValidity('')")))
                ->add('phone', TelType::class,array('constraints' => array( new NotBlank()), "attr" => array('class' => 'form-control', 'placeholder' => 'Tél','oninvalid' => "this.setCustomValidity('N\'oublies pas de mettre ton numéro de téléphone')", 'oninput' => "setCustomValidity('')")))
@@ -44,24 +46,29 @@ class DefaultController extends Controller
                ->getForm();
 
         $emailForm->handleRequest($request);
-
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
             $data = $emailForm->getData();
-
+            if($data['nonnon'] === NULL){
             $message = (new \Swift_Message($data['name'].' : Nouveau contact OMaracuja'))
-        ->setFrom($data['email'])
-        ->setTo('contact@omaracuja.com')
-        ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
+            ->setFrom($data['email'])
+            ->setTo('contact@omaracuja.com')
+            ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
 
 
-        '.$data['message'],
-            'text/plain'
-        );
+            '.$data['message'],
+                'text/plain'
+            );
 
-            $mailer->send($message);
+            //$mailer->send($message);
             $request->getSession()
             ->getFlashBag()
             ->add('success', "Votre email est parti :)");
+            var_dump("bien");
+          }else{
+            $request->getSession()
+            ->getFlashBag()
+            ->add('error', "Tu ne serais pas un robot? :(");
+          }
         }
 
         return $this->render('default/index.html.twig', [
