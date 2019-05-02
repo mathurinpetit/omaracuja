@@ -48,27 +48,45 @@ class DefaultController extends Controller
         $emailForm->handleRequest($request);
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
             $data = $emailForm->getData();
-            if($data['nonnon'] === NULL){
-            $message = (new \Swift_Message($data['name'].' : Nouveau contact OMaracuja'))
-            ->setFrom($data['email'])
-            ->setTo('contact@omaracuja.com')
-            ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
+            $response = $_POST["g-recaptcha-response"];
+	           $url = 'https://www.google.com/recaptcha/api/siteverify';
+      	$data = array(
+      		'secret' => '',
+      		'response' => $_POST["g-recaptcha-response"]
+      	);
+      	$options = array(
+      		'http' => array (
+      			'method' => 'POST',
+      			'content' => http_build_query($data)
+      		)
+      	);
+      	$context  = stream_context_create($options);
+      	$verify = file_get_contents($url, false, $context);
+      	$captcha_success=json_decode($verify);
 
 
-            '.$data['message'],
-                'text/plain'
-            );
+       if($data['nonnon'] === NULL && $captcha_success->success==true){
+                  $message = (new \Swift_Message($data['name'].' : Nouveau contact OMaracuja'))
+                  ->setFrom($data['email'])
+                  ->setTo('xxx')
+                  ->setBcc('xxx')
+                  ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
 
-            //$mailer->send($message);
-            $request->getSession()
-            ->getFlashBag()
-            ->add('success', "Votre email est parti :)");
-            var_dump("bien");
-          }else{
-            $request->getSession()
-            ->getFlashBag()
-            ->add('error', "Tu ne serais pas un robot? :(");
-          }
+
+                  '.$data['message'],
+                      'text/plain'
+                  );
+
+                  $mailer->send($message);
+                  $request->getSession()
+                  ->getFlashBag()
+                  ->add('success', "Votre email est parti :)");
+                  }else{
+                  $request->getSession()
+                  ->getFlashBag()
+                  ->add('error', "Tu ne serais pas un robot? :(");
+                }
+
         }
 
         return $this->render('default/index.html.twig', [
