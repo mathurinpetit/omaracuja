@@ -195,7 +195,7 @@ Jusqu'à 45 percussionnistes dans la rue, ça vibre !
           </div>
 
       <div class="col-lg-3 col-md-12 text-left" style='font-family:"Courier New", Regular; font-size: 15pt;'>
-          {{ form_start(form) }}
+          <form name="form" method="post" enctype="multipart/form-data">
           <div class="row" style="display:none;">
               <div class="col-lg-10 col-centered">
                   <div class="form-group">
@@ -239,6 +239,17 @@ Jusqu'à 45 percussionnistes dans la rue, ça vibre !
                       </div>
                   </div>
               </div>
+
+              <div class="row">
+             <div class="col-lg-10 col-centered">
+                <div class="form-group">
+                  <div class="captcha_wrapper">
+                  <div class="g-recaptcha" data-sitekey="publickey"></div>
+                 </div>
+               </div>
+              </div>
+              </div>
+
               {{ form_end(form) }}
       </div>
     </div>
@@ -246,4 +257,6 @@ Jusqu'à 45 percussionnistes dans la rue, ça vibre !
     </div>
   </div>
 </section>
+<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_publickey"></script>
+
 {% endblock %}
