@@ -68,8 +68,8 @@ class DefaultController extends Controller
        if($dataForm['nonnon'] === NULL && $captcha_success->success==true){
                   $message = (new \Swift_Message($dataForm['name'].' : Nouveau contact OMaracuja'))
                   ->setFrom($dataForm['email'])
-                  ->setTo('contact@omaracuja.com')
-                  ->setBcc('mpetit@24eme.fr')
+                  ->setTo('')
+                  ->setBcc('')
                   ->setBody($dataForm['name'].' / '.$dataForm['email'].' / '.$dataForm['phone'].' a écrit :
 
 
