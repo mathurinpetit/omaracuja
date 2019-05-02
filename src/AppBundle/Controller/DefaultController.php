@@ -47,7 +47,7 @@ class DefaultController extends Controller
 
         $emailForm->handleRequest($request);
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
-            $data = $emailForm->getData();
+            $dataForm = $emailForm->getData();
             $response = $_POST["g-recaptcha-response"];
 	           $url = 'https://www.google.com/recaptcha/api/siteverify';
       	$data = array(
@@ -65,15 +65,15 @@ class DefaultController extends Controller
       	$captcha_success=json_decode($verify);
 
 
-       if($data['nonnon'] === NULL && $captcha_success->success==true){
-                  $message = (new \Swift_Message($data['name'].' : Nouveau contact OMaracuja'))
-                  ->setFrom($data['email'])
-                  ->setTo('xxx')
-                  ->setBcc('xxx')
-                  ->setBody($data['name'].' / '.$data['email'].' / '.$data['phone'].' a écrit :
+       if($dataForm['nonnon'] === NULL && $captcha_success->success==true){
+                  $message = (new \Swift_Message($dataForm['name'].' : Nouveau contact OMaracuja'))
+                  ->setFrom($dataForm['email'])
+                  ->setTo('contact@omaracuja.com')
+                  ->setBcc('mpetit@24eme.fr')
+                  ->setBody($dataForm['name'].' / '.$dataForm['email'].' / '.$dataForm['phone'].' a écrit :
 
 
-                  '.$data['message'],
+                  '.$dataForm['message'],
                       'text/plain'
                   );
 
