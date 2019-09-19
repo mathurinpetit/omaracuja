@@ -95,12 +95,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/instruments", name="instruments")
-     */
-    public function instrumentsAction(Request $request){
-      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
-    }
 
     /**
      * @Route("/instrument", name="instrument")
@@ -109,5 +103,11 @@ class DefaultController extends Controller
       return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
     }
 
+    /**
+     * @Route("/instruments", name="instruments")
+     */
+    public function instrumentsAction(Request $request){
+      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
+    }
 
 }
