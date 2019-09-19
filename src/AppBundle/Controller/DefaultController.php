@@ -68,8 +68,8 @@ class DefaultController extends Controller
        if($dataForm['nonnon'] === NULL && $captcha_success->success==true){
                   $message = (new \Swift_Message($dataForm['name'].' : Nouveau contact OMaracuja'))
                   ->setFrom($dataForm['email'])
-                  ->setTo('')
-                  ->setBcc('')
+                  ->setTo('contact@omaracuja.com')
+                  ->setBcc('mpetit@24eme.fr')
                   ->setBody($dataForm['name'].' / '.$dataForm['email'].' / '.$dataForm['phone'].' a écrit :
 
 
@@ -95,6 +95,19 @@ class DefaultController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/instruments", name="instruments")
+     */
+    public function instrumentsAction(Request $request){
+      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
+    }
+
+    /**
+     * @Route("/instrument", name="instrument")
+     */
+    public function instrumentAction(Request $request){
+      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
+    }
 
 
 }
