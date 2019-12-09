@@ -14,6 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\File\MimeType\FileinfoMimeTypeGuesser;
+
 class DefaultController extends Controller
 {
     /**
@@ -100,14 +104,39 @@ class DefaultController extends Controller
      * @Route("/instrument", name="instrument")
      */
     public function instrumentAction(Request $request){
-      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
+      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/index.html');
     }
 
     /**
      * @Route("/instruments", name="instruments")
      */
     public function instrumentsAction(Request $request){
-      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/instruments.html');
+      return $this->redirect($request->getSchemeAndHttpHost().'/instruments/index.html');
     }
+
+    /**
+     * @Route("/application", name="application")
+     */
+    public function applicationAction(Request $request){
+        $publicResourcesFolderPath = $this->get('kernel')->getRootDir() . '/../web/instruments/';
+        $filename = "omaracuja.apk";
+        $response = new BinaryFileResponse($publicResourcesFolderPath.$filename);
+
+        $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
+
+        if($mimeTypeGuesser->isSupported()){
+            $response->headers->set('Content-Type', $mimeTypeGuesser->guess($publicResourcesFolderPath.$filename));
+        }else{
+            $response->headers->set('Content-Type', 'text/plain');
+        }
+
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
+    }
+
 
 }
