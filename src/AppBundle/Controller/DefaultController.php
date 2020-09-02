@@ -54,8 +54,9 @@ class DefaultController extends Controller
             $dataForm = $emailForm->getData();
             $response = $_POST["g-recaptcha-response"];
 	           $url = 'https://www.google.com/recaptcha/api/siteverify';
+             $secret = $this->container->getParameter('capcha_key_private');
       	$data = array(
-      		'secret' => '',
+      		'secret' => $secret,
       		'response' => $_POST["g-recaptcha-response"]
       	);
       	$options = array(
