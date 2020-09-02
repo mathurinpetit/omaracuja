@@ -35,6 +35,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        capcha_key_public: %capcha_key_public%
 
 # Doctrine Configuration
 doctrine:
