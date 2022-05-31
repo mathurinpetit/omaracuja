@@ -119,24 +119,7 @@ class DefaultController extends Controller
      * @Route("/application", name="application")
      */
     public function applicationAction(Request $request){
-        $publicResourcesFolderPath = $this->get('kernel')->getRootDir() . '/../web/instruments/';
-        $filename = "omaracuja.apk";
-        $response = new BinaryFileResponse($publicResourcesFolderPath.$filename);
-
-        $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
-
-        if($mimeTypeGuesser->isSupported()){
-            $response->headers->set('Content-Type', $mimeTypeGuesser->guess($publicResourcesFolderPath.$filename));
-        }else{
-            $response->headers->set('Content-Type', 'text/plain');
-        }
-
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $filename
-        );
-
-        return $response;
+        return $this->redirect("https://url-a-changer.com");
     }
 
 
