@@ -39,6 +39,16 @@ class DefaultController extends Controller
                 $onyetait[$line_num] = str_getcsv($onyetait_line,';');
             }
         }
+        $quisommesnous = "O Maracujá ne sait se présenter qu'en percussions et se définir qu'en contradictions.\n"
+            . "Un poil samba-reggae, mais pas vraiment Brésilienne, assez dissipée, mais sérieusement engagée, absolument multiple, mais dans l'unité, indéfiniment en chantier, mais toujours prête à jouer, un peu folle, mais les pieds bien ancrés, à la limite du bon goût, mais sans jamais basculer...\n"
+            . "O Maracujá, finalement, ne sait qu'une seule chose : être elle-même.";
+        $quisommesnousPath = $this->getParameter('kernel.project_dir') . '/quisommesnous.txt';
+        if (is_readable($quisommesnousPath)) {
+            $quisommesnousContent = trim(file_get_contents($quisommesnousPath));
+            if ($quisommesnousContent !== '') {
+                $quisommesnous = $quisommesnousContent;
+            }
+        }
         $defaultData = array('message' => '');
         $emailForm = $this->createFormBuilder($defaultData)
                ->add('nonnon', TextType::class,array('required' => false, "attr" => array('class' => 'form-control')))
@@ -52,12 +62,11 @@ class DefaultController extends Controller
         $emailForm->handleRequest($request);
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
             $dataForm = $emailForm->getData();
-            $response = $_POST["g-recaptcha-response"];
 	           $url = 'https://www.google.com/recaptcha/api/siteverify';
              $secret = $this->container->getParameter('capcha_key_private');
       	$data = array(
       		'secret' => $secret,
-      		'response' => $_POST["g-recaptcha-response"]
+      		'response' => $request->request->get('g-recaptcha-response')
       	);
       	$options = array(
       		'http' => array (
@@ -66,15 +75,16 @@ class DefaultController extends Controller
       		)
       	);
       	$context  = stream_context_create($options);
-      	$verify = file_get_contents($url, false, $context);
-      	$captcha_success=json_decode($verify);
+      	$verify = @file_get_contents($url, false, $context);
+      	$captcha_success = $verify ? json_decode($verify) : null;
 
 
-       if($dataForm['nonnon'] === NULL && $captcha_success->success==true){
+       if (empty($dataForm['nonnon']) && $captcha_success && $captcha_success->success == true) {
                   $message = (new \Swift_Message($dataForm['name'].' : Nouveau contact OMaracuja'))
-                  ->setFrom($dataForm['email'])
-                  ->setTo('contact@omaracuja.com')
-                  ->setBcc('mpetit@24eme.fr')
+                  ->setFrom('contact@omaracuja.com')
+                  ->setReplyTo($dataForm['email'])
+                  ->setTo('boubou@omaracuja.com')
+                  ->setBcc('mathurin.petit@gmail.com')
                   ->setBody($dataForm['name'].' / '.$dataForm['email'].' / '.$dataForm['phone'].' a écrit :
 
 
@@ -96,7 +106,7 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR, 'form' => $emailForm->createView(),
-            'dates' => $dates,'onyetait' => $onyetait
+            'dates' => $dates,'onyetait' => $onyetait, 'quisommesnous' => $quisommesnous
         ]);
     }
 
